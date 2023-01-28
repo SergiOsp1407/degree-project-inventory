@@ -1,8 +1,9 @@
 
 <!-- Customization of URL's and protection of folders and files   -->
 <?php
-    $route = !empty($_GET['url']) ? $_GET['url'] : "Home/index";
+    //require_once 'Config/Config.php';
 
+    $route = !empty($_GET['url']) ? $_GET['url'] : "Home/index";
     $arrayIndex = explode("/", $route);
     $controller = $arrayIndex[0];
     $method = "index";
@@ -25,6 +26,8 @@
             $param = trim($param, ",");
         }
     }
+
+    require_once 'Config/App/autoload.php';
 
     //Store the folders route of Controller directory
     $dirControllers = "Controllers/".$controller.".php";
