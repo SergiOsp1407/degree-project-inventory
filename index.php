@@ -1,7 +1,8 @@
 
 <!-- Customization of URL's and protection of folders and files   -->
 <?php
-    //require_once 'Config/Config.php';
+
+    require_once 'Config/Config.php';
 
     $route = !empty($_GET['url']) ? $_GET['url'] : "Home/index";
     $arrayIndex = explode("/", $route);

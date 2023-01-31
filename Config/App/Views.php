@@ -1,9 +1,10 @@
 <!--Connecting Views and the Controller-->
-<?
+<?php
+
 class Views{
 
     //Show views
-    public function getView($controller, $view, $data="")
+    public function getView($controller, $view)
     {
         $controller = get_class($controller);
         if ($controller == "Home") {
