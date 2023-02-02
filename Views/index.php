@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Login - SB Admin</title>
+        <title>Ingreso - SpeedBikers</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
         
     </head>
@@ -23,15 +23,22 @@
                                         <img src="<?php echo base_url; ?>Assets/img/logo.png" class="img-fluid rounded" alt="logo" width="150">
                                     </div>
                                     <div class="card-body">
+                                        <!-- The frmLogin id is used to work with Ajax and the requests to Database -->
                                         <form id="frmLogin">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="usuario" type="text" name="usuario" placeholder="Usuario" />
-                                                <label for="usuario">Usuario</label>
+                                                <label for="user"><i class="fas fa-user"></i>Usuario</label>
+                                                <input class="form-control" id="user" type="text" name="user" placeholder="Usuario" />
+                                                
                                             </div>
                                             <div class="form-floating mb-3">
+                                                <label for="password"><i class="fas fa-key">Contraseña</label>
                                                 <input class="form-control" id="password" type="password" name="password" placeholder="Contraseña" />
-                                                <label for="password">Contraseña</label>
+                                                
                                             </div>
+                                            <!-- This line was added in video 5 not sure if works -->
+                                            <div class="alert alert-danger text-cente d-none" id="alert" role="alert"></div>
+
+
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Recordar contraseña</label>
@@ -73,5 +80,8 @@
             const base_url = '<?php echo base_url; ?>';
         </script>
         <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
+
+        <!-- This script was in video 5, not sure if have to stay here
+        <script src="<a?php echo base_url; ?>Assets/js/functions.js"></script> -->
     </body>
 </html>
