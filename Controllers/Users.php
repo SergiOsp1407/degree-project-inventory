@@ -2,15 +2,18 @@
 class Users extends Controller{
 
     public function __construct() {
+
         session_start();
-        if (empty($_SESSION['activo'])){
-            header("location: ".base_url);
-        }
+        
         parent::__construct();
     }
 
     public function index()
     {
+
+        if (empty($_SESSION['activo'])){
+            header("location: ".base_url);
+        }
 
         $data['cashRegister'] = $this->model->getCashRegister();
         $this->views->getView($this, "index" , $data);
@@ -23,15 +26,18 @@ class Users extends Controller{
 
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                $data[$i]['actions'] = '<div>
+                <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
+                </div>'; 
             }else {
                 $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['actions'] = '<div>            
+                <button class="btn btn-success" type="button" onclick="btnReenterUser('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                </div>'; 
             }
 
-            $data[$i]['actions'] = '<div>
-            <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
-            <button class="btn btn-success" type="button" onclick="btnReenterUser('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
-            </div>'; 
+            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
@@ -45,7 +51,7 @@ class Users extends Controller{
             $user = $_POST['user'];
             $password = $_POST['password'];
             $hash = hash("SHA256", $password);
-            $data = $this->model->getUser($user, $password, $hash);
+            $data = $this->model->getUser($user, $hash);
 
             if ($data) {
                 $_SESSION['id_user'] = $data['id'];
@@ -54,7 +60,7 @@ class Users extends Controller{
                 $_SESSION['active'] = true;
                 $message = "It works!";
             }else {
-                $message = "Usuario o contraseña";
+                $message = "Usuario o contraseña incorrecta";
             }
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);

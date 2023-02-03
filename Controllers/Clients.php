@@ -15,28 +15,30 @@ class Clients extends Controller{
     }
 
     public function list(){
-        $data = $this->model->getUsers();
+        $data = $this->model->getClients();
 
         for ($i=0; $i < count($data); $i++) { 
 
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                $data[$i]['actions'] = '<div>
+                <button class="btn btn-primary" type="button" onclick="btnEditClient(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteClient(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
+                </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['actions'] = '<div>
+                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                </div>'; 
             }
 
-            $data[$i]['actions'] = '<div>
-            <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
-            <button class="btn btn-success" type="button" onclick="btnReenterUser('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
-            </div>'; 
+            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
 
-    public function register()
-    {
+    public function register(){
         $dni = $_POST['dni'];
         $name = $_POST['name'];
         $phone = $_POST['phone'];
@@ -78,7 +80,7 @@ class Clients extends Controller{
 
     public function edit(int $id){
 
-        $data = $this->model->editUser($id);
+        $data = $this->model->editClient($id);
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
 
@@ -86,11 +88,11 @@ class Clients extends Controller{
     
     public function delete(int $id){
 
-        $data = $this->model->actionUser(0, $id);
+        $data = $this->model->actionClient(0, $id);
         if($data == 1){
             $message = "ok";
         } else{
-            $message = "Error al eliminar el usuario";
+            $message = "Error al eliminar el Cliente";
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -98,21 +100,17 @@ class Clients extends Controller{
     }   
     public function reenter(int $id){
 
-        $data = $this->model->actionUser(1, $id);
+        $data = $this->model->actionClient(1, $id);
         if($data == 1){
             $message = "ok";
         } else{
-            $message = "Error al reingresar el usuario";
+            $message = "Error al reingresar el Cliente";
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }
-    
-    public function logout(){
-        session_destroy();
-        header("location: ".base_url);
-    }
+
 }
 
 ?>

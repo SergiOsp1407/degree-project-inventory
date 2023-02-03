@@ -11,9 +11,9 @@ class ClientsModel extends Query
         parent::__construct();
     }
 
-    public function getUsers()
+    public function getClients()
     {
-        $sql = "SELECT u.*, c.id AS address, c.cash_register FROM users u INNER JOIN cash_register c WHERE u.address = c.id";
+        $sql = "SELECT * FROM clients";
 
         // Instance from the Query class, to run the query and assign to data var
         $data = $this->selectAll($sql);
@@ -71,9 +71,9 @@ class ClientsModel extends Query
         return $response;
     }
 
-    public function editUser(int $id){
+    public function editClient(int $id){
 
-        $sql = "SELECT * FROM users WHERE id = $id";
+        $sql = "SELECT * FROM clients WHERE id = $id";
         $data = $this->select($sql);
 
         return $data;
@@ -81,11 +81,11 @@ class ClientsModel extends Query
     }
 
 
-    public function actionUser( int $status, int $id){
+    public function actionClient( int $status, int $id){
 
         $this->id = $id;
         $this->status = $status;
-        $sql = "UPDATE users SET status = ? WHERE id = ?";
+        $sql = "UPDATE clients SET status = ? WHERE id = ?";
         $data = array($this->status, $this->id);
         $allData = $this->save($sql, $data);
 

@@ -33,7 +33,7 @@
                         <li><a class="dropdown-item" href="#!">Mi perfil</a></li>
                         <!--<li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
                         <li><hr class="dropdown-divider" /></li>
-                        <!--The next line is changed in video 31 for the other that its down this
+                        <!--The next line is changed in video 31 for the other that its down this:
                             <a class="dropdown-item" href="<a?php echo base_url; ?>Users/logout">Cerrar Sesión</a>
                         -->
                         <li><a class="dropdown-item" href="#!">Cerrar Sesión</a></li>

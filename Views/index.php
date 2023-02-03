@@ -80,8 +80,5 @@
             const base_url = '<?php echo base_url; ?>';
         </script>
         <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
-
-        <!-- This script was in video 5, not sure if have to stay here
-        <script src="<a?php echo base_url; ?>Assets/js/functions.js"></script> -->
     </body>
 </html>
