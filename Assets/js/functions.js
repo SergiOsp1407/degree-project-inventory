@@ -132,6 +132,17 @@ function registerUser(e) {
 
     if (user.value == "" || name.value == "" || cashRegister.value == "") {
 
+        /*Function using SweetAlert to show custom positioned dialog
+        Swal.fire({
+
+            position: 'top-end',
+            icon: 'error',
+            title: 'Debes llenar todos los campos!',
+            showConfirmButton: false,
+            timer: 2500
+
+        })*/
+
         alerting('Todos los campos son obligatorios!' , 'warning');
         
     }else{
@@ -141,6 +152,7 @@ function registerUser(e) {
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
         http.send(new FormData(frm));
+        
         http.onreadystatechange = function() {
 
             if (this.readyState == 4 && this.status == 200) {
@@ -189,3 +201,19 @@ function btnreEnterUser(id) {
 }
 
 //End Users
+
+
+//This function was updated in video 31 when updating Bootstrap
+function frmClient() {
+
+    document.getElementById("title").innerHTML = "Nuevo Cliente";
+    document.getElementById("btnAction").innerHTML = "Registrar";
+    document.getElementById("frmClient").reset();
+    myModal.show();
+    document.getElementById("id").value = "";
+    
+}
+
+function registerClient(e){
+
+}
