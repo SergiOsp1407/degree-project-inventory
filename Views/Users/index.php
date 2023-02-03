@@ -4,7 +4,7 @@
     <li class="breadcrumb-item active">Users</li>
 </ol>
 
-<button class="btn btn-primary mb-2" type="button" onclick="frmUser();">Nuevo</button>
+<button class="btn btn-primary mb-2" type="button" onclick="frmUser();">Nuevo usuario <i class="fas fa-plus"></i></button>
 
 
 <table class="table table-light" id="tblUsers">

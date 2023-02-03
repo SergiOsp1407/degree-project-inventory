@@ -1,5 +1,5 @@
 <?php
-class Users extends Controller{
+class Clients extends Controller{
 
     public function __construct() {
         session_start();
@@ -11,9 +11,7 @@ class Users extends Controller{
 
     public function index()
     {
-
-        $data['cashRegister'] = $this->model->getCashRegister();
-        $this->views->getView($this, "index" , $data);
+        $this->views->getView($this, "index");
     }
 
     public function list(){
@@ -34,30 +32,6 @@ class Users extends Controller{
             </div>'; 
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
-        die();
-    }
-
-    public function validate(){
-
-        if (empty($_POST['user']) || empty($_POST['password'])) {
-            $message = "Los campos están vacios";
-        }else{
-            $user = $_POST['user'];
-            $password = $_POST['password'];
-            $hash = hash("SHA256", $password);
-            $data = $this->model->getUser($user, $password, $hash);
-
-            if ($data) {
-                $_SESSION['id_user'] = $data['id'];
-                $_SESSION['user'] = $data['user'];
-                $_SESSION['name'] = $data['name'];
-                $_SESSION['active'] = true;
-                $message = "It works!";
-            }else {
-                $message = "Usuario o contraseña";
-            }
-        }
-        echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }
 

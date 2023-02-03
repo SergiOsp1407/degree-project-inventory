@@ -30,10 +30,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><a class="dropdown-item" href="#!">Mi perfil</a></li>
+                        <!--<li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <!--The next line is changed in video 31 for the other that its down this
+                            <a class="dropdown-item" href="<a?php echo base_url; ?>Users/logout">Cerrar Sesión</a>
+                        -->
+                        <li><a class="dropdown-item" href="#!">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -57,7 +60,7 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Users">Usuarios</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Users"><i class="fas fa-user mr-2"></i> Usuarios</a>
                                     <a class="nav-link" href="<?php echo base_url; ?>Administration">Configuración</a>
                                 </nav>
                             </div>
@@ -165,7 +168,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        Username
                     </div>
                 </nav>
             </div>
