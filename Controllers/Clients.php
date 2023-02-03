@@ -37,49 +37,38 @@ class Clients extends Controller{
 
     public function register()
     {
-        $user = $_POST['user'];
+        $dni = $_POST['dni'];
         $name = $_POST['name'];
-        $password = $_POST['password'];
-        $confirmPassword = $_POST['confirmPassword'];
-        $cashRegister = $_POST['cashRegister'];
+        $phone = $_POST['phone'];
+        $address = $_POST['address'];    
         $id = $_POST['id'];
 
-        //Encrypting password
-        $hash = hash("SHA256", $password);
 
-        if (empty($user) || empty($name) || /*empty($password) ||*/ empty($cashRegister)) {
+        if (empty($dni) || empty($name) || empty($phone) || empty($address)) {
 
             $message = "Debes llenar todos los campos.";
-        }/*else if ($password != $confirmPassword) {
 
-            $message = "Las contraseñas no coinciden!";
-            
-        }*/else {
+        }else {
 
             if($id == ""){
 
-                if($password != $confirmPassword){
-                    $message = "Las contraseñas no coinciden!";
+                $data = $this->model->registerClient($dni, $name, $phone, $address);
 
-                }else{
-
-                    $data = $this->model->registerUser($user, $name, $hash, $cashRegister);
-
-                    if ($data == "ok") {
-                        $message = "Si";
-                    } else if ($data == "exists") {
-                        $message = "El usuario ya existe";
-                    } else {
-                        $message = "Error al registar el usuario";
-                    }
-                }                
+                if ($data == "ok") {
+                    $message = "Si";
+                } else if ($data == "exists") {
+                    $message = "El Documento de identificación ya existe";
+                } else {
+                    $message = "Error al registar el Cliente";
+                }
+               
             }else{
-                $data = $this->model->modifyUser($user, $name, $cashRegister, $id);
+                $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
 
                 if ($data == "modificado") {
                     $message = "modificado";
                 }else {
-                    $message = "Error al modificar el usuario";
+                    $message = "Error al modificar el cliente";
                 }
             }            
         }
