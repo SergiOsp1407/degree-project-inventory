@@ -4,9 +4,11 @@
 
     require_once 'Config/Config.php';
 
+    // // Hide routes!!!
     $route = !empty($_GET['url']) ? $_GET['url'] : "Home/index";
+
     $arrayIndex = explode("/", $route);
-    $controller = $arrayIndex[0];
+     $controller = $arrayIndex[0];
     $method = "index";
     $param = "";
 

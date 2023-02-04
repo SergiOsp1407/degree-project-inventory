@@ -25,6 +25,8 @@ class Products extends Controller{
 
         for ($i=0; $i < count($data); $i++) { 
 
+            $data[$i]['image'] = '<img class="img-thumbnail" src="'. base_url. "Assets/img/". $data[$i]['image'].'" width="100">';
+
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
@@ -45,6 +47,8 @@ class Products extends Controller{
     }
 
     public function register(){
+
+        
         $code = $_POST['code'];
         $description = $_POST['description'];
         $purchase_price = $_POST['purchase_price'];
@@ -52,18 +56,30 @@ class Products extends Controller{
         $measure = $_POST['measure'];
         $category = $_POST['category'];
         $id = $_POST['id'];
+        $image = $_FILES['image'];
+        $name = $image['name'];
+        $temp_name = $image['temp_name'];
+        $direction = "Assets/img/".$name;
+
+        if(empty($name)){
+
+            $name = "default.jpg";
+
+        }
 
         if (empty($code) || empty($description) || empty($purchase_price) || empty($selling_price)) {
 
             $message = "Debes llenar todos los campos.";
         }else {
 
+           
             if($id == ""){
 
-                    $data = $this->model->registerProduct($code, $description, $purchase_price, $selling_price, $measure, $category );
+                    $data = $this->model->registerProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $name );
 
                     if ($data == "ok") {
                         $message = "Si";
+                        move_uploaded_file($temp_name, $direction);
                     } else if ($data == "exists") {
                         $message = "El usuario ya existe";
                     } else {
@@ -71,13 +87,26 @@ class Products extends Controller{
                     }
                    
             }else{
-                $data = $this->model->modifyProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $id);
+                if($_POST['actual_image'] != $_POST['delete_image']){
 
-                if ($data == "modificado") {
-                    $message = "modificado";
-                }else {
-                    $message = "Error al modificar el usuario";
-                }
+                    $imageDelete = $this->model->editProduct($id);
+                    if ($imageDelete['image'] != 'default.jpg' || $imageDelete['image'] != "") {
+                        if(file_exists($direction . $imageDelete['image'])){
+
+                            unlink($direction . $imageDelete['image']);
+
+                        }
+                    }
+
+                    $data = $this->model->modifyProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $name, $id);
+
+                    if ($data == "modificado") {
+                        move_uploaded_file($temp_name, $direction);
+                        $message = "modificado";
+                    } else {
+                        $message = "Error al modificar el usuario";
+                    }
+                }                
             }            
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);

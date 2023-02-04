@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         ajax: {
 
-            url: base_url + "Users/list",
+            url: base_url + "CashRegister/list",
             dataSrc: ''
         },
         columns: [
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'id'
             },
             {
-                'data' : 'user'
+                'data' : 'cash_register'
             },
             {
                 'data' : 'id_cash_register'
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         ajax: {
 
-            url: base_url + "Users/list",
+            url: base_url + "Measures/list",
             dataSrc: ''
         },
         columns: [
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         ajax: {
 
-            url: base_url + "Users/list",
+            url: base_url + "Categories/list",
             dataSrc: ''
         },
         columns: [
@@ -234,6 +234,9 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             {
                 'data' : 'code'
+            },
+            {
+                'data' : 'image'
             },
             {
                 'data' : 'description'
@@ -818,6 +821,7 @@ function frmProduct() {
     myModal.show();
     //Pending verify if this document.getElement have to be erase
     document.getElementById("id").value = "";
+    deleteImage();
     
 }
 
@@ -879,6 +883,12 @@ function btnEditProduct(id) {
             document.getElementById("selling_price").value = response.selling_price;
             document.getElementById("measure").value = response.id_measure;
             document.getElementById("category").value = response.id_category;
+            document.getElementById("img-preview").src = base_url + 'Assets/img/' +  response.image;
+
+            document.getElementById("icon-close").innerHTML = `<button class="btn btn-danger" onclick="deleteImage()"><i class="fas fa-times"></i></button>`;
+            document.getElementById("icon-image").classList.add("d-none");
+            document.getElementById("actual_image").value = response.image;
+            document.getElementById("delete_image").value = response.image;
             
             myModal.show();
             
@@ -981,6 +991,26 @@ function btnReenterProduct(id) {
     
 }
 
-
-
 //End Products
+
+
+function preview(e) {
+
+    const url_image = e.target.files[0];
+    const url_tmp = URL.createObjectURL(url_image);
+    document.getElementById("img-preview").src = url_tmp;
+    document.getElementById("icon-image").classList.add("d-none");
+    document.getElementById("icon-close").innerHTML = `<button class="btn btn-danger" onclick="deleteImage()"><i class="fas fa-times"></i></button>${url_image['name']}`;
+    
+}
+
+function deleteImage() {
+
+    document.getElementById("icon-close").innerHTML = '';
+    document.getElementById("icon-image").classList.remove("d-none");
+    document.getElementById("img-preview").src = '';
+    document.getElementById("image").value = '';
+    document.getElementById("delete_image").value = '';
+
+    
+}

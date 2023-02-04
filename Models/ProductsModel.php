@@ -3,7 +3,7 @@
 class ProductsModel extends Query
 {
 
-    private $code, $description, $purchase_price, $selling_price, $id_measure, $id_category, $id, $status;
+    private $code, $description, $purchase_price, $selling_price, $id_measure, $id_category, $id, $status, $image;
 
     public function __construct()
     {
@@ -35,13 +35,14 @@ class ProductsModel extends Query
         return $data;
     }
 
-    public function registerProduct(string $code, string $description, string $purchase_price, string $selling_price, int $id_measure, int $id_category ){
+    public function registerProduct(string $code, string $description, string $purchase_price, string $selling_price, int $id_measure, int $id_category, string $image ){
         $this->code = $code;
         $this->description = $description;
         $this->purchase_price = $purchase_price;
         $this->selling_price = $selling_price;
         $this->id_measure = $id_measure;        
         $this->id_category = $id_category;        
+        $this->image = $image;        
 
         //This implementation check if the Product already exists in the DB
         $check = "SELECT * FROM products WHERE code = '$this->code'";
@@ -49,8 +50,8 @@ class ProductsModel extends Query
 
         if (empty($exists)) {
 
-            $sql = "INSERT INTO products(code, description, purchase_price, selling_price, id_measure, id_category) VALUES (?,?,?,?,?,?)";
-            $data = array($this->code, $this->description, $this->purchase_price, $this->selling_price, $this->id_measure, $this->id_category);
+            $sql = "INSERT INTO products(code, description, purchase_price, selling_price, id_measure, id_category, image ) VALUES (?,?,?,?,?,?,?)";
+            $data = array($this->code, $this->description, $this->purchase_price, $this->selling_price, $this->id_measure, $this->id_category, $this->image);
             $allData = $this->save($sql, $data);
 
             if ($allData == 1) {
@@ -64,7 +65,7 @@ class ProductsModel extends Query
         return $response;
     }
 
-    public function modifyProduct(string $code, string $description, string $purchase_price, string $selling_price, int $id_measure, int $id_category, int $id){
+    public function modifyProduct(string $code, string $description, string $purchase_price, string $selling_price, int $id_measure, int $id_category, string $image, int $id){
 
         $this->code = $code;
         $this->description = $description;
@@ -72,12 +73,13 @@ class ProductsModel extends Query
         $this->selling_price = $selling_price;
         $this->id_measure = $id_measure;
         $this->id_category = $id_category;
+        $this->image = $image;
         $this->id = $id;
 
         //This implementation check if the Product already exists in the DB
 
-        $sql = "UPDATE products SET code = ?, description = ?, purchase_price = ?, selling_price = ?, id_measure = ?, id_category = ?";
-        $data = array($this->code, $this->description, $this->purchase_price, $this->selling_price, $this->id_measure, $this->id_category, $this->id);
+        $sql = "UPDATE products SET code = ?, description = ?, purchase_price = ?, selling_price = ?, id_measure = ?, id_category = ?, image = ? WHERE id = ?";
+        $data = array($this->code, $this->description, $this->purchase_price, $this->selling_price, $this->id_measure, $this->id_category, $this->image, $this->id);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
