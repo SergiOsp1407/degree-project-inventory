@@ -203,10 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'id'
             },
             {
-                'data' : 'user'
-            },
-            {
-                'data' : 'id_cash_register'
+                'data' : 'name'
             },
             {
                 'data' : 'status'
@@ -884,11 +881,10 @@ function btnEditProduct(id) {
             document.getElementById("measure").value = response.id_measure;
             document.getElementById("category").value = response.id_category;
             document.getElementById("img-preview").src = base_url + 'Assets/img/' +  response.image;
-
             document.getElementById("icon-close").innerHTML = `<button class="btn btn-danger" onclick="deleteImage()"><i class="fas fa-times"></i></button>`;
             document.getElementById("icon-image").classList.add("d-none");
             document.getElementById("actual_image").value = response.image;
-            document.getElementById("delete_image").value = response.image;
+        
             
             myModal.show();
             
@@ -1010,7 +1006,113 @@ function deleteImage() {
     document.getElementById("icon-image").classList.remove("d-none");
     document.getElementById("img-preview").src = '';
     document.getElementById("image").value = '';
-    document.getElementById("delete_image").value = '';
+    document.getElementById("actual_image").value = '';
 
+    
+}
+
+
+function searchCode(e){
+
+    e.preventDefault();
+
+    if (e.which == 13) {
+
+        const code = document.getElementById("code").value;
+        const url = base_url + "Purchases/searchCode/" + code;
+        const http = new XMLHttpRequest();
+        http.open("GET", url, true);
+        http.send();
+        http.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+                
+                const response = JSON.parse(this.responseText);
+                
+                if (response) {
+
+                    document.getElementById("description").value = response.description;
+                    document.getElementById("purchase_price").value = response.purchase_price;
+                    document.getElementById("id").value = response.id;
+                    document.getElementById("ammount").focus();
+                    
+                }else{
+
+                    Swal.fire({
+
+                        position: 'top-end',
+                        icon: 'error',
+                        titleL: 'El producto no existe',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                    document.getElementById("code").value = '';
+                    document.getElementById("code").focus();
+
+                    
+                }
+            }
+        }            
+    }    
+}
+
+function calculatePrice(e) {
+
+    e.preventDefault();
+    const amount = document.getElementById("amount").value;
+    const purchase_price = document.getElementById("purchase_price").value;
+    document.getElementById("subtotal").value = purchase_price * amount;
+
+    if (e.which == 13) {
+        if (amount > 0) {
+            const url = base_url + "Purchases/inputInfo/";
+            const frm = document.getElementById("frmPurchase");
+            const http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.send(new FormData(frm));
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    if (response == 'ok') {
+                        frm.reset();
+                        loadDetail();
+                    }
+                }
+            }                        
+        }
+    }
+}
+
+loadDetail();
+
+function loadDetail() {
+
+    const url = base_url + "Purchases/list/";
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+
+            const response = JSON.parse(this.responseText);
+            let html = '';
+            response.forEach(row => {
+
+                html =  `<tr>
+                <td>${row['id']}</td>
+                <td>${row['description']}</td>
+                <td>${row['amount']}</td>
+                <td>${row['price']}</td>
+                <td>${row['sub_total']}</td>
+                <td></td>
+                </tr>` ;                
+            });
+
+            document.getElementById("tblDetail").innerHTML= html;
+            
+        }
+    }
     
 }

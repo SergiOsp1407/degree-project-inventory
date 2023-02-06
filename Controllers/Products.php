@@ -60,26 +60,39 @@ class Products extends Controller{
         $name = $image['name'];
         $temp_name = $image['temp_name'];
         $direction = "Assets/img/".$name;
-
-        if(empty($name)){
-
-            $name = "default.jpg";
-
-        }
+        $date = date("YmdHis");
 
         if (empty($code) || empty($description) || empty($purchase_price) || empty($selling_price)) {
 
             $message = "Debes llenar todos los campos.";
         }else {
 
+            if(!empty($name)){
+
+                $imageName = $date. ".jpg";
+                $direction = "Assets/img/" . $imageName;
+
+            }else if(!empty($_POST['actual_image']) && empty($name)){
+
+                $imageName = $_POST['actual_image'];
+
+            }else{
+
+                $imageName = "default.jpg";
+
+            }
            
             if($id == ""){
 
-                    $data = $this->model->registerProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $name );
+                    $data = $this->model->registerProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $imageName );
 
                     if ($data == "ok") {
+
+                        if(!empty($name)){
+                            move_uploaded_file($temp_name, $direction);
+                        }
                         $message = "Si";
-                        move_uploaded_file($temp_name, $direction);
+                        
                     } else if ($data == "exists") {
                         $message = "El usuario ya existe";
                     } else {
@@ -87,26 +100,25 @@ class Products extends Controller{
                     }
                    
             }else{
-                if($_POST['actual_image'] != $_POST['delete_image']){
 
-                    $imageDelete = $this->model->editProduct($id);
-                    if ($imageDelete['image'] != 'default.jpg' || $imageDelete['image'] != "") {
-                        if(file_exists($direction . $imageDelete['image'])){
+                $imageDelete = $this->model->editProduct($id);
+                if ($imageDelete['image'] != 'default.jpg' || $imageDelete['image'] != "") {
+                    if (file_exists( "Assets/img/" . $imageDelete['image'])) {
 
-                            unlink($direction . $imageDelete['image']);
-
-                        }
+                        unlink( "Assets/img/" . $imageDelete['image']);
                     }
+                }
 
-                    $data = $this->model->modifyProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $name, $id);
+                $data = $this->model->modifyProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $imageName, $id);
 
-                    if ($data == "modificado") {
+                if ($data == "modificado") {
+                    if (!empty($name)) {
                         move_uploaded_file($temp_name, $direction);
-                        $message = "modificado";
-                    } else {
-                        $message = "Error al modificar el usuario";
                     }
-                }                
+                    $message = "modificado";
+                } else {
+                    $message = "Error al modificar el usuario";
+                }          
             }            
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
