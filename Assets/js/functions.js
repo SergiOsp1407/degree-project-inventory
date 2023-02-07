@@ -1075,8 +1075,30 @@ function calculatePrice(e) {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     if (response == 'ok') {
+
+                        Swal.fire({
+
+                            position: 'top-end',
+                            icon: 'success',
+                            titleL: 'Producto Ingresado',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+
                         frm.reset();
                         loadDetail();
+                    }else if (response == 'modificado') {
+                        Swal.fire({
+
+                            position: 'top-end',
+                            icon: 'success',
+                            titleL: 'Producto actualizado',
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                        frm.reset();
+                        loadDetail();
+                        
                     }
                 }
             }                        
@@ -1098,7 +1120,7 @@ function loadDetail() {
 
             const response = JSON.parse(this.responseText);
             let html = '';
-            response.forEach(row => {
+            response.detail.forEach(row => {
 
                 html =  `<tr>
                 <td>${row['id']}</td>
@@ -1106,13 +1128,102 @@ function loadDetail() {
                 <td>${row['amount']}</td>
                 <td>${row['price']}</td>
                 <td>${row['sub_total']}</td>
-                <td></td>
+                <td>
+                <button class="btn btn-danger" type="button" onclick="deleteDetail(${row['id']})"><i class="fas fa-trash-alt"></i> </button>                
+                </td>
                 </tr>` ;                
             });
 
             document.getElementById("tblDetail").innerHTML= html;
+            document.getElementById("total").innerHTML= response.total_pay.total;
             
         }
     }
     
+}
+
+function deleteDetail(id) {
+
+    const url = base_url + "Purchases/delete/" + id;
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(this.responseText);
+            if (response == 'ok') {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Producto eliminado',
+                    showConfirmButton: false,
+                    timer: 3000
+                })                
+                loadDetail();
+            }else{
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error al eliminar el producto',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }                            
+        }
+    }    
+}
+
+
+function triggerPurchase(params) {
+
+    Swal.fire({
+        title: '¿Estas seguro de realizar la compra?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            const url = base_url + "Purchases/registerPurchase/";
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    if (response.message == "ok") {
+
+                        Swal.fire(
+                            'Mensaje!',
+                            'Compra generada',
+                            'success'
+                        )                        
+                        /*Direccionamiento a traves del boton 'Generar compra'
+                         para el pdf con la factura*/
+                        const route = base_url + 'Purchases/triggerPDF/' + response.id_purchase;
+                        window.open(route);
+                        setTimeout(() => {
+                            window.location.reload();                            
+                        }, 300);
+                        
+                    }else{
+
+                        Swal.fire(
+                            'Mensaje!',
+                            response,
+                            'error'
+                        )     
+
+                    }                    
+                }
+            }            
+        }
+      })    
 }

@@ -102,7 +102,7 @@ class Products extends Controller{
             }else{
 
                 $imageDelete = $this->model->editProduct($id);
-                if ($imageDelete['image'] != 'default.jpg' || $imageDelete['image'] != "") {
+                if ($imageDelete['image'] != 'default.jpg') {
                     if (file_exists( "Assets/img/" . $imageDelete['image'])) {
 
                         unlink( "Assets/img/" . $imageDelete['image']);
