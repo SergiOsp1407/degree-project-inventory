@@ -251,7 +251,74 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'actions'
             },
 
-        ]
+        ],
+
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        // buttons: [
+        //     'copyHtml5',
+        //     'excelHtml5',
+        //     'csvHtml5',
+        //     'pdfHtml5'
+        // ]
+        buttons: [{
+
+            //Excel button
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
+
+            //Personalize button
+            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //PDF button
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Copy button
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Print button
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+        },
+        //CVS button
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+        },
+        {
+            extend: 'colvis',
+            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
+    ]
     });
     //End table Products
 
@@ -828,11 +895,194 @@ function btnReenterCategory(id) {
       })
     
 }
-
-
-
-
 //End Categories
+
+/*
+function frmCashRegister() {
+
+    document.getElementById("title").textContent = "Nuevo Usuario";
+    document.getElementById("btnAction").textContent = "Registrar";
+    document.getElementById("passwords").classList.remove("d-none");
+    document.getElementById("frmUser").reset();
+    /*This Ajax function was used to show new users
+    $("#new_user").modal("show");*/
+    /*myModal.show(); 
+
+    //Pending verify if this document.getElement have to be erase
+    document.getElementById("id").value = "";
+    document.getElementById("title").textContent = "Nuevo Usuario";
+    
+}
+
+*/
+
+/*
+
+function registerCashRegister(e) {
+    e.preventDefault();
+    const user = document.getElementById("user");
+    const name = document.getElementById("name");
+    const cashRegister = document.getElementById("cashRegister");
+
+    if (user.value == "" || name.value == "" || cashRegister.value == "") {
+
+        /*Function using SweetAlert to show custom positioned dialog
+        Swal.fire({
+
+            position: 'top-end',
+            icon: 'error',
+            title: 'Debes llenar todos los campos!',
+            showConfirmButton: false,
+            timer: 2500
+
+        })*//*
+
+        alerting('Todos los campos son obligatorios!' , 'warning');
+        
+    }else{
+        // Petiton with Ajax
+        const url = base_url + "Users/register";
+        const frm = document.getElementById("frmUser");
+        const http = new XMLHttpRequest();
+        http.open("POST", url, true);
+        http.send(new FormData(frm));
+        
+        http.onreadystatechange = function() {
+
+            if (this.readyState == 4 && this.status == 200) {
+                const response = JSON.parse(this.responseText);
+                myModal.hide();
+                alerting(response.message, this.response.icon);
+                tblUsers.ajax.reload();
+                
+            }            
+        }
+    }    
+}*/
+
+/*
+function btnEditCashRegister(id) {
+
+    document.getElementById("title").textContent = "Actualizar usuario";
+    document.getElementById("btnAction").textContent = "Modificar";
+    const url = base_url + "Users/edit/" + id;
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+
+            const response = JSON.parse(this.responseText);
+            document.getElementById("id").value = response.id;
+            document.getElementById("user").value = response.user;
+            document.getElementById("name").value = response.name;
+            document.getElementById("cashRegister").value = response.id_cash_register;
+            document.getElementById("passwords").classList.add("d-none");
+            myModal.show();
+            
+        }
+    }
+    
+}*/
+
+/*
+function btnDeleteCashRegister(id){
+
+    Swal.fire({
+        title: '¿Estas seguro de eliminarlo?',
+        text: "Esta acción no eliminará de manera permanente, cambiará el estado a Inactivo",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminalo!',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            const url = base_url + "Users/delete/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    if (response == "ok") {
+
+                        Swal.fire(
+                            'Mensaje!',
+                            'Usuario eliminado con exito',
+                            'success'
+                        )
+                        
+                        tblUsers.ajax.reload();
+                        
+                    }else{
+
+                        Swal.fire(
+                            'Mensaje!',
+                            response,
+                            'error'
+                        )     
+
+                    }                    
+                }
+            }            
+        }
+      })
+}*/
+
+/*
+function btnReenterCashRegister(id) {
+
+    Swal.fire({
+        title: '¿Estas seguro de reingresar el usuario?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            const url = base_url + "Users/reenter/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    if (response == "ok") {
+
+                        Swal.fire(
+                            'Mensaje!',
+                            'Usuario eliminado con exito',
+                            'success'
+                        )
+                        
+                        tblUsers.ajax.reload();
+                        
+                    }else{
+
+                        Swal.fire(
+                            'Mensaje!',
+                            response,
+                            'error'
+                        )     
+
+                    }                    
+                }
+            }            
+        }
+      })
+    
+}*/
+
+//End CashRegister
 
 
 function frmProduct() {
@@ -1131,7 +1381,12 @@ function calculatePrice(e) {
     }
 }
 
-loadDetail();
+if (document.getElementById('tblDetail')) {
+
+    loadDetail();
+    
+}
+
 
 function loadDetail() {
 
@@ -1154,7 +1409,7 @@ function loadDetail() {
                 <td>${row['price']}</td>
                 <td>${row['sub_total']}</td>
                 <td>
-                <button class="btn btn-danger" type="button" onclick="deleteDetail(${row['id']})"><i class="fas fa-trash-alt"></i> </button>                
+                <button class="btn btn-danger" type="button" onclick="deleteDetail(${row['id']})"><i class="fas fa-trash-alt"></i></button>                
                 </td>
                 </tr>` ;                
             });
@@ -1251,4 +1506,28 @@ function triggerPurchase(params) {
             }            
         }
       })    
+}
+
+function modifyCompany() {
+
+    const frm = document.getElementById('frmCompany');
+
+    const url = base_url + "Administration/modify";
+    const http = new XMLHttpRequest();
+    http.open("POST", url, true);
+    http.send(new FormData(frm));
+    http.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(this.responseText);
+
+            if (response = 'ok') {
+
+                alert('Modificado');
+                
+            }
+                          
+        }
+    }
+
 }

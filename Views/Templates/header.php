@@ -60,8 +60,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Users"><i class="fas fa-user mr-2"></i> Usuarios</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Administration">Configuración</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Users"><i class="fas fa-user mr-2"></i>Usuarios</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Administration"><i class="fas fa-tools mr-2"></i>Configuración</a>
                                 </nav>
                             </div>
 

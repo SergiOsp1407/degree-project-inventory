@@ -180,5 +180,17 @@ class PurchasesModel extends Query{
     }
 
     
+    public function updateStock(int $amount, int $id_product){
+
+        $sql = "UPDATE products SET amount = ? WHERE id = ?";
+        $data = array($amount,$id_product);
+        // $this->save($sql, $data);
+        $allData = $this->save($sql, $data);
+
+        return $allData;
+
+    }
+
+    
 }
 ?>

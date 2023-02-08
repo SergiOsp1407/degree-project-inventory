@@ -100,6 +100,9 @@ class Purchases extends Controller {
                 $product_price = $row['product_price'];
                 $sub_total = $amount * $product_price;
                 $this->model->registerPurchaseDetail($id_purchase['id'], $id_product, $amount, $product_price, $sub_total);
+                $actual_stock = $this->model->getProducts($id_product);
+                $stock = $actual_stock['amount'] + $amount;
+                $this->model->updateStock($stock, $id_product);
             }
 
             //Clean the Details of the purchase to print new info in the invoice

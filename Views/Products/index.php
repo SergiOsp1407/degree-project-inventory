@@ -6,7 +6,7 @@
 
 <button class="btn btn-primary mb-2" type="button" onclick="frmProduct();">Nuevo producto <i class="fas fa-plus"></i></button>
 
-
+<div class="table-responsive">
 <table class="table table-light" id="tblProducts">
     <thead class="thead-dark">
         <tr>
@@ -23,6 +23,7 @@
     <tbody>
     </tbody>
 </table>
+</div>
 
 <!--Format of the New Products table-->
 <div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
