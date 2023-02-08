@@ -163,6 +163,22 @@ class PurchasesModel extends Query{
 
     }
 
+    public function getProductPurchase(int $id_purchase){
+
+        $sql = "SELECT c.*, d.*, p.id, p.description FROM purchases c INNER JOIN purchases_details d ON  c.id = d.id_purchase INNER JOIN products p ON p.id = d.id_product WHERE c.id = $id_purchase";
+        $data = $this->selectAll($sql);
+        return $data;
+
+    }
+
+    public function getPurchaseHistory(){
+
+        $sql = "SELECT * FROM purchases";
+        $data = $this->selectAll($sql);
+        return $data;
+
+    }
+
     
 }
 ?>

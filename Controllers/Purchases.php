@@ -120,17 +120,21 @@ class Purchases extends Controller {
     public function triggerPDF($id_purchase ){
 
         $company = $this->model->getCompany(); 
+        $products = $this->model->getProductPurchase($id_purchase); 
+        
 
         ob_start();        
         require('Libraries/fpdf/fpdf.php');
          
         $pdf = new FPDF('P','mm',/*array(80,200)*/'Letter' );
         $pdf->AddPage();
+        //$pdf->SetMargins(10,10,10);
         $pdf->SetTitle('Factura o reporte de compra');
 
         //Header
         $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');        
+        $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
+        $pdf->Ln();        
         $pdf->Image(base_url . 'Assets/img/companyLogo.png', 150,10,30,30);
         $pdf->SetFont('Arial', 'B', 11);
         $pdf->Cell(25,5, 'Nit: ', 0, 0, 'L');        
@@ -148,9 +152,37 @@ class Purchases extends Controller {
         $pdf->Cell(20,5, utf8_decode($company['address']), 0, 1, 'L'); 
     
         $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(25,5, 'Factura Nro:', 0, 0, 'L');        
+        $pdf->Cell(25,5, 'Factura Nro:', 0, 1, 'L');        
         $pdf->SetFont('Arial', '', 11);
-        $pdf->Cell(20,5, $id_purchase, 0, 1, 'L');        
+        $pdf->Cell(20,5, $id_purchase, 0, 1, 'L');
+        $pdf->Ln();
+        
+        //Invoice Header
+        $pdf->SetFillColor(0,0,0);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
+        $pdf->Cell(30,5, utf8_decode('Descripción'), 0, 0, 'L', true);
+        $pdf->Cell(30,5, 'Precio', 0, 0, 'L', true);
+        $pdf->Cell(30,5, 'Subtotal', 0, 1, 'L', true);
+        
+        $pdf->SetTextColor(0,0,0);
+
+        //Invoice content
+        $total = 0.00;
+        foreach ($products as $row){
+
+            $total = $total + $row['sub_total'];
+            $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
+            $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
+            $pdf->Cell(30,5, $row['product_price'], 0, 0, 'L');
+            $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
+
+        }
+
+        $pdf->Ln();
+        $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
+        $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
+
         $pdf->Output();
         
 
@@ -160,6 +192,26 @@ class Purchases extends Controller {
 
         
 
+    }
+
+    public function history(){
+
+        $this->views->getView($this, "history");
+
+
+    }
+
+    public function list_history(){
+
+        $data = $this->model->getPurchaseHistory();
+        for ($i=0; $i < count($data); $i++) { 
+
+            $data[$i]['actions'] = '<div?><a class="btn btn-danger" href="'.base_url. "Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
+
+            
+        }
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        die();
     }
 
 }

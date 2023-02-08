@@ -98,7 +98,7 @@
                             </a>
 
                             <!--Purchases (Entradas)-->
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseInputs" aria-expanded="false" aria-controls="collapseInputs">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePurchases" aria-expanded="false" aria-controls="collapsePurchases">
                                 <div class="sb-nav-link-icon"><i class="fas fa-shipping-fast fa-2x"></i></div>
                                 Compras
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -118,7 +118,7 @@
                             </a>
                             <div class="collapse" id="collapseSales" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/vetas">Ventas</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales">Ventas</a>
                                     <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales_history">Historial Ventas</a>
                                 </nav>
                             </div>

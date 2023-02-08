@@ -173,10 +173,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'id'
             },
             {
-                'data' : 'user'
+                'data' : 'name'
             },
             {
-                'data' : 'id_cash_register'
+                'data' : 'short_name'
             },
             {
                 'data' : 'status'
@@ -254,6 +254,31 @@ document.addEventListener("DOMContentLoaded", function() {
         ]
     });
     //End table Products
+
+   $('#t_history_purchase').DataTable({
+
+        ajax: {
+
+            url: base_url + "Purchases/list_history",
+            dataSrc: ''
+        },
+        columns: [
+
+            {
+                'data' : 'id'
+            },
+            {
+                'data' : 'total'
+            },
+            {
+                'data' : 'purchase_date'
+            },
+            {
+                'data' : 'actions'
+            }
+        ]
+    });
+    //End table Medidas
 
 })
 
