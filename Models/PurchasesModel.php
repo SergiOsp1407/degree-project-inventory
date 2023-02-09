@@ -25,9 +25,9 @@ class PurchasesModel extends Query{
 
     }
 
-    public function registerDetail(int $id_product,  int $id_user, string $price, int $amount, string $sub_total){
+    public function registerDetail(string $table,nt $id_product,  int $id_user, string $price, int $amount, string $sub_total){
 
-        $sql = "INSERT INTO tmp_details(id_product, id_user, price, amount, sub_total) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO $table(id_product, id_user, price, amount, sub_total) VALUES (?,?,?,?,?)";
         $data = array($id_product, $id_user, $price, $amount, $sub_total);
         $this->save($sql, $data);
         $allData = $this->save($sql, $data);
@@ -37,29 +37,26 @@ class PurchasesModel extends Query{
         } else {
             $response = "error";
         }
-
         return $response;
-
-
     }
 
-    public function getDetail(int $id){
+    public function getDetail(string $table,int $id){
 
-        $sql = "SELECT d.*, p.id AS id_product, p.description FROM tmp_details d INNER JOIN products p ON d.id_product = p.id WHERE d.id_user = $id";
+        $sql = "SELECT d.*, p.id AS id_product, p.description FROM $table d INNER JOIN products p ON d.id_product = p.id WHERE d.id_user = $id";
         $data = $this->selectAll($sql);
         return $data;
     }
 
-    public function calculatePurchase(int $id_user){
+    public function calculatePurchase(string $table,int $id_user){
 
-        $sql = "SELECT  sub_total, SUM(sub_total) AS total FROM tmp_details WHERE id_user = $id_user";
+        $sql = "SELECT  sub_total, SUM(sub_total) AS total FROM $table WHERE id_user = $id_user";
         $data = $this->select($sql);
         return $data;
     }
 
-    public function deleteDetail(int $id){
+    public function deleteDetail(string $table, int $id){
 
-        $sql = "DELETE FROM tmp_details WHERE id = ?";
+        $sql = "DELETE FROM $table WHERE id = ?";
         $data = array($id);
         $allData = $this->save($sql, $data);
 
@@ -73,17 +70,17 @@ class PurchasesModel extends Query{
 
     }
 
-    public function checkDetail(int $id_product, int $id_user){
+    public function checkDetail(string $table, int $id_product, int $id_user){
 
-        $sql = "SELECT * FROM tmp_details WHERE id_product = $id_product AND id_user = $id_user";
+        $sql = "SELECT * FROM $table WHERE id_product = $id_product AND id_user = $id_user";
         $data = $this->select($sql);
         return $data;
 
     }
 
-    public function updateDetail(string $price, int $amount, string $sub_total, int $id_product,  int $id_user){
+    public function updateDetail(string $table,string $price, int $amount, string $sub_total, int $id_product,  int $id_user){
 
-        $sql = "UPDATE tmp_details SET price = ?, amount = ?, sub_total = ? WHERE id_product = ? AND id_user = ?";
+        $sql = "UPDATE $table SET price = ?, amount = ?, sub_total = ? WHERE id_product = ? AND id_user = ?";
         $data = array($price,  $amount, $sub_total, $id_product, $id_user );
         $this->save($sql, $data);
         $allData = $this->save($sql, $data);

@@ -1145,6 +1145,46 @@ function searchCode(e){
     }
 }
 
+function searchCodeSale(e){
+    e.preventDefault();
+    const code = document.getElementById("code").value;
+    if (code != '') {
+
+        if (e.which == 13) {            
+            const url = base_url + "Purchases/searchCode/" + code;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+    
+                if (this.readyState == 4 && this.status == 200) {
+                    
+                    const response = JSON.parse(this.responseText);
+                    
+                    if (response) {
+    
+                        document.getElementById("description").value = response.description;
+                        document.getElementById("purchase_price").value = response.sale_price;
+                        document.getElementById("id").value = response.id;
+                        document.getElementById("ammount").removeAttribute('disabled');
+                        document.getElementById("ammount").focus();
+                        
+                    }else{
+    
+                        alerts('El producto no existe', 'warning');
+                        document.getElementById("code").value = '';
+                        document.getElementById("code").focus();
+    
+                        
+                    }
+                }
+            }            
+        }       
+    }else{
+        alerts('Ingrese el código', 'warning');
+    }
+}
+
 function calculatePrice(e) {
     e.preventDefault();
     const amount = document.getElementById("amount").value;
@@ -1175,16 +1215,49 @@ function calculatePrice(e) {
     }
 }
 
+function calculateSalePrice(e) {
+    e.preventDefault();
+    const amount = document.getElementById("amount").value;
+    const purchase_price = document.getElementById("purchase_price").value;
+    document.getElementById("subtotal").value = purchase_price * amount;
+
+    if (e.which == 13) {
+        if (amount > 0) {
+            const url = base_url + "Purchases/inputSale/";
+            const frm = document.getElementById("frmSale");
+            const http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.send(new FormData(frm));
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+
+                    const response = JSON.parse(this.responseText);                    
+                    alerts(this.response.message, this.response.icon);
+                    frm.reset;
+                    loadDetailSale();
+                    document.getElementById('amount').setAttribute('disabled','disabled');
+                    document.getElementById('code').focus();
+                }
+            }                        
+        }
+    }
+}
+
 if (document.getElementById('tblDetail')) {
 
     loadDetail();
     
 }
+if (document.getElementById('tblSales')) {
 
+    loadDetailSale();
+    
+}
 
 function loadDetail() {
 
-    const url = base_url + "Purchases/list/";
+    const url = base_url + "Purchases/list/tmp_details";
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -1196,16 +1269,16 @@ function loadDetail() {
             let html = '';
             response.detail.forEach(row => {
 
-                html =  `<tr>
+                html += `<tr>
                 <td>${row['id']}</td>
                 <td>${row['description']}</td>
                 <td>${row['amount']}</td>
                 <td>${row['price']}</td>
                 <td>${row['sub_total']}</td>
                 <td>
-                <button class="btn btn-danger" type="button" onclick="deleteDetail(${row['id']})"><i class="fas fa-trash-alt"></i></button>                
+                <button class="btn btn-danger" type="button" onclick="deleteDetail(${row['id']}, 1)"><i class="fas fa-trash-alt"></i></button>                
                 </td>
-                </tr>` ;                
+                </tr>`;                
             });
 
             document.getElementById("tblDetail").innerHTML= html;
@@ -1216,9 +1289,50 @@ function loadDetail() {
     
 }
 
-function deleteDetail(id) {
+function loadDetailSale() {
 
-    const url = base_url + "Purchases/delete/" + id;
+    const url = base_url + "Purchases/list/tmp_sales";
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+
+            const response = JSON.parse(this.responseText);
+            let html = '';
+            response.detail.forEach(row => {
+
+                html += `<tr>
+                <td>${row['id']}</td>
+                <td>${row['description']}</td>
+                <td>${row['amount']}</td>
+                <td>${row['price']}</td>
+                <td>${row['sub_total']}</td>
+                <td>
+                <button class="btn btn-danger" type="button" onclick="deleteDetail(${row['id']}, 2)"><i class="fas fa-trash-alt"></i></button>                
+                </td>
+                </tr>`;                
+            });
+
+            document.getElementById("tblSales").innerHTML= html;
+            document.getElementById("total").innerHTML= response.total_pay.total;
+            
+        }
+    }
+    
+}
+
+function deleteDetail(id, action) {
+
+    let url;
+
+    if (action == 1) {
+        url = base_url + "Purchases/delete/" + id;        
+    }else{
+        url = base_url + "Purchases/deleteSale/" + id;
+    }
+    
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -1226,32 +1340,19 @@ function deleteDetail(id) {
 
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
-            if (response == 'ok') {
-
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Producto eliminado',
-                    showConfirmButton: false,
-                    timer: 3000
-                })                
-                loadDetail();
+            alerts(response.message, response.icon);
+            if (action == 1) {
+                loadDetail();               
             }else{
-
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Error al eliminar el producto',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
-            }                            
+                loadDetailSale();              
+            }
+                          
         }
     }    
 }
 
 
-function triggerPurchase(params) {
+function triggerPurchase() {
 
     Swal.fire({
         title: '¿Estas seguro de realizar la compra?',
@@ -1263,22 +1364,16 @@ function triggerPurchase(params) {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
             const url = base_url + "Purchases/registerPurchase/";
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     if (response.message == "ok") {
+                        alerts(response.message, response.icon);
 
-                        Swal.fire(
-                            'Mensaje!',
-                            'Compra generada',
-                            'success'
-                        )                        
                         /*Direccionamiento a traves del boton 'Generar compra'
                          para el pdf con la factura*/
                         const route = base_url + 'Purchases/triggerPDF/' + response.id_purchase;
