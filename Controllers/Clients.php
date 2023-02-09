@@ -56,20 +56,20 @@ class Clients extends Controller{
                 $data = $this->model->registerClient($dni, $name, $phone, $address);
 
                 if ($data == "ok") {
-                    $message = "Si";
+                    $message = array('message' => 'Cliente creado correctamente.', 'icon' => 'success');
                 } else if ($data == "exists") {
-                    $message = "El Documento de identificación ya existe";
+                    $message = array('message' => 'El documento de identificacion ya existe', 'icon' => 'warning');
                 } else {
-                    $message = "Error al registar el Cliente";
+                    $message = array('message' => 'Error al registrar el Cliente', 'icon' => 'error');
                 }
                
             }else{
                 $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
 
                 if ($data == "modificado") {
-                    $message = "modificado";
+                    $message = array('message' => 'Cliente modificado correctamente.', 'icon' => 'success');
                 }else {
-                    $message = "Error al modificar el cliente";
+                    $message = array('message' => 'Error al modificar el cliente.', 'icon' => 'error');
                 }
             }            
         }
@@ -89,9 +89,9 @@ class Clients extends Controller{
 
         $data = $this->model->actionClient(0, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Cliente eliminado correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al eliminar el Cliente";
+            $message = array('message' => 'Error al eliminar al cliente.', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -101,9 +101,9 @@ class Clients extends Controller{
 
         $data = $this->model->actionClient(1, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Cliente reingresado correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al reingresar el Cliente";
+            $message = array('message' => 'Error al eliminar al cliente.', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);

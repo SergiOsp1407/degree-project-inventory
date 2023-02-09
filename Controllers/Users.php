@@ -67,8 +67,8 @@ class Users extends Controller{
         die();
     }
 
-    public function register()
-    {
+    public function register(){
+        
         $user = $_POST['user'];
         $name = $_POST['name'];
         $password = $_POST['password'];
@@ -81,7 +81,8 @@ class Users extends Controller{
 
         if (empty($user) || empty($name) || /*empty($password) ||*/ empty($cashRegister)) {
 
-            $message = "Debes llenar todos los campos.";
+            $message = array('message' => 'Debes llenar todos los campos!', 'icon' => 'warning');
+
         }/*else if ($password != $confirmPassword) {
 
             $message = "Las contraseñas no coinciden!";
@@ -91,27 +92,27 @@ class Users extends Controller{
             if($id == ""){
 
                 if($password != $confirmPassword){
-                    $message = "Las contraseñas no coinciden!";
+                    $message = array('message' => 'Las contraseñas no coinciden', 'icon' => 'warning');
 
                 }else{
 
                     $data = $this->model->registerUser($user, $name, $hash, $cashRegister);
 
                     if ($data == "ok") {
-                        $message = "Si";
+                        $message = array('message' => 'Usuario registrado correctamente.', 'icon' => 'success');
                     } else if ($data == "exists") {
-                        $message = "El usuario ya existe";
+                        $message = array('message' => 'El usuario ya existe', 'icon' => 'warning');
                     } else {
-                        $message = "Error al registar el usuario";
+                        $message = array('message' => 'Error al registrar el usuario', 'icon' => 'error');
                     }
                 }                
             }else{
                 $data = $this->model->modifyUser($user, $name, $cashRegister, $id);
 
                 if ($data == "modificado") {
-                    $message = "modificado";
+                    $message = array('message' => 'Usuario modificado correctamente.', 'icon' => 'success');
                 }else {
-                    $message = "Error al modificar el usuario";
+                    $message = array('message' => 'Error al modificar el usuario', 'icon' => 'error');
                 }
             }            
         }
@@ -131,9 +132,9 @@ class Users extends Controller{
 
         $data = $this->model->actionUser(0, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Usuario eliminado correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al eliminar el usuario";
+            $message = array('message' => 'Error al eliminar el usuario', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -143,9 +144,9 @@ class Users extends Controller{
 
         $data = $this->model->actionUser(1, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Usuario reingresado correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al reingresar el usuario";
+            $message = array('message' => 'El usuario no se pudo reingresar', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);

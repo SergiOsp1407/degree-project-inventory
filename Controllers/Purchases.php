@@ -40,18 +40,18 @@ class Purchases extends Controller {
             $sub_total = $price * $amount;
             $allData = $this->model->registerDetail($id_product, $id_user, $price, $amount, $sub_total, $id_product);
             if ($allData == "ok") {
-                $message = "ok";
+                $message = array('message' => 'Producto ingresado a la compra', 'icon' => 'success');
             } else {
-                $message = "Error al ingresar el producto ";
+                $message = array('message' => 'Error al ingresar el producto a la compra', 'icon' => 'error');
             }
         }else{
             $total_amount = $check['amount'] + $amount;
             $sub_total = $total_amount * $price;
             $allData = $this->model->updateDetail($price, $total_amount, $sub_total, $id_product, $id_user);
             if ($allData == "modificado") {
-                $message = "modificado";
+                $message = array('message' => 'Producto modificado correctamente', 'icon' => 'success');
             } else {
-                $message = "Error al modificar el producto ";
+                $message = array('message' => 'Error al modificar el product', 'icon' => 'error');
             }
         }
 
@@ -74,9 +74,9 @@ class Purchases extends Controller {
         $data = $this->model->deleteDetail($id);
 
         if($data == 'ok'){
-            $message = 'ok';
+            $message = array('message' => 'Producto eliminado correctamente', 'icon' => 'success');
         }else{
-            $message = 'error';
+            $message = array('message' => 'Producto no se elimino correctamente', 'icon' => 'error');
         }
 
         echo json_encode($message);
@@ -113,7 +113,7 @@ class Purchases extends Controller {
             }
 
         }else{
-            $message = 'Error al realizar la compra';
+            $message = array('message' => 'Error al realizar la compra', 'icon' => 'error');
         }
         echo json_encode($message);
         die();

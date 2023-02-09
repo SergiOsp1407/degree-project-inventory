@@ -91,12 +91,12 @@ class Products extends Controller{
                         if(!empty($name)){
                             move_uploaded_file($temp_name, $direction);
                         }
-                        $message = "Si";
+                        $message = array('message' => 'Producto registrado correctamente.', 'icon' => 'success');
                         
                     } else if ($data == "exists") {
-                        $message = "El usuario ya existe";
+                        $message = array('message' => 'El producto ya esta creado.', 'icon' => 'warning');
                     } else {
-                        $message = "Error al registar el usuario";
+                        $message = array('message' => 'Error al registrar el producto', 'icon' => 'error');
                     }
                    
             }else{
@@ -115,9 +115,9 @@ class Products extends Controller{
                     if (!empty($name)) {
                         move_uploaded_file($temp_name, $direction);
                     }
-                    $message = "modificado";
+                    $message = array('message' => 'Producto modificado correctamente.', 'icon' => 'success');
                 } else {
-                    $message = "Error al modificar el usuario";
+                    $message = array('message' => 'Error al modificar el producto', 'icon' => 'error');
                 }          
             }            
         }
@@ -137,9 +137,9 @@ class Products extends Controller{
 
         $data = $this->model->actionProduct(0, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Producto eliminado correctamente', 'icon' => 'success');
         } else{
-            $message = "Error al eliminar el usuario";
+            $message = array('message' => 'Error al eliminar el producto', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -149,9 +149,9 @@ class Products extends Controller{
 
         $data = $this->model->actionProduct(1, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Producto reingresado correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al reingresar el producto";
+            $message = array('message' => 'Error al eliminar el producto', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);

@@ -15,7 +15,7 @@ class Categories extends Controller{
     }
 
     public function list(){
-        $data = $this->model->getClients();
+        $data = $this->model->getCategory();
 
         for ($i=0; $i < count($data); $i++) { 
 
@@ -54,23 +54,23 @@ class Categories extends Controller{
 
             if($id == ""){
 
-                $data = $this->model->registerClient($dni, $name, $phone, $address);
+                $data = $this->model->registerCategory($dni, $name, $phone, $address);
 
                 if ($data == "ok") {
-                    $message = "Si";
+                    $message = array('message' => 'Categoria registrada correctamente.', 'icon' => 'success');
                 } else if ($data == "exists") {
-                    $message = "El Documento de identificación ya existe";
+                    $message = array('message' => 'La categoria ya existe.', 'icon' => 'warning');
                 } else {
-                    $message = "Error al registar el Cliente";
+                    $message = array('message' => 'La categoria no se registro correctamnte', 'icon' => 'error');
                 }
                
             }else{
-                $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
+                $data = $this->model->modifyCategory($dni, $name, $phone,$address, $id);
 
                 if ($data == "modificado") {
-                    $message = "modificado";
+                    $message = array('message' => 'Categoria modificada correctamente.', 'icon' => 'success');
                 }else {
-                    $message = "Error al modificar el cliente";
+                    $message = array('message' => 'Error al modificar la categoria.', 'icon' => 'error');
                 }
             }            
         }
@@ -88,11 +88,11 @@ class Categories extends Controller{
     
     public function delete(int $id){
 
-        $data = $this->model->actionClient(0, $id);
+        $data = $this->model->actionCategory(0, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Categoria eliminada correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al eliminar el Cliente";
+            $message = array('message' => 'La categoria no se elimino correctamente', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -100,11 +100,11 @@ class Categories extends Controller{
     }   
     public function reenter(int $id){
 
-        $data = $this->model->actionClient(1, $id);
+        $data = $this->model->actionCategory(1, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Categoria reingresada correctamente', 'icon' => 'success');
         } else{
-            $message = "Error al reingresar el Cliente";
+            $message = array('message' => 'Error al reingresar la categoria', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);

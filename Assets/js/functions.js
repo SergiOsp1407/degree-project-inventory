@@ -380,19 +380,8 @@ function registerUser(e) {
     const cashRegister = document.getElementById("cashRegister");
 
     if (user.value == "" || name.value == "" || cashRegister.value == "") {
-
-        /*Function using SweetAlert to show custom positioned dialog
-        Swal.fire({
-
-            position: 'top-end',
-            icon: 'error',
-            title: 'Debes llenar todos los campos!',
-            showConfirmButton: false,
-            timer: 2500
-
-        })*/
-
-        alerting('Todos los campos son obligatorios!' , 'warning');
+        
+        alerts('Debes llenar todos los campos!' , 'warning');
         
     }else{
         // Petiton with Ajax
@@ -407,7 +396,7 @@ function registerUser(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerting(response.message, this.response.icon);
+                alerts(response.message, response.icon);
                 tblUsers.ajax.reload();
                 
             }            
@@ -463,26 +452,10 @@ function btnDeleteUser(id){
             http.onreadystatechange = function() {
 
                 if (this.readyState == 4 && this.status == 200) {
-                    const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblUsers.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    const response = JSON.parse(this.responseText);                    
+                    alerts(response.message, response.icon);
+                    tblUsers.ajax.reload();
+                         
                 }
             }            
         }
@@ -509,26 +482,9 @@ function btnReenterUser(id) {
             http.onreadystatechange = function() {
 
                 if (this.readyState == 4 && this.status == 200) {
-                    const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblUsers.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    const response = JSON.parse(this.responseText);                    
+                    alerts(response.message, response.icon);
+                    tblUsers.ajax.reload();
                 }
             }            
         }
@@ -559,16 +515,6 @@ function registerClient(e) {
 
     if (dni_client.value == "" || name.value == "" || phone.value == "" || address.value == "") {
 
-        // Swal.fire({
-
-        //     position: 'top-end',
-        //     icon: 'error',
-        //     title: 'Debes llenar todos los campos!',
-        //     showConfirmButton: false,
-        //     timer: 2500
-
-        // })
-
         alerting('Todos los campos son obligatorios!' , 'warning');
         
     }else{
@@ -585,7 +531,7 @@ function registerClient(e) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
                 alerting(response.message, this.response.icon);
-                //tblUsers.ajax.reload();
+                //tblClients.ajax.reload();
                 
             }            
         }
@@ -641,25 +587,8 @@ function btnDeleteClient(id){
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Cliente eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblClients.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, this.response.icon);
+                    tblClients.ajax.reload();    
                 }
             }            
         }
@@ -687,25 +616,8 @@ function btnReenterClient(id) {
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Cliente reingresado con exito',
-                            'success'
-                        )
-                        
-                        tblClients.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, this.response.icon);
+                    tblClients.ajax.reload();                    
                 }
             }            
         }
@@ -741,17 +653,6 @@ function registerCategory(e) {
 
     if (user.value == "" || name.value == "" || cashRegister.value == "") {
 
-        /*Function using SweetAlert to show custom positioned dialog
-        Swal.fire({
-
-            position: 'top-end',
-            icon: 'error',
-            title: 'Debes llenar todos los campos!',
-            showConfirmButton: false,
-            timer: 2500
-
-        })*/
-
         alerting('Todos los campos son obligatorios!' , 'warning');
         
     }else{
@@ -768,7 +669,7 @@ function registerCategory(e) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
                 alerting(response.message, this.response.icon);
-                tblUsers.ajax.reload();
+                tblCategories.ajax.reload();
                 
             }            
         }
@@ -824,25 +725,7 @@ function btnDeleteCategory(id){
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblUsers.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, response.icon);                    
                 }
             }            
         }
@@ -862,7 +745,7 @@ function btnReenterCategory(id) {
       }).then((result) => {
         if (result.isConfirmed) {
 
-            const url = base_url + "Users/reenter/" + id;
+            const url = base_url + "Categories/reenter/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
@@ -870,25 +753,7 @@ function btnReenterCategory(id) {
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblUsers.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, response.icon);                   
                 }
             }            
         }
@@ -926,18 +791,8 @@ function registerCashRegister(e) {
 
     if (user.value == "" || name.value == "" || cashRegister.value == "") {
 
-        /*Function using SweetAlert to show custom positioned dialog
-        Swal.fire({
-
-            position: 'top-end',
-            icon: 'error',
-            title: 'Debes llenar todos los campos!',
-            showConfirmButton: false,
-            timer: 2500
-
-        })*//*
-
-        alerting('Todos los campos son obligatorios!' , 'warning');
+        
+        alerts('Todos los campos son obligatorios!' , 'warning');
         
     }else{
         // Petiton with Ajax
@@ -952,7 +807,7 @@ function registerCashRegister(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerting(response.message, this.response.icon);
+                alerts(response.message, this.response.icon);
                 tblUsers.ajax.reload();
                 
             }            
@@ -1190,25 +1045,8 @@ function btnDeleteProduct(id){
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblProducts.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, response.icon);
+                    tblProducts.ajax.reload();              
                 }
             }            
         }
@@ -1236,25 +1074,8 @@ function btnReenterProduct(id) {
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Producto eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblProducts.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, response.icon);
+                    tblProducts.ajax.reload();                    
                 }
             }            
         }
@@ -1276,63 +1097,55 @@ function preview(e) {
 }
 
 function deleteImage() {
-
     document.getElementById("icon-close").innerHTML = '';
     document.getElementById("icon-image").classList.remove("d-none");
     document.getElementById("img-preview").src = '';
     document.getElementById("image").value = '';
     document.getElementById("actual_image").value = '';
-
-    
 }
 
 
 function searchCode(e){
-
     e.preventDefault();
+    const code = document.getElementById("code").value;
+    if (code != '') {
 
-    if (e.which == 13) {
-
-        const code = document.getElementById("code").value;
-        const url = base_url + "Purchases/searchCode/" + code;
-        const http = new XMLHttpRequest();
-        http.open("GET", url, true);
-        http.send();
-        http.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-                
-                const response = JSON.parse(this.responseText);
-                
-                if (response) {
-
-                    document.getElementById("description").value = response.description;
-                    document.getElementById("purchase_price").value = response.purchase_price;
-                    document.getElementById("id").value = response.id;
-                    document.getElementById("ammount").focus();
+        if (e.which == 13) {            
+            const url = base_url + "Purchases/searchCode/" + code;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+    
+                if (this.readyState == 4 && this.status == 200) {
                     
-                }else{
-
-                    Swal.fire({
-
-                        position: 'top-end',
-                        icon: 'error',
-                        titleL: 'El producto no existe',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    document.getElementById("code").value = '';
-                    document.getElementById("code").focus();
-
+                    const response = JSON.parse(this.responseText);
                     
+                    if (response) {
+    
+                        document.getElementById("description").value = response.description;
+                        document.getElementById("purchase_price").value = response.purchase_price;
+                        document.getElementById("id").value = response.id;
+                        document.getElementById("ammount").removeAttribute('disabled');
+                        document.getElementById("ammount").focus();
+                        
+                    }else{
+    
+                        alerts('El producto no existe', 'warning');
+                        document.getElementById("code").value = '';
+                        document.getElementById("code").focus();
+    
+                        
+                    }
                 }
-            }
-        }            
-    }    
+            }            
+        }       
+    }else{
+        alerts('Ingrese el código', 'warning');
+    }
 }
 
 function calculatePrice(e) {
-
     e.preventDefault();
     const amount = document.getElementById("amount").value;
     const purchase_price = document.getElementById("purchase_price").value;
@@ -1348,33 +1161,14 @@ function calculatePrice(e) {
             http.onreadystatechange = function() {
 
                 if (this.readyState == 4 && this.status == 200) {
-                    const response = JSON.parse(this.responseText);
-                    if (response == 'ok') {
 
-                        Swal.fire({
+                    const response = JSON.parse(this.responseText);                    
+                    alerts(this.response.message, this.response.icon);
+                    frm.reset;
+                    loadDetail();
 
-                            position: 'top-end',
-                            icon: 'success',
-                            titleL: 'Producto Ingresado',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-
-                        frm.reset();
-                        loadDetail();
-                    }else if (response == 'modificado') {
-                        Swal.fire({
-
-                            position: 'top-end',
-                            icon: 'success',
-                            titleL: 'Producto actualizado',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-                        frm.reset();
-                        loadDetail();
-                        
-                    }
+                    document.getElementById('amount').setAttribute('disabled','disabled');
+                    document.getElementById('code').focus();
                 }
             }                        
         }
@@ -1530,4 +1324,18 @@ function modifyCompany() {
         }
     }
 
+}
+
+function alerts(alert_message, alert_icon) {
+
+    Swal.fire({
+        position: 'top-end',
+        icon: alert_icon,
+        titleL: alert_message,
+        showConfirmButton: false,
+        timer: 3000
+    })
+
+
+    
 }
