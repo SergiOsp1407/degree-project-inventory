@@ -10,6 +10,16 @@ class PurchasesModel extends Query{
         
     }
 
+    public function getClients(){
+
+        $sql = "SELECT * FROM clients WHERE status = 1";
+        $data = $this->selectAll($sql);
+        return $data;
+
+
+    }
+
+
     public function getProductCode(string $code){
 
         $sql = "SELECT * FROM products WHERE code='$code' ";
@@ -52,6 +62,7 @@ class PurchasesModel extends Query{
         $sql = "SELECT  sub_total, SUM(sub_total) AS total FROM $table WHERE id_user = $id_user";
         $data = $this->select($sql);
         return $data;
+
     }
 
     public function deleteDetail(string $table, int $id){
@@ -110,10 +121,11 @@ class PurchasesModel extends Query{
         return $response;        
 
     }
+    
 
-    public function id_purchase(){
+    public function getId(string $table){
 
-        $sql = "SELECT MAX(id) AS id FROM purchases";
+        $sql = "SELECT MAX(id) AS id FROM $table";
         $data = $this->select($sql);
         return $data;
 
@@ -137,6 +149,23 @@ class PurchasesModel extends Query{
 
     }
 
+    public function registerSaleDetail(int $id_sale, int $id_product,int  $amount,string $price,string $sub_total){
+
+        $sql = "INSERT INTO sales_details (id_sale, id_product, amount, price, sub_total) VALUES (?,?,?,?,?)";
+        $data = array($id_sale, $id_product, $amount, $price, $sub_total );
+        // $this->save($sql, $data);
+        $allData = $this->save($sql, $data);
+
+        if ($allData == 1) {
+            $response = "ok";
+        } else {
+            $response = "error";
+        }
+
+        return $response;
+
+    }
+
     public function getCompany(){
 
         $sql = "SELECT * FROM configuration";
@@ -144,9 +173,9 @@ class PurchasesModel extends Query{
         return $data;
     }
 
-    public function cleanDetails(int $id_user){
+    public function cleanDetails(string $table, int $id_user){
 
-        $sql = "DELETE FROM tmp_details WHERE id_user = ?";
+        $sql = "DELETE FROM $table WHERE id_user = ?";
         $data = array($id_user);
         $allData = $this->save($sql, $data);
 
@@ -168,9 +197,26 @@ class PurchasesModel extends Query{
 
     }
 
+    public function getProductSale(int $id_sale){
+
+        $sql = "SELECT s.*, d.*, p.id, p.description FROM sales s INNER JOIN sales_details d ON  s.id = d.id_sale INNER JOIN products p ON p.id = d.id_product WHERE s.id = $id_sale";
+        $data = $this->selectAll($sql);
+        return $data;
+
+    }
+
     public function getPurchaseHistory(){
 
         $sql = "SELECT * FROM purchases";
+        $data = $this->selectAll($sql);
+        return $data;
+
+    }
+
+
+    public function getSalesHistory(){
+
+        $sql = "SELECT c.id, c.name, s.* FROM clients c INNER JOIN sales s ON s.id_client = c.id";
         $data = $this->selectAll($sql);
         return $data;
 
@@ -185,6 +231,31 @@ class PurchasesModel extends Query{
         $allData = $this->save($sql, $data);
 
         return $allData;
+
+    }
+
+    public function registerSale (int $id_client, string $total){
+
+        $sql = "INSERT INTO sales (id_client, total_sale) VALUES (?,?)";
+        $data = array($id_client, $total);
+        // $this->save($sql, $data);
+        $allData = $this->save($sql, $data);
+
+        if ($allData == 1) {
+            $response = "ok";
+        } else {
+            $response = "error";
+        }
+
+        return $response;        
+
+    }
+
+    public function clientsSale(int $id){
+
+        $sql = "SELECT s.id, s.id_client, c.* FROM sales s INNER JOIN clients c ON c.id = s.id_client WHERE s.id = $id";
+        $data = $this->select($sql);
+        return $data;
 
     }
 

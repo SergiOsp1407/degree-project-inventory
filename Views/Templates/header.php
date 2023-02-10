@@ -10,6 +10,7 @@
         <!--<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />-->
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>Assets/DataTables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>Assets/css/select2.min.css"/>
         <script src="<?php echo base_url; ?>Assets/js/all.js"></script>
     </head>
     <body class="sb-nav-fixed">

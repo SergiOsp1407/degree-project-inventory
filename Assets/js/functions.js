@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     myModal = new bootstrap.Modal(document.getElementById('my_modal'));
 
-    $('#client')/select2();
+    $('#client').select2();
     const buttons = [{
         extend: 'excelHtml5',
         footer: true,
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     //End table Products
 
-   $('#t_history_purchase').DataTable({
+    $('#t_history_purchase').DataTable({
 
         ajax: {
 
@@ -345,7 +345,37 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         ]
     });
-    //End table Medidas
+
+
+    $('#t_history_sale').DataTable({
+
+        ajax: {
+
+            url: base_url + "Purchases/list_sales_history",
+            dataSrc: ''
+        },
+        columns: [
+
+            {
+                'data' : 'id'
+            },
+            {
+                'data' : 'name'
+            },
+            {
+                'data' : 'total'
+            },
+            {
+                'data' : 'sale_date'
+            },
+            {
+                'data' : 'actions'
+            }
+        ]
+    });
+
+
+    
 
 })
 
@@ -1352,7 +1382,9 @@ function deleteDetail(id, action) {
 }
 
 
-function triggerPurchase() {
+function triggerTransaction(action) {
+
+    
 
     Swal.fire({
         title: '¿Estas seguro de realizar la compra?',
@@ -1364,32 +1396,38 @@ function triggerPurchase() {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-            const url = base_url + "Purchases/registerPurchase/";
+
+            let url;
+            if (action == 1) {
+                url = base_url + "Purchases/registerPurchase/";        
+            }else{
+                const id_client = document.getElementById('id_client').value;
+                url = base_url + "Purchases/registerSale/" + id_client; 
+            }
+            
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response.message == "ok") {
+                    if (response.message == "ok") {    
+                                            
                         alerts(response.message, response.icon);
-
-                        /*Direccionamiento a traves del boton 'Generar compra'
-                         para el pdf con la factura*/
-                        const route = base_url + 'Purchases/triggerPDF/' + response.id_purchase;
+                        let route;
+                        if (action == 1) {
+                            /*Direccionamiento a traves del boton 'Generar compra'
+                            para el pdf con la factura*/
+                            route = base_url + 'Purchases/triggerPDF/' + response.id_purchase;                            
+                        }else{
+                            route = base_url + 'Purchases/triggerPDFSale/' + response.id_sale;
+                        }
                         window.open(route);
                         setTimeout(() => {
                             window.location.reload();                            
-                        }, 300);
-                        
+                        }, 300);                        
                     }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
+                        alerts(response.message, response.icon);
                     }                    
                 }
             }            

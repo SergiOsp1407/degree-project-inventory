@@ -64,19 +64,18 @@
         <div class="from-group">
             <label for="client">Seleccionar cliente</label>
             <select name="client" id="client" class="form-control">
-                <option value=""></option>
+                <?php foreach ($data as $row) { ?>
+                <option value="<?php echo $row['id']?>"><?php echo $row['name']?></option>
+                <?php } ?>
             </select>
         </div>
+    </div>    
 
-
-    </div>
-    
-
-    <div class="col-md-3">
+    <div class="col-md-3 ml-auto">
         <div class="form-group">
             <label for="total" class="font-weight-bold">Total</label>
             <input id="total" type="text" class="form-control" name="total" placeholder="Total" disabled>
-            <button class="btn btn-primary mt-2 btn-block" type="button" onclick="triggerSale()">Generar venta</button>
+            <button class="btn btn-primary mt-2 btn-block" type="button" onclick="triggerTransaction(0)">Generar venta</button>
         </div>        
     </div>
 </div>
