@@ -149,10 +149,10 @@ class PurchasesModel extends Query{
 
     }
 
-    public function registerSaleDetail(int $id_sale, int $id_product,int  $amount,string $price,string $sub_total){
+    public function registerSaleDetail(int $id_sale, int $id_product,int  $amount,string $discount,string $price,string $sub_total){
 
-        $sql = "INSERT INTO sales_details (id_sale, id_product, amount, price, sub_total) VALUES (?,?,?,?,?)";
-        $data = array($id_sale, $id_product, $amount, $price, $sub_total );
+        $sql = "INSERT INTO sales_details (id_sale, id_product, amount, discount, price, sub_total) VALUES (?,?,?,?,?,?)";
+        $data = array($id_sale, $id_product, $amount, $discount, $price, $sub_total );
         // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
@@ -258,6 +258,40 @@ class PurchasesModel extends Query{
         return $data;
 
     }
+
+    public function checkDiscount(int $id)
+    {
+        $sql = "SELECT * FROM tmp_details WHERE id = $id";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+    public function updateDiscount (string $discount, string $sub_total, int $id){
+
+        $sql = "UPDATE tmp_details SET discount = ?, sub_total = ? WHERE id = ?";
+        $data = array($discount, $sub_total, $id);
+        $allData = $this->save($sql, $data);
+
+        if ($allData == 1) {
+            $response = "ok";
+        } else {
+            $response = "error";
+        }
+
+        return $response;        
+
+    }
+
+    public function getDiscount(int $id_sale){
+
+        $sql = "SELECT  discount, SUM(discount) AS total FROM sales_details WHERE id_sale = $id_sale";
+        $data = $this->select($sql);
+        return $data;
+
+    }
+
+    
+    
 
     
 }

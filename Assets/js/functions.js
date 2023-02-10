@@ -1367,11 +1367,12 @@ function loadDetailSale() {
             const response = JSON.parse(this.responseText);
             let html = '';
             response.detail.forEach(row => {
-
                 html += `<tr>
                 <td>${row['id']}</td>
                 <td>${row['description']}</td>
                 <td>${row['amount']}</td>
+                <td><input class="form-control" placeholder="Descuento" typ="text" onkeyup="calculateDiscount(event, ${row['id']} )">></td>
+                <td>${row['discount']}</td>
                 <td>${row['price']}</td>
                 <td>${row['sub_total']}</td>
                 <td>
@@ -1387,6 +1388,33 @@ function loadDetailSale() {
     }
     
 }
+
+function calculateDiscount(e, id) {
+    e.preventDefault();
+
+    if (e.target.value == '') {
+        alerts('Ingrese el descuento', 'warning');        
+    }else{
+        if (e.which == 13) {
+
+            const url = base_url + "Purchases/calculateDiscount/" + id + "/" + e.target.value;  
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    alerts(response.message, response.icon);
+                    loadDetailSale();
+                    
+                }
+            }            
+        }
+    }    
+}
+
+
+
 
 function deleteDetail(id, action) {
 
@@ -1508,25 +1536,25 @@ function alerts(alert_message, alert_icon) {
 }
 
 
-reportStock();
-soldProducts();
+if (document.getElementById('minimumStock')) {
+    reportStock();
+    soldProducts();    
+}
+
 
 function reportStock() {
     const url = base_url + "Administration/reportStock";
     const http = new XMLHttpRequest();
-    http.open("POST", url, true);
+    http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);  
             let name = [];
             let amount = [];
             for (let i = 0; i < response.length; i++) {
-
                 name.push(response[i]['description']);
-                amount.push(response[i]['amount']);
-                
+                amount.push(response[i]['amount']);                
             }
             //Pie Chart for stock
             var ctx = document.getElementById("minimumStock");
@@ -1541,15 +1569,14 @@ function reportStock() {
                 },
             });
         }
-    }
-    
+    }    
 }
 
 function soldProducts() {
 
     const url = base_url + "Administration/soldProducts";
     const http = new XMLHttpRequest();
-    http.open("POST", url, true);
+    http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
 

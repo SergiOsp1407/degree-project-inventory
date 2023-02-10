@@ -19,6 +19,12 @@ class AdministrationModel extends Query
         return $data;
     }
 
+    public function getSales(){
+        $sql = "SELECT COUNT(*) AS total FROM sales WHERE sale_date > CURDATE()";
+        $data = $this->select($sql);
+        return $data;
+    }
+
     public function modify(string $name, string $phone, string $address, string $message, int $id){       
 
         $sql = "UPDATE configuration SET name = ?, phone = ?, address = ?, message = ? WHERE id=?)";

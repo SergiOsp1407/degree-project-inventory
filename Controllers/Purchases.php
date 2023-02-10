@@ -189,9 +189,10 @@ class Purchases extends Controller {
             foreach ($detail AS $row){
                 $id_product = $row['id_product'];
                 $amount = $row['amount'];
+                $discount = $row['discount'];
                 $price = $row['price'];
-                $sub_total = $amount * $price;
-                $this->model->registerSaleDetail($id_sale['id'], $id_product, $amount, $price, $sub_total);
+                $sub_total = ($amount * $price) - $discount;
+                $this->model->registerSaleDetail($id_sale['id'], $id_product, $amount, $discount,$price, $sub_total);
                 $actual_stock = $this->model->getProducts($id_product);
                 $stock = $actual_stock['amount'] - $amount;
                 $this->model->updateStock($stock, $id_product);
@@ -325,6 +326,7 @@ class Purchases extends Controller {
     public function triggerPDFSale($id_sale){
 
         $company = $this->model->getCompany(); 
+        $discount = $this->model->getDiscount($id_sale); 
         $products = $this->model->getProductSale($id_sale); 
         
 
@@ -403,6 +405,8 @@ class Purchases extends Controller {
         }
 
         $pdf->Ln();
+        $pdf->Cell(120,10,'Descuento total', 0, 1, 'R');
+        $pdf->Cell(120,10,number_format($descuento['total'], 2, ',' , '.'), 0, 1, 'R');
         $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
         $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
 
@@ -416,5 +420,32 @@ class Purchases extends Controller {
         
 
     }
+
+
+    public function calculateDiscount($data){
+
+        $array = explode(",", $data);
+        $id = $array[0];
+        $discount = $array[1];
+        if (empty($id) || empty($discount)) {
+            $message = array('message' => 'Error', 'icon' => 'error');
+        }else{
+            $actual_discount = $this->model->checkDiscount($id);
+            $total_discount = $actual_discount['discount'] + $discount;
+            $sub_total = ($actual_discount['amount'] * $actual_discount['price']) - $total_discount ;
+            $allData = $this->model->updateDiscount($total_discount, $sub_total,$id);
+
+            if ($alldata == 'ok') {
+                $message = array('message' => 'Descuento aplicado', 'icon' => 'success');
+            }else{
+                $message = array('message' => 'Error al aplicar el descuento', 'icon' => 'error');
+            }
+        }
+
+        echo json_encode($message, JSON_UNESCAPED_UNICODE);
+        die();
+
+    }
+
 
 }

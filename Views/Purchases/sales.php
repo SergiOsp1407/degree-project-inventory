@@ -49,9 +49,11 @@
             <th>Id</th>
             <th>Descripción</th>
             <th>Cantidad</th>
+            <th>Tipo descuento</th>
+            <th>Descuentos aplicados</th>
             <th>Precio</th>
             <th>Subtotal</th>
-            <th> </th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="tblSales">
