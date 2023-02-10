@@ -7,9 +7,14 @@ class AdministrationModel extends Query
         parent::__construct();
     }
 
-    public function getCompany()
-    {
+    public function getCompany(){
         $sql = "SELECT * FROM configuration";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+    public function getData(string $table){
+        $sql = "SELECT COUNT(*) AS total FROM $table";
         $data = $this->select($sql);
         return $data;
     }
@@ -27,9 +32,20 @@ class AdministrationModel extends Query
         }
         
         return $response;
+    }
 
+    public function getMinimumStock(){
 
+        $sql = "SELECT * FROM products WHERE amount < 15 ORDER BY amount DESC LIMIT 10";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
 
+    public function getSoldProducts(){
+
+        $sql = "SELECT d.id_product, d.amount, p.id, p_description SUM(d.amount) AS total FROM sales_details d INNER JOIN products p ON p.id = d.id_product GROUP BY d.id_product ORDER BY d.amount DESC LIMIT 10";
+        $data = $this->selectAll($sql);
+        return $data;
     }
 
     

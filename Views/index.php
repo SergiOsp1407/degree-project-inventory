@@ -8,7 +8,7 @@
         <meta name="author" content="" />
         <title>Ingreso - SpeedBikers</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
-        <!-- <script src="<?php echo base_url; ?>Assets/js/all.min.css" crossorigin="anonymous"></script> -->
+        
         
     </head>
     <body class="bg-primary">
@@ -77,7 +77,7 @@
         </div>
         <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>
-        <script src="">
+        <script>
             const base_url = '<?php echo base_url; ?>';
         </script>
         <script src="<?php echo base_url; ?>Assets/js/login.js"></script>

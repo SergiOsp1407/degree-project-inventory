@@ -1,4 +1,4 @@
-<!-- Methods to Consult the Database -->
+
 <?php
 class Query extends Connection{ 
 

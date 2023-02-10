@@ -4,7 +4,7 @@
         public function __construct(){
 
             session_start();
-            if (!empty($_SESSION['activo'])){
+            if (!empty($_SESSION['active'])){
                 header("location: ".base_url. "Users");
             }
 

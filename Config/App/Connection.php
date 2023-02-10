@@ -1,4 +1,3 @@
-<!-- Connection to database -->
 <?php
 class Connection{
     private $connect;

@@ -9,7 +9,7 @@ function frmLogin(e){
     if (user.value == "") {
         password.classList.remove("is-invalid");
         user.classList.add("is-invalid");
-        user.focus();        
+        user.focus();       
     }else if(password.vale == ""){
         user.classList.remove("is-invalid");   
         password.classList.add("is-invalid");
@@ -23,15 +23,12 @@ function frmLogin(e){
         http.send(new FormData(frm));
         http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-
                 const response = JSON.parse(this.responseText);
-                if (res == "ok") {
-
-                    window.location = base_url + "Users";
-                    
+                if ( response == "ok") {
+                    window.location = base_url + "Administration/home";                    
                 }else{
-                    document.getElementById("alert").classList.remove("d-none");
-                    document.getElementById("alert").innerHTML = response;
+                    document.getElementById("alerts").classList.remove("d-none");
+                    document.getElementById("alerts").innerHTML = response;
                 }
                 
             }

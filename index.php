@@ -1,5 +1,3 @@
-
-<!-- Customization of URL's and protection of folders and files   -->
 <?php
 
     require_once 'Config/Config.php';

@@ -1,4 +1,4 @@
-<!-- Users Model for creation and saving o users -->
+
 <?php
 class UsersModel extends Query
 {

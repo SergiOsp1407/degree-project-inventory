@@ -1,4 +1,4 @@
-<!--Connecting Views and the Controller-->
+
 <?php
 
 class Views{
