@@ -381,7 +381,42 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function frmChangePassword(e) {
-    
+
+    e.preventDefault();
+    const actualPassword = document.getElementById('actualPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (actualPassword == '' || newPassword == '' || confirmPassword == '') {
+
+        alerts('Todos los campos son obligatorios', 'warning');
+        
+    }else{
+
+        if (newPassword != confirmPassword) {
+
+            alerts('Las contraseñas no coinciden', 'warning');            
+
+        } else {
+
+            const url = base_url + "Users/changePassword";
+            const frm = document.getElementById("frmChangePassword");
+            const http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.send(new FormData(frm));        
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    myModal.hide();
+                    alerts(response.message, response.icon);                
+                    frm.reset();
+                }            
+        
+            
+            }
+
+        } 
+    }
 }
 
 //This function was updated in video 31 when updating Bootstrap

@@ -96,6 +96,15 @@ class UsersModel extends Query
 
     }
 
+    public function getPassword(string $password, int $id){
+
+        $sql = "SELECT * FROM users WHERE password = $'password' AND id = $id";
+        $data = $this->select($sql);
+
+        return $data;
+
+    }
+
 
     public function actionUser( int $status, int $id){
 
@@ -108,5 +117,17 @@ class UsersModel extends Query
         return $allData;
 
     }
+
+    public function modifyPassword(string $password, int $id){
+
+        $sql = "UPDATE users SET password = ? WHERE id = ?";
+        $data = array($password, $id);
+        $allData = $this->save($sql, $data);
+
+        return $allData;
+
+    }
+
+  
 }
 ?>

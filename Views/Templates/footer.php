@@ -17,6 +17,38 @@
                 -->
             </div>
         </div>
+
+        <div id="changePassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="navbarDropdown">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="my-modal-title">Cambiar contraseña</h5>
+                        <button class="close" data-dismis="model" aria-label="Close" >
+                            <span aria-hidden="true" >&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="frmChangePassword" onsubmit="frmChangePassword(event);">
+                            <div class="form-group">
+                                <label for="actualPassword">Contraseña actual</label>
+                                <input id="actualPassword" class="form-control" type="password" name="actualPassword" placeholder="Contraseña actual">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Contraseña nueva</label>
+                                <input id="newPassword" class="form-control" type="password" name="newPassword" placeholder="Contraseña nueva">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirmar contraseña</label>
+                                <input id="confirmPassword" class="form-control" type="password" name="confirmPassword" placeholder="Confirmar contraseña">
+                            </div>
+                            <button class="btn btn-primary" type="submit" >Cambiar contraseña</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/chart.min.js"></script>

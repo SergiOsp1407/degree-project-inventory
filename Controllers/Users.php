@@ -152,6 +152,48 @@ class Users extends Controller{
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }
+
+    public function changePassword(){
+
+        $actualPassword = $_POST['actualPassword'];
+        $newPassword = $_POST['newPassword'];
+        $confirmPassword = $_POST['confirmPassword'];
+
+        if(empty($actualPassword) || empty($newPassword) || empty($confirmPassword)){
+
+            $message = array('message' => 'Todos los campos son obligatorios.', 'icon' => 'warning');
+
+        }else {
+
+            if ($newPassword != $confirmPassword) {
+                $message = array('message' => 'Las contraseñas no coinciden', 'icon' => 'warning');
+            }else{
+                $id = $_SESSION['id_user'];
+                $hash = hash("SHA256", $actualPassword);
+                $data = $this->model->getPassword($hash,$id);
+
+                if(!empty($data)){
+                    $check = $this->model->modifyPassword(hash("SHA256", $newPassword), $id);
+
+                    if($check == 1){
+                        $message = array('message' => 'Contraseña modificada con éxito', 'icon' => 'success');
+                    }else{
+
+                        $message = array('message' => 'Error al cambiar la contraseña.', 'icon' => 'error');
+                    }
+
+                }else{
+
+                    $message = array('message' => 'Contraseña actual incorrecta.', 'icon' => 'warning');
+
+                }
+            }
+        }
+
+        echo json_encode($message), JSON_UNESCAPED_UNICODE;
+        die();
+
+    }
     
     public function logout(){
         session_destroy();

@@ -8,6 +8,7 @@
         <meta name="author" content="" />
         <title>Ingreso - SpeedBikers</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
+        <!-- <script src="<?php echo base_url; ?>Assets/js/all.min.css" crossorigin="anonymous"></script> -->
         
     </head>
     <body class="bg-primary">
@@ -27,7 +28,7 @@
                                         <form id="frmLogin">
                                             <div class="form-floating mb-3">
                                                 <label for="user"><i class="fas fa-user"></i>Usuario</label>
-                                                <input class="form-control" id="user" type="text" name="user" placeholder="Usuario" />
+                                                <input class="form-control" id="user" type="text" name="user" placeholder="Usuario"/>
                                                 
                                             </div>
                                             <div class="form-floating mb-3">
