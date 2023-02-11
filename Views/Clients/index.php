@@ -59,12 +59,8 @@
                 </form>
 
             </div>
-            <!-- In the video 31 this modal is deleted
-                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
+         
         </div>
     </div>
 </div>
-<?php include "Views/Templates/footer.php" ?>
+<?php include "Views/Templates/footer.php"; ?>

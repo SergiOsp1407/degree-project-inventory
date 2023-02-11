@@ -9,15 +9,14 @@ class CashRegisterModel extends Query
         parent::__construct();
     }
 
-    public function getCashRegister()
+    public function getCashRegister(string $table)
     {
-        $sql = "SELECT * FROM cash_register";
+        $sql = "SELECT * FROM $table";
         $data = $this->selectAll($sql);
         return $data;
     }
 
-    public function registerCashRegister(string $cash_register)
-    {
+    public function registerCashRegister(string $cash_register){
         $this->cash_register = $cash_register;        
         $check = "SELECT * FROM cash_register WHERE cash_register = '$this->cash_register'";
         $exists = $this->select($check);
@@ -77,5 +76,77 @@ class CashRegisterModel extends Query
         return $allData;
 
     }
+
+    public function registerBalance($id_user,string $initial_amount, string $opening_date){    
+
+        $check = "SELECT * FROM cash_balance WHERE id_user = '$id_user' AND status = 1";
+        $exists = $this->select($check);
+
+        if (empty($exists)) {
+
+            $sql = "INSERT INTO cash_balance(id_user, initial_amount, opening_date) VALUES (?,?,?)";
+            $data = array($this->$id_user,$initial_amount, $opening_date);
+            $allData = $this->save($sql, $data);
+
+            if ($allData == 1) {
+                $response = "ok";
+            } else {
+                $response = "error";
+            }
+        }else{
+            $response = "exists";
+        }
+        return $response;
+    }
+
+    public function getSales(int $id_user){
+
+        
+        $sql = "SELECT total_sales, SUM(total_sales) AS total_amount FROM sales WHERE id_user = $id_user AND status = 1";
+        $data = $this->select($sql);
+        return $data;
+
+        
+    }
+
+    public function getTotalSales(int $id_user){
+        $sql = "SELECT COUNT(total_sales) AS total_number_sales FROM sales WHERE id_user = $id_user AND status = 1 AND opening = 1";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+
+    public function getInitialAmount($id_user,string $initial_amount, string $opening_date){
+
+        $sql = "SELECT id, initial_amount FROM cash_balance WHERE id_user = $id_user AND status = 1";
+        $data = $this->select($sql);
+        return $data;
+    }
+
+    public function updateBalance(string $final_amount, string $close, string $sales, string $general, int $id){    
+
+        
+            $sql = "UPDATE cash_balance SET final_amount=?, closing_date=?, total_sales=?, total_amount=?, status=? WHERE id = ?";
+            $data = array($final_amount,$close, $sales, $general, 0,  $id);
+            $allData = $this->save($sql, $data);
+
+            if ($allData == 1) {
+                $response = "ok";
+            } else {
+                $response = "error";
+            }
+
+        return $response;
+    }
+
+    
+
+    public function updateOpening(int $id){    
+
+        
+        $sql = "UPDATE sales SET opening = ? WHERE id_user = ?";
+        $data = array(0,  $id);
+        $this->save($sql, $data);
+
+    }
 }
-?>

@@ -185,7 +185,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'actions'
             }
 
-        ]
+        ],
+        language: {
+            "url" : "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom,
+        buttons
     });
     //End table Medidas
 
@@ -322,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     //End table Products
 
-    $('#t_history_purchase').DataTable({
+    t_h_c = $('#t_history_purchase').DataTable({
 
         ajax: {
 
@@ -341,13 +346,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'purchase_date'
             },
             {
+                'data' : 'status'
+            },
+            {
                 'data' : 'actions'
             }
         ]
     });
 
 
-    $('#t_history_sale').DataTable({
+    t_h_v = $('#t_history_sale').DataTable({
 
         ajax: {
 
@@ -373,6 +381,49 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         ]
     });
+
+    t_balance = $('#t_balance').DataTable({
+
+        ajax: {
+
+            url: base_url + "CashRegister/list_balance",
+            dataSrc: ''
+        },
+        columns: [
+
+            {
+                'data' : 'id'
+            },
+            {
+                'data' : 'initial_amount'
+            },
+            {
+                'data' : 'final_amount'
+            },
+            {
+                'data' : 'opening_date'
+            },
+            {
+                'data' : 'closing_date'
+            },
+            {
+                'data' : 'total_sales'
+            },
+            {
+                'data' : 'total_sales_amount'
+            },
+            {
+                'data' : 'status'
+            }
+
+        ],
+        language: {
+            "url" : "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom,
+        buttons
+    });
+    //End table Balance
 
 
     
@@ -826,7 +877,7 @@ function btnReenterCategory(id) {
     
 }
 //End Categories
-
+// /hello/
 /*
 function frmCashRegister() {
 
@@ -1414,8 +1465,6 @@ function calculateDiscount(e, id) {
 }
 
 
-
-
 function deleteDetail(id, action) {
 
     let url;
@@ -1445,9 +1494,7 @@ function deleteDetail(id, action) {
 }
 
 
-function triggerTransaction(action) {
-
-    
+function triggerTransaction(action) {    
 
     Swal.fire({
         title: '¿Estas seguro de realizar la compra?',
@@ -1608,30 +1655,148 @@ function soldProducts() {
 }
 
 
-// Charts, Metrics and Visual reports
+// // Charts, Metrics and Visual reports
 
-var ctx = document.getElementById("minimumStock");
-var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ["Blue", "Red", "Yellow", "Green"],
-        datasets: [{
-            data: [12.21, 15.58, 11.25, 8.32],
-            backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
-        }],
-    },
-});
+// var ctx = document.getElementById("minimumStock");
+// var myPieChart = new Chart(ctx, {
+//     type: 'pie',
+//     data: {
+//         labels: ["Blue", "Red", "Yellow", "Green"],
+//         datasets: [{
+//             data: [12.21, 15.58, 11.25, 8.32],
+//             backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
+//         }],
+//     },
+// });
 
 
 
-var ctx = document.getElementById("soldProducts");
-var myPieChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ["Blue", "Red", "Yellow", "Green"],
-        datasets: [{
-            data: [12.21, 15.58, 11.25, 8.32],
-            backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
-        }],
-    },
-});
+// var ctx = document.getElementById("soldProducts");
+// var myPieChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data: {
+//         labels: ["Blue", "Red", "Yellow", "Green"],
+//         datasets: [{
+//             data: [12.21, 15.58, 11.25, 8.32],
+//             backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
+//         }],
+//     },
+// });
+
+
+function btnCancelPurchase(id) {    
+
+    Swal.fire({
+        title: '¿Estas seguro de anular la compra?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            const url = base_url + 'Purchases/cancelPurchase/' + id; 
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    alerts(response.message, response.icon);
+                    t_h_c.ajax.reload();                       
+                                    
+                }
+            }            
+        }
+      })    
+}
+
+
+function cashBalance() {
+    
+    document.getElementById('hide_fields').classList.add('d-none');
+    document.getElementById('initial_amount').value = '';
+    document.getElementById('btnAction').textContent = 'Abrir caja';
+    $('#open_cashRegister').modal('show');
+    
+}
+
+function openBalance(e) {
+
+    e.preventDefault();
+
+    const initial_amount = document.getElementById('initial_amount').value;
+    if (initial_amount == '') {
+
+        alerts('Ingrese el monto inicial','warning');
+        
+    }else{
+        const frm = document.getElementById('frmOpenCashRegister');    
+        const url = base_url + 'CashRegister/openBalance';
+        const http = new XMLHttpRequest();
+        http.open("POST", url, true);
+        http.send(new FormData(frm));
+        http.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(this.responseText);
+            alerts(response.message, response.icon);
+            t_balance.ajax.reload();
+            $('#open_cashRegister').modal('hide');
+            
+        }
+    }
+
+        
+    }
+    
+}
+
+function closeCashRegister() {
+    const url = base_url + 'CashRegister/getSales';
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(this.responseText);
+            document.getElementById('final_amount').value = response.total_amount.total;
+            document.getElementById('total_sales').value = response.total_sales.total;
+            document.getElementById('initial_amount').value = response.initial.initial_amount;
+            document.getElementById('general_amount').value = response.initial.id;            
+            document.getElementById('id').value = response.general_amount;            
+            document.getElementById('hide_fields').classList.remove('d-none');
+            document.getElementById('btnAction').textContent = 'Cerrar caja';
+            $('#open_cashRegister').modal('show');
+        }    
+    }
+
+    // Swal.fire({
+    //     title: '¿Estas seguro de cerrar la caja?',
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Si',
+    //     cancelButtonText: 'No'
+    // }).then((result) => {
+    //     if (result.isConfirmed) {
+
+    //         const url = base_url + 'CashRegister/close/'; 
+    //         const http = new XMLHttpRequest();
+    //         http.open("GET", url, true);
+    //         http.send();
+    //         http.onreadystatechange = function() {
+    //             if (this.readyState == 4 && this.status == 200) {
+    //                 const response = JSON.parse(this.responseText);
+    //                 alerts(response.message, response.icon);
+    //                 t_balance.ajax.reload();                       
+                                    
+    //             }
+    //         }            
+    //     }
+    // })
+    
+}

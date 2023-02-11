@@ -181,32 +181,43 @@ class Purchases extends Controller {
     public function registerSale($id_client){
 
         $id_user = $_SESSION['id_user'];
-        $total = $this->model->calculatePurchase('tmp_sales',$id_user);
-        $data = $this->model->registerSale($id_client, $total['total']);
-        if($data == 'ok'){
-            $detail['detail'] = $this->model->getDetail('tmp_sales',$id_user);
-            $id_sale = $this->model->getId('sales');
-            foreach ($detail AS $row){
-                $id_product = $row['id_product'];
-                $amount = $row['amount'];
-                $discount = $row['discount'];
-                $price = $row['price'];
-                $sub_total = ($amount * $price) - $discount;
-                $this->model->registerSaleDetail($id_sale['id'], $id_product, $amount, $discount,$price, $sub_total);
-                $actual_stock = $this->model->getProducts($id_product);
-                $stock = $actual_stock['amount'] - $amount;
-                $this->model->updateStock($stock, $id_product);
-            }
+        $check = $this->model->checkCashRegister($id_user);
 
-            //Clean the Details of the purchase to print new info in the invoice
-            $clean = $this->model->cleanDetails('tmp_sales',$id_user);
-
-            if($clean == 'ok'){
-                $message = array('message' => 'ok', 'id_sale' => $id_sale['id']);
-            }
+        if (empty($check)) {
+            $message = array('message' => 'La caja esta cerrada', 'icon' => 'warning');
         }else{
-            $message = array('message' => 'Error al realizar la venta', 'icon' => 'error');
+            
+            $sale_date = date('Y-m-d');
+            $time_hours = date('H:i:s'); 
+            $total_sales = $this->model->calculatePurchase('tmp_sales',$id_user);
+            $data = $this->model->registerSale($id_user, $id_client, $total_sales['total_sales'], $sale_date, $time_hours);
+            if($data == 'ok'){
+                $detail = $this->model->getDetail('tmp_sales',$id_user);
+                $id_sale = $this->model->getId('sales');
+                foreach ($detail AS $row){
+                    $id_product = $row['id_product'];
+                    $amount = $row['amount'];
+                    $discount = $row['discount'];
+                    $price = $row['price'];
+                    $sub_total = ($amount * $price) - $discount;
+                    $this->model->registerSaleDetail($id_sale['id'], $id_product, $amount, $discount,$price, $sub_total);
+                    $actual_stock = $this->model->getProducts($id_product);
+                    $stock = $actual_stock['amount'] - $amount;
+                    $this->model->updateStock($stock, $id_product);
+                }
+    
+                //Clean the Details of the purchase to print new info in the invoice
+                $clean = $this->model->cleanDetails('tmp_sales',$id_user);
+    
+                if($clean == 'ok'){
+                    $message = array('message' => 'ok', 'id_sale' => $id_sale['id']);
+                }
+            }else{
+                $message = array('message' => 'Error al realizar la venta', 'icon' => 'error');
+            }
+
         }
+
         echo json_encode($message);
         die();
     }
@@ -299,9 +310,19 @@ class Purchases extends Controller {
     public function list_history(){
 
         $data = $this->model->getPurchaseHistory();
-        for ($i=0; $i < count($data); $i++) { 
+        for ($i=0; $i < count($data); $i++) {
 
-            $data[$i]['actions'] = '<div><a class="btn btn-danger" href="'.base_url. "Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
+            
+            if ($data[$i]['status'] == 1) {
+                $data[$i]['status'] = '<span class="badge badge-success">Completado</span>';
+                $data[$i]['actions'] = '<div><button class="btn btn-warning" onclick="btnCancelPurchase(' . $data[$i]['id'] . ')"><i class="fas fa-ban"></i></button><a class="btn btn-danger" href="'.base_url."Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
+            }else {
+
+                $data[$i]['status'] = '<span class="badge badge-danger">Anulado</span>';
+                $data[$i]['actions'] = '<div><a class="btn btn-danger" href="'.base_url. "Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
+            }
+
+            
 
             
         }
@@ -413,14 +434,13 @@ class Purchases extends Controller {
         $pdf->Output();
         
 
-        //Body
+        //Body  
 
         ob_end_flush(); 
 
         
 
     }
-
 
     public function calculateDiscount($data){
 
@@ -445,6 +465,26 @@ class Purchases extends Controller {
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
 
+    }
+
+    public function cancelPurchase($id_purchase){
+        $data = $this->model->getCancelPurchase($id_purchase);
+        $cancel = $this->model->getCancel($id_purchase);
+
+        foreach ($data as $row) {
+            $actual_stock = $this->model->getProducts($row['id_product']);
+            $stock = $actual_stock['amount'] - $row['amount'];
+            $this->model->updateStock($stock, $row['id_product']);
+        }
+
+        if ($cancel == 'ok') {
+            $message = array('message' => 'Compra Anulada', 'icon' => 'success');
+        }else {
+            $message = array('message' => 'Error al anular la compra', 'icon' => 'error');
+        }
+
+        echo json_encode($message, JSON_UNESCAPED_UNICODE);
+        die();
     }
 
 

@@ -234,10 +234,10 @@ class PurchasesModel extends Query{
 
     }
 
-    public function registerSale (int $id_client, string $total){
+    public function registerSale (int $id_user, int $id_client, string $total_sales, string $sale_date, string $time_hours){
 
-        $sql = "INSERT INTO sales (id_client, total_sale) VALUES (?,?)";
-        $data = array($id_client, $total);
+        $sql = "INSERT INTO sales (id_user, id_client, total_sales, sale_date, time_hours) VALUES (?,?,?,?,?)";
+        $data = array($id_user, $id_client, $total_sales, $sale_date, $time_hours);
         // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
@@ -288,6 +288,37 @@ class PurchasesModel extends Query{
         $data = $this->select($sql);
         return $data;
 
+    }
+
+    public function cancelPurchase(int $id_purchase)
+    {
+        $sql = "SELECT c.*, d.* FROM purchases c INNER JOIN purchases_details d ON  c.id = d.id_purchase WHERE c.id = $id_purchase";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
+    public function getCancel(int $id_purchase){
+
+        $sql = "UPDATE purchases SET status = ? WHERE id = ?";
+        $data = array(0,$id_purchase);
+        $allData = $this->save($sql, $data);
+
+        if ($allData == 1) {
+            $response = "ok";
+        } else {
+            $response = "error";
+        }
+
+        return $response;        
+
+    }
+
+    public function checkCashRegister(int $id_user){
+
+        $sql = "SELECT * FROM cash_balance WHERE id_user = $id_user AND status = 1";
+        $data = $this->select($sql);
+        return $data;
+        
     }
 
     

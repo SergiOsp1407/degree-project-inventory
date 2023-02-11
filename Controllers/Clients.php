@@ -38,7 +38,7 @@ class Clients extends Controller{
     }
 
     public function register(){
-        $dni = $_POST['dni'];
+        $dni = $_POST['dni_client'];
         $name = $_POST['name'];
         $phone = $_POST['phone'];
         $address = $_POST['address'];    
