@@ -4,7 +4,9 @@ let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProduc
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    myModal = new bootstrap.Modal(document.getElementById('my_modal'));
+    if (document.getElementById('my_modal')) {
+        myModal = new bootstrap.Modal(document.getElementById('my_modal'));        
+    }
 
     $('#client').select2();
     const buttons = [{
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         footer: true,
         title: 'Archivo',
         filename: 'Export_File',
-        text: '<span class="badge <!--Este bg se cambio en el video 31-->bg-success"><i class="fas fa-file-exce '
+        text: '<span class="badge bg-success"><i class="fas fa-file-excel-o"></i></span>'
     },
     {
 
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
         footer: true,
         title: 'Reporte de usuarios',
         filename: 'Reporte de usuarios',
-        text: '<span class="badge bg-danger"><i class="fas fa-file-p"',
+        text: '<span class="badge bg-danger"><i class="fas fa-file-pdf-o"></i></span>"',
         exportOptions: {
             columns: [0, ':visible']
         }
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
         footer: true,
         title: 'Reporte de usuarios',
         filename: 'Reporte de usuarios',
-        text: '<span class="badge bg-primary"><i class="fas fa-copy"',
+        text: '<span class="badge bg-primary"><i class="fas fa-copy"></i></span>',
         exportOptions: {
             columns: [0, ':visible']
         }
@@ -42,19 +44,19 @@ document.addEventListener("DOMContentLoaded", function() {
         extend: 'print',
         footer: true,
         filename: 'Export_File_print',
-        text: '<span class="badge bg-dark"><i class="fas fa-print'
+        text: '<span class="badge bg-dark"><i class="fas fa-print"</i></span>'
 
     },
     {
         extend: 'csvHtml5',
         footer: true,
         filename: 'Export_File_csv',
-        text: '<span class="badge bg-success"><i class="fas fa-file-csv '
+        text: '<span class="badge bg-success"><i class="fas fa-file-csv"</i></span>'
 
     },
     {
         extend: 'colvis',
-        text: '<span class="badge bg-info"><i class="fas fa-columns ',
+        text: '<span class="badge bg-info"><i class="fas fa-columns"</i></span>',
         postfixButtons: ['colvisRestore']
 
     }
@@ -470,7 +472,7 @@ function frmChangePassword(e) {
     }
 }
 
-//This function was updated in video 31 when updating Bootstrap
+
 //Function used in User module to create new users
 function frmUser() {
 
@@ -478,10 +480,7 @@ function frmUser() {
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("passwords").classList.remove("d-none");
     document.getElementById("frmUser").reset();
-    /*This Ajax function was used to show new users
-    $("#new_user").modal("show");*/
     myModal.show();
-
     //Pending verify if this document.getElement have to be erase
     document.getElementById("id").value = "";
     
@@ -631,7 +630,7 @@ function registerClient(e) {
 
     if (dni_client.value == "" || name.value == "" || phone.value == "" || address.value == "") {
 
-        alerting('Todos los campos son obligatorios!' , 'warning');
+        alerts('Todos los campos son obligatorios!' , 'warning');
         
     }else{
         // Petiton with Ajax
@@ -646,7 +645,7 @@ function registerClient(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerting(response.message, this.response.icon);
+                alerts(response.message, this.response.icon);
                 //tblClients.ajax.reload();
                 
             }            
@@ -769,7 +768,7 @@ function registerCategory(e) {
 
     if (user.value == "" || name.value == "" || cashRegister.value == "") {
 
-        alerting('Todos los campos son obligatorios!' , 'warning');
+        alerts('Todos los campos son obligatorios!' , 'warning');
         
     }else{
         // Petiton with Ajax
@@ -784,7 +783,7 @@ function registerCategory(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerting(response.message, this.response.icon);
+                alerts(response.message, this.response.icon);
                 tblCategories.ajax.reload();
                 
             }            
@@ -1056,17 +1055,144 @@ function btnReenterCashRegister(id) {
 //End CashRegister
 
 
+function frmMeasures() {
+
+    document.getElementById("title").textContent = "Nueva Medida";
+    document.getElementById("btnAction").textContent = "Registrar";
+    document.getElementById("frmMeasures").reset();
+    document.getElementById("id").value = "";
+    myModal.show();
+    
+}
+
+
+function registerMeasures(e) {
+
+    e.preventDefault();
+    const name = document.getElementById("name");
+    const short_name = document.getElementById("short_name");
+    if (name.value == "" || short_name.value == "") {
+        alerts('Todos los campos son obligatorios', 'warning');        
+    }else{
+
+        const url = base_url + "Measures/register";
+        const frm = document.getElementById("frmMeasures");
+        const http = new XMLHttpRequest();
+        http.open("POST", url, true);
+        http.send(new FormData(frm));        
+        http.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                const response = JSON.parse(this.responseText);
+                myModal.hide();
+                alerts(response.message, this.response.icon);
+                tblMeasures.ajax.reload();
+                
+            }            
+        }
+
+    }
+    
+}
+
+
+function btnEditMeasure(id) {
+
+    document.getElementById("title").textContent = "Actualizar medida";
+    document.getElementById("btnAction").textContent = "Modificar";
+    const url = base_url + "Measures/edit/" + id;
+    const http = new XMLHttpRequest();
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function () {
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(this.responseText);
+            document.getElementById("id").value = response.id;
+            document.getElementById("name").value = response.name;
+            document.getElementById("short_name").value = response.short_name;
+            myModal.show();            
+        }        
+    }    
+}
+
+
+function btnDeleteMeasure(id){
+
+    Swal.fire({
+        title: '¿Estas seguro de eliminar la metrica?',
+        text: "Esta metrica no eliminará de manera permanente, cambiará el estado a Inactivo",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminalo!',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            const url = base_url + "Measures/delete/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    alerts(response.message, response.icon);
+                    tblMeasures.ajax.reload();              
+                }
+            }            
+        }
+    })
+}
+
+
+function btnReenterMeasure(id) {
+
+    Swal.fire({
+        title: '¿Estas seguro de reingresar esta metrica?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            const url = base_url + "Measure/reenter/" + id;
+            const http = new XMLHttpRequest();
+            http.open("GET", url, true);
+            http.send();
+            http.onreadystatechange = function() {
+
+                if (this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    alerts(response.message, response.icon);
+                    tblMeasures.ajax.reload();                    
+                }
+            }            
+        }
+      })
+    
+}
+
+
+//End Measures Functions
+
+
 function frmProduct() {
 
     document.getElementById("title").textContent = "Nuevo Producto";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmProduct").reset();
-    myModal.show();
-    //Pending verify if this document.getElement have to be erase
     document.getElementById("id").value = "";
+    myModal.show();
     deleteImage();
     
 }
+
+
 
 
 //Function used in Product module to register new products
@@ -1081,7 +1207,7 @@ function registerProduct(e) {
 
     if (code.value == "" || description.value == "" || purchase_price.value == "" || selling_price.value ) {
 
-        alerting('Todos los campos son obligatorios!' , 'warning');
+        alerts('Todos los campos son obligatorios!' , 'warning');
         
     }else{
         // Petiton with Ajax
@@ -1095,8 +1221,9 @@ function registerProduct(e) {
 
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
+                alerts(response.message, this.response.icon);
+                frm.reset();
                 myModal.hide();
-                alerting(response.message, this.response.icon);
                 tblProducts.ajax.reload();
                 
             }            
@@ -1130,8 +1257,6 @@ function btnEditProduct(id) {
             document.getElementById("icon-close").innerHTML = `<button class="btn btn-danger" onclick="deleteImage()"><i class="fas fa-times"></i></button>`;
             document.getElementById("icon-image").classList.add("d-none");
             document.getElementById("actual_image").value = response.image;
-        
-            
             myModal.show();
             
         }

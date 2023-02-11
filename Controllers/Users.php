@@ -10,11 +10,12 @@ class Users extends Controller{
 
     public function index()
     {
+        //This encrypt the url
+        // if (empty($_SESSION['active'])){
+        //     header("location: ".base_url);
+        // }
 
-        if (empty($_SESSION['activo'])){
-            header("location: ".base_url);
-        }
-
+        
         $data['cashRegister'] = $this->model->getCashRegister();
         $this->views->getView($this, "index" , $data);
     }
@@ -23,21 +24,18 @@ class Users extends Controller{
         $data = $this->model->getUsers();
 
         for ($i=0; $i < count($data); $i++) { 
-
             if ($data[$i]['status'] == 1) {
-                $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
                 </div>'; 
             }else {
-                $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>            
                 <button class="btn btn-success" type="button" onclick="btnReenterUser('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
                 </div>'; 
             }
-
-            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();

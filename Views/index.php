@@ -8,9 +8,8 @@
         <meta name="author" content="" />
         <title>Ingreso - SpeedBikers</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
-        
-        
     </head>
+
     <body class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -27,33 +26,30 @@
                                         <!-- The frmLogin id is used to work with Ajax and the requests to Database -->
                                         <form id="frmLogin">
                                             <div class="form-floating mb-3">
-                                                <label for="user"><i class="fas fa-user"></i>Usuario</label>
                                                 <input class="form-control" id="user" type="text" name="user" placeholder="Usuario"/>
-                                                
+                                                <label for="user"><i class="fas fa-user"></i>Usuario</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <label for="password"><i class="fas fa-key">Contraseña</label>
                                                 <input class="form-control" id="password" type="password" name="password" placeholder="Contraseña" />
-                                                
+                                                <label for="password"><i class="fas fa-key">Contraseña</label>
                                             </div>
                                             <!-- This line was added in video 5 not sure if works -->
-                                            <div class="alert alert-danger text-cente d-none" id="alert" role="alert"></div>
+                                            <!-- <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div> -->
 
-
-                                            <div class="form-check mb-3">
+                                            <!-- <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Recordar contraseña</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.html">¿Olvidaste tu contraseña?</a>
-                                                <!--<a class="btn btn-primary" href="index.html">Ingresar</a>-->
-                                            </div>
+                                                <a class="btn btn-primary" href="index.html">Ingresar</a>
+                                            </div> -->
                                             <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesión</button>
                                         </form>
                                     </div>
-                                    <div class="card-footer text-center py-3">
+                                    <!-- <div class="card-footer text-center py-3">
                                         <div class="small"><a href="register.html">¿No tienes usuario? Registrate!</a></div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

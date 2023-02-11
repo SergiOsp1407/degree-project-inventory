@@ -1,7 +1,5 @@
 function frmLogin(e){
-
     e.preventDefault();
-
     const user = document.getElementById("user");
     const password = document.getElementById("password");
 
@@ -10,7 +8,7 @@ function frmLogin(e){
         password.classList.remove("is-invalid");
         user.classList.add("is-invalid");
         user.focus();       
-    }else if(password.vale == ""){
+    }else if(password.value == ""){
         user.classList.remove("is-invalid");   
         password.classList.add("is-invalid");
         password.focus();
@@ -27,9 +25,11 @@ function frmLogin(e){
                 if ( response == "ok") {
                     window.location = base_url + "Administration/home";                    
                 }else{
+
                     document.getElementById("alerts").classList.remove("d-none");
                     document.getElementById("alerts").innerHTML = response;
                 }
+
                 
             }
         }

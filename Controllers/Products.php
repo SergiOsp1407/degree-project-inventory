@@ -11,9 +11,9 @@ class Products extends Controller{
     public function index()
     {
 
-        if (empty($_SESSION['activo'])){
-            header("location: ".base_url);
-        }
+        // if (empty($_SESSION['activo'])){
+        //     header("location: ".base_url);
+        // }
 
         $data['measures'] = $this->model->getMeasures();
         $data['categories'] = $this->model->getCategories();
@@ -28,13 +28,13 @@ class Products extends Controller{
             $data[$i]['image'] = '<img class="img-thumbnail" src="'. base_url. "Assets/img/". $data[$i]['image'].'" width="100">';
 
             if ($data[$i]['status'] == 1) {
-                $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditProduct('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteProduct('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
                 </div>'; 
             }else {
-                $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>            
                 <button class="btn btn-success" type="button" onclick="btnReenterProduct('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
                 </div>'; 

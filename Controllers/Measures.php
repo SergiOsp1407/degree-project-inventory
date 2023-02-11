@@ -3,9 +3,9 @@ class Measures extends Controller{
 
     public function __construct() {
         session_start();
-        if (empty($_SESSION['activo'])){
-            header("location: ".base_url);
-        }
+        // if (empty($_SESSION['activo'])){
+        //     header("location: ".base_url);
+        // }
         parent::__construct();
     }
 
@@ -20,13 +20,13 @@ class Measures extends Controller{
         for ($i=0; $i < count($data); $i++) { 
 
             if ($data[$i]['status'] == 1) {
-                $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditClient(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteClient(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
                 </div>';
             }else {
-                $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
                 </div>'; 

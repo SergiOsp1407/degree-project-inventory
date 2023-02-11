@@ -1,4 +1,4 @@
-<!--Modified in video 31 for Bootstrap Upgrade-->
+<!--Modified for Bootstrap Upgrade-->
 <?php include "Views/Templates/header.php"; ?>
 <div class="row">
     <div class="col-xl-3 col-md-6">
@@ -41,10 +41,10 @@
         <div class="card bg-danger text-white mb-4">
             <div class="card-body">
                 <i class="fas fa-cash-register fa-2x"></i>
-                Compras
+                Ventas por dia
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/purchases_history">View Details</a>
+                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/sales_history">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
