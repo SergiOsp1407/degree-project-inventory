@@ -11,7 +11,7 @@ class Products extends Controller{
     public function index()
     {
 
-        // if (empty($_SESSION['activo'])){
+        // if (empty($_SESSION['active'])){
         //     header("location: ".base_url);
         // }
 

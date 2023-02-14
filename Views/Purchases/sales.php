@@ -61,8 +61,7 @@
     </tbody>
 </table>
 <div class="row">
-
-    <div class="cl-md-4">
+    <div class="col-md-4">
         <div class="from-group mb-3">
             <label for="client">Seleccionar cliente</label>
             <select name="client" id="client" class="form-control">
@@ -74,9 +73,9 @@
     </div>    
 
     <div class="col-md-3 ml-auto">
-        <div class="form-floating mb-">
+        <div class="form-floating mb-3">
             <input id="total" type="text" class="form-control" name="total" placeholder="Total" disabled>
-            <label for="total" class="font-weight-bold">Total</label>
+            <label for="total" class="font-weight-bold">Total a Pagar</label>
             <button class="btn btn-primary mt-2 btn-block" type="button" onclick="triggerTransaction(0)">Generar venta</button>
         </div>        
     </div>

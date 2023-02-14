@@ -744,17 +744,12 @@ function btnReenterClient(id) {
 
 function frmCategory() {
 
-    document.getElementById("title").textContent = "Nuevo Usuario";
+    document.getElementById("title").textContent = "Nueva Categoría";
     document.getElementById("btnAction").textContent = "Registrar";
-    document.getElementById("passwords").classList.remove("d-none");
-    document.getElementById("frmUser").reset();
-    /*This Ajax function was used to show new users
-    $("#new_user").modal("show");*/
-    myModal.show();
-
-    //Pending verify if this document.getElement have to be erase
+    document.getElementById("frmCategory").reset();
     document.getElementById("id").value = "";
-    document.getElementById("title").textContent = "Nuevo Usuario";
+    myModal.show();   
+   
     
 }
 
@@ -762,18 +757,16 @@ function frmCategory() {
 //Function used in User module to register new users
 function registerCategory(e) {
     e.preventDefault();
-    const user = document.getElementById("user");
     const name = document.getElementById("name");
-    const cashRegister = document.getElementById("cashRegister");
 
-    if (user.value == "" || name.value == "" || cashRegister.value == "") {
+    if (name.value == "") {
 
-        alerts('Todos los campos son obligatorios!' , 'warning');
+        alerts(response.message, response.icon);
         
     }else{
         // Petiton with Ajax
-        const url = base_url + "Users/register";
-        const frm = document.getElementById("frmUser");
+        const url = base_url + "Category/register";
+        const frm = document.getElementById("frmCategory");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
         http.send(new FormData(frm));
@@ -1231,8 +1224,8 @@ function registerProduct(e) {
     }    
 }
 
-//This function was updated in video 31 when updating Bootstrap
-//Function used in User module to edit users
+
+//Function used in User module to edit Products
 function btnEditProduct(id) {
 
     document.getElementById("title").textContent = "Actualizar producto";

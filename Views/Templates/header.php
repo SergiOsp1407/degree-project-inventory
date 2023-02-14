@@ -25,18 +25,15 @@
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
-            <!-- Navbar-->
+            <!-- Navbar -- If We decide to delete the search bar, we have to put this in the navbar of perfil (mb-2 mb-lg-0)-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!" data-bs-toggle="modal" data-bs-target="#changePassword">Mi perfil</a></li>
-                        <!--<li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
-                        <li><hr class="dropdown-divider" /></li>
-                        <!--The next line is changed in video 31 for the other that its down this:
-                            <a class="dropdown-item" href="<a?php echo base_url; ?>Users/logout">Cerrar Sesión</a>
-                        -->
-                        <li><a class="dropdown-item" href="#!">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item" href="#!">Configuraciones</a></li>
+                        <li><hr class="dropdown-divider" /></li>                        
+                        <li><a class="dropdown-item" href="<?php echo base_url; ?>Users/logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>

@@ -3,7 +3,7 @@ class Measures extends Controller{
 
     public function __construct() {
         session_start();
-        // if (empty($_SESSION['activo'])){
+        // if (empty($_SESSION['active'])){
         //     header("location: ".base_url);
         // }
         parent::__construct();
@@ -15,20 +15,20 @@ class Measures extends Controller{
     }
 
     public function list(){
-        $data = $this->model->getClients();
+        $data = $this->model->getMeasures();
 
         for ($i=0; $i < count($data); $i++) { 
 
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-primary" type="button" onclick="btnEditClient(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteClient(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-primary" type="button" onclick="btnEditMeasure(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteMeasure(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                <button class="btn btn-success" type="button" onclick="btnReenterMeasure('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
                 </div>'; 
             }
 
@@ -39,14 +39,13 @@ class Measures extends Controller{
     }
 
     public function register(){
-        $dni = $_POST['dni'];
-        $name = $_POST['name'];
-        $phone = $_POST['phone'];
-        $address = $_POST['address'];    
         $id = $_POST['id'];
+        $name = $_POST['name'];
+        $short_name = $_POST['short_name'];
 
 
-        if (empty($dni) || empty($name) || empty($phone) || empty($address)) {
+
+        if (empty($id) || empty($name) || empty($short_name)) {
 
             $message = "Debes llenar todos los campos.";
 
@@ -54,7 +53,7 @@ class Measures extends Controller{
 
             if($id == ""){
 
-                $data = $this->model->registerClient($dni, $name, $phone, $address);
+                $data = $this->model->registerMeasure($id, $name, $short_name);
 
                 if ($data == "ok") {
                     $message = "Si";
@@ -65,7 +64,7 @@ class Measures extends Controller{
                 }
                
             }else{
-                $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
+                $data = $this->model->modifyMeasure($id, $name, $short_name);
 
                 if ($data == "modificado") {
                     $message = "modificado";
@@ -80,7 +79,7 @@ class Measures extends Controller{
 
     public function edit(int $id){
 
-        $data = $this->model->editClient($id);
+        $data = $this->model->editMeasure($id);
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
 
@@ -88,7 +87,7 @@ class Measures extends Controller{
     
     public function delete(int $id){
 
-        $data = $this->model->actionClient(0, $id);
+        $data = $this->model->actionMeasure(0, $id);
         if($data == 1){
             $message = "ok";
         } else{
@@ -100,7 +99,7 @@ class Measures extends Controller{
     }   
     public function reenter(int $id){
 
-        $data = $this->model->actionClient(1, $id);
+        $data = $this->model->actionMeasure(1, $id);
         if($data == 1){
             $message = "ok";
         } else{

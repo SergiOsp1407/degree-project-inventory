@@ -9,7 +9,6 @@
         <title>Ingreso - SpeedBikers</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
     </head>
-
     <body class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -42,7 +41,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.html">¿Olvidaste tu contraseña?</a>
-                                                <a class="btn btn-primary" href="index.html">Ingresar</a>
+                                                <button type="button" class="btn btn-primary"  onclick="frmLogin(event)"><a class="btn btn-primary" href="index.html" >Ingresar</a></button>
                                             </div> -->
                                             <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesión</button>
                                         </form>

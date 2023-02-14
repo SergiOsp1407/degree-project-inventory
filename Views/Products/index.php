@@ -49,13 +49,13 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group">
+                        <div class="form-floating mb-3">
                             <input type="purchase_price" class="form-control" name="purchase_price" id="purchase_price" placeholder="Precio compra">
                             <label for="purchase_price">Precio Compra</label>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group">
+                        <div class="form-floating mb-3">
                             <input type="selling_price" class="form-control" name="selling_price" id="selling_price" placeholder="Precio venta">
                             <label for="selling_price">Precio venta</label>
                         </div>
@@ -71,7 +71,7 @@
                             <label for="measure">Medidas</label>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="form-floating mb-3">
                             <select name="category" id="category" class="form-control">
                                 <?php
@@ -97,12 +97,10 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="registerProduct(event);" id="">Registrar</button>
+                <button type="button" class="btn btn-primary" onclick="registerProduct(event);" id="btnAction">Registrar</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                </form>
-                
-            </div>
-            
+            </form>                
+            </div>            
         </div>
     </div>
 </div>
