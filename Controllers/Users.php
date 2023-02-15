@@ -27,6 +27,7 @@ class Users extends Controller{
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
+                <a class="btn btn-dark" href="'.base_url.'Users/permissions/'.$data[$i]['id'].'"><i class="fas fa-key"></i></a>
                 <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
                 </div>'; 
@@ -191,6 +192,18 @@ class Users extends Controller{
         echo json_encode($message), JSON_UNESCAPED_UNICODE;
         die();
 
+    }
+
+    public function permissions($id)
+    {
+        //This encrypt the url
+        // if (empty($_SESSION['active'])){
+        //     header("location: ".base_url);
+        // }
+
+        
+        $data = $this->model->getPermissions();
+        $this->views->getView($this, "permissions" , $data);
     }
     
     public function logout(){

@@ -38,10 +38,10 @@
         if (method_exists($controller, $method)) {
             $controller->$method($param);
         }else {
-            echo "The method doesn't exists";
+            header('Location: '.base_url.'Errors');
         }
     }else {
-        echo "The controller doesn't exists";
+        header('Location: '.base_url.'Errors');
     }
     
 

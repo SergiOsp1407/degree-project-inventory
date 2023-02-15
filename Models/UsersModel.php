@@ -128,6 +128,17 @@ class UsersModel extends Query
 
     }
 
+    public function getPermissions()
+    {
+        // $sql = "SELECT users AS usuarios, configuration AS configuracion, cash_register AS caja, balance AS balances, clients AS clientes, measures AS medidas, categories AS categorias, products AS productos, new_purchase AS compras, purchase_history AS historialcompras, new_sale AS ventas, historialventas AS historial_Ventas FROM permissions";
+
+        $sql = "SELECT * FROM permissions";
+
+        // Instance from the Query class, to run the query and assign to data var
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
   
 }
 ?>

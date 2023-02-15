@@ -8,8 +8,9 @@
         <meta name="author" content="" />
         <title>Dashboard Administrative</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
+        <link href="<?php echo base_url; ?>Assets/DataTables/datatables.min.css"/>
         <link href="<?php echo base_url; ?>Assets/css/select2.min.css" rel="stylesheet"/>
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>Assets/DataTables/datatables.min.css"/>
+        <link href="<?php echo base_url; ?>Assets/css/personalStyles.css" rel="stylesheet"/>
         <script src="<?php echo base_url; ?>Assets/js/all.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
