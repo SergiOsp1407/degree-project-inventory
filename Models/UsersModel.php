@@ -139,6 +139,43 @@ class UsersModel extends Query
         return $data;
     }
 
+    public function registerPermissions(int $id_user, int $id_permission){
+
+        $sql = "INSERT INTO detail_permissions (id_user, id_permission) VALUES (?,?)";
+        $data = array($id_user,$id_permission);
+        $allData = $this->save($sql, $data);
+
+        if ($allData == 1) {
+            $response = 'ok';
+        } else {
+            $response = 'Error';
+        }       
+
+        return $response;
+    }
+
+    public function deletePermissions(int $id_user)
+    {
+        $sql = "DELETE FROM detail_permissions WHERE id_user = ?";
+        $data = array($id_user);
+        $allData = $this->save($sql, $data);
+
+        if ($allData == 1) {
+            $response = 'ok';
+        } else {
+            $response = 'Error';
+        }       
+
+        return $response;
+    }
+
+    public function getDetailPermissions(int $id_user)
+    {
+        $sql = "SELECT * FROM detail_permissions WHERE id_user = $id_user";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
   
 }
 ?>

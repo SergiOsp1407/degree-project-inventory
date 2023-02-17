@@ -1887,7 +1887,7 @@ function closeCashRegister() {
             document.getElementById('id').value = response.general_amount;            
             document.getElementById('hide_fields').classList.remove('d-none');
             document.getElementById('btnAction').textContent = 'Cerrar caja';
-            $('#open_cashRegister').modal('show');
+            myModal.show();
         }    
     }
 
@@ -1916,5 +1916,32 @@ function closeCashRegister() {
     //         }            
     //     }
     // })
+    
+}
+
+
+function registerPermissions(e) {
+
+    e.preventDefault();
+    const url = base_url + 'Users/registerPermissions';
+    const frm = document.getElementById('form');
+    const http = new XMLHttpRequest();
+    http.open("POST", url, true);
+    http.send(new FormData(frm));
+    http.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(this.responseText);
+
+            if (response != '') {
+
+                alerts(response.message, response.icon);
+                
+            }else{
+
+                alerts('Error no identificado', 'error');
+
+            }
+        }    
+    }
     
 }

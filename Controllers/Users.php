@@ -196,14 +196,48 @@ class Users extends Controller{
 
     public function permissions($id)
     {
-        //This encrypt the url
+        
         // if (empty($_SESSION['active'])){
         //     header("location: ".base_url);
         // }
 
         
-        $data = $this->model->getPermissions();
+        $data['allData'] = $this->model->getPermissions();
+        $permissions = $this->model->getDetailPermissions($id);
+        $data['assigned'] = array();
+        foreach ($permissions as $permission) {
+            $data['assigned'][$permission['id_permission']] = true;
+        }
+
+        $data['id_user'] = $id;
         $this->views->getView($this, "permissions" , $data);
+
+
+    }
+
+    public function registerPermissions(){
+
+        $id_user = $_POST['id_user'];
+        $delete = $this->model->deletePermissions($id_user);
+        $message = '';
+
+        if ($delete == 'ok') {
+            foreach ($_POST['permissions'] as $id_permission) {
+                $message = $this->model->registerPermissions($id_user,$id_permission);
+            }
+            if ($message == 'ok') {
+                $message = array('message' => 'Permisos asignados', 'icon' => 'success');
+            } else {
+                $message = array('message' => 'Error al asignar los permisos', 'icon' => 'error');
+            }
+            
+        } else {
+            $message = array('message' => 'Error al eliminar los permisos', 'icon' => 'error');
+        }
+
+        echo json_encode($message, JSON_UNESCAPED_UNICODE);
+       
+        
     }
     
     public function logout(){
