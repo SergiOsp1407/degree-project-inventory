@@ -4,6 +4,11 @@ class Errors extends Controller{
         
         $this->views->getView($this, 'index');
     }
+
+    public function permissions(){
+        
+        $this->views->getView($this, 'permissions');
+    }
 }
 
 

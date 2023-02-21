@@ -10,7 +10,15 @@ class Clients extends Controller{
     }
 
     public function index(){
-        $this->views->getView($this, "index");
+        $id_user = $_SESSION['id_user'];
+        $check = $this->model->verifyPermission($id_user, 'clients');
+        if (!empty($check) || $id_user == 1) {
+            $this->views->getView($this, "index");
+        }else {
+            header('Location: '.base_url. 'Errors/permissions');
+        }
+
+        
     }
 
     public function list(){
@@ -38,43 +46,49 @@ class Clients extends Controller{
     }
 
     public function register(){
-        $dni = $_POST['dni_client'];
-        $name = $_POST['name'];
-        $phone = $_POST['phone'];
-        $address = $_POST['address'];    
-        $id = $_POST['id'];
+
+        $id_user = $_SESSION['id_user'];
+        $check = $this->model->verifyPermission($id_user, 'registrar_clientes');
+        if (!empty($check) || $id_user == 1) {
+            $dni = $_POST['dni_client'];
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];    
+            $id = $_POST['id'];
 
 
-        if (empty($dni) || empty($name) || empty($phone) || empty($address)) {
+            if (empty($dni) || empty($name) || empty($phone) || empty($address)) {
+                $message = "Debes llenar todos los campos.";
+            }else {
+                if($id == ""){
+                    $data = $this->model->registerClient($dni, $name, $phone, $address);
+                    if ($data == "ok") {
+                        $message = array('message' => 'Cliente creado correctamente.', 'icon' => 'success');
+                    } else if ($data == "exists") {
+                        $message = array('message' => 'El documento de identificacion ya existe', 'icon' => 'warning');
+                    } else {
+                        $message = array('message' => 'Error al registrar el Cliente', 'icon' => 'error');
+                    }               
+                }else{
+                    $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
 
-            $message = "Debes llenar todos los campos.";
-
+                    if ($data == "modificado") {
+                        $message = array('message' => 'Cliente modificado correctamente.', 'icon' => 'success');
+                    }else {
+                        $message = array('message' => 'Error al modificar el cliente.', 'icon' => 'error');
+                    }
+                }            
+            }
+            
         }else {
 
-            if($id == ""){
-
-                $data = $this->model->registerClient($dni, $name, $phone, $address);
-
-                if ($data == "ok") {
-                    $message = array('message' => 'Cliente creado correctamente.', 'icon' => 'success');
-                } else if ($data == "exists") {
-                    $message = array('message' => 'El documento de identificacion ya existe', 'icon' => 'warning');
-                } else {
-                    $message = array('message' => 'Error al registrar el Cliente', 'icon' => 'error');
-                }
-               
-            }else{
-                $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
-
-                if ($data == "modificado") {
-                    $message = array('message' => 'Cliente modificado correctamente.', 'icon' => 'success');
-                }else {
-                    $message = array('message' => 'Error al modificar el cliente.', 'icon' => 'error');
-                }
-            }            
+            $message = array('message' => 'No tienes permisos para registrar clientes', 'icon' => 'warning');
+            
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
+
+        
     }
 
     public function edit(int $id){

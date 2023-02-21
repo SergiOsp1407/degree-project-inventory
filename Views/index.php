@@ -30,7 +30,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="password" type="password" name="password" placeholder="Contraseña" />
-                                                <label for="password"><i class="fas fa-key">Contraseña</label>
+                                                <label for="password"><i class="fas fa-key"></i>Contraseña</label>
                                             </div>
                                             <!-- This line was added in video 5 not sure if works -->
                                             <!-- <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div> -->

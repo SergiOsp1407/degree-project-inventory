@@ -24,13 +24,21 @@ class Users extends Controller{
         $data = $this->model->getUsers();
 
         for ($i=0; $i < count($data); $i++) { 
+            
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
-                $data[$i]['actions'] = '<div>
-                <a class="btn btn-dark" href="'.base_url.'Users/permissions/'.$data[$i]['id'].'"><i class="fas fa-key"></i></a>
-                <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
-                </div>'; 
+                
+                if ($data[$i]['id'] == 1) {
+                    $data[$i]['actions'] = '<div>            
+                    <span class="badge bg-primary">Administrador</span>
+                    </div>';
+                }else {
+                    $data[$i]['actions'] = '<div>
+                    <a class="btn btn-dark" href="'.base_url.'Users/permissions/'.$data[$i]['id'].'"><i class="fas fa-key"></i></a>
+                    <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
+                    </div>'; 
+                }
             }else {
                 $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>            

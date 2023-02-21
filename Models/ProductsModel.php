@@ -112,4 +112,3 @@ class ProductsModel extends Query
 
     }
 }
-?>

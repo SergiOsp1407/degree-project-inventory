@@ -11,8 +11,15 @@ class Administration extends Controller{
 
     public function index(){
 
-        $data = $this->model->getCompany();
-        $this->views->getView($this, "index", $data);
+        $id_user = $_SESSION['id_user'];
+        $check = $this->model->verifyPermission($id_user, 'configuracion');
+        if (!empty($check) || $id_user == 1) {
+            $data = $this->model->getCompany();
+            $this->views->getView($this, "index", $data);
+        }else {
+            header('Location: '.base_url. 'Errors/permissions');
+        }
+        
     }
 
     public function home(){

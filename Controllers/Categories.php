@@ -9,9 +9,16 @@ class Categories extends Controller{
         parent::__construct();
     }
 
-    public function index()
-    {
-        $this->views->getView($this, "index");
+    public function index(){
+
+        $id_user = $_SESSION['id_user'];
+        $check = $this->model->verifyPermission($id_user, 'categories');
+        if (!empty($check) || $id_user == 1) {
+            $this->views->getView($this, "index");
+        }else {
+            header('Location: '.base_url. 'Errors/permissions');
+        }
+        
     }
 
     public function list(){
