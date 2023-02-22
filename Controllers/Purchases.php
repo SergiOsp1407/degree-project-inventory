@@ -72,7 +72,7 @@ class Purchases extends Controller {
     public function inputSale(){
 
         $id = $_POST['id'];
-        $data = $this->model->getProducts($id);
+        $data = $this->model->getProducts($id); //Stores all the product using the id
         $id_product = $data['id'];
         $id_user = $_SESSION['id_user'];
         $price = $data['selling_price'];
@@ -81,22 +81,36 @@ class Purchases extends Controller {
         $check = $this->model->checkDetail('tmp_sales', $id_product, $id_user);
 
         if(empty($check)){
-            $sub_total = $price * $amount;
-            $allData = $this->model->registerDetail('tmp_sales', $id_product, $id_user, $price, $amount, $sub_total);
-            if ($allData == "ok") {
-                $message = array('message' => 'Producto añadido a la venta', 'icon' => 'success');
-            } else {
-                $message = array('message' => 'Error al ingresar el producto a la venta', 'icon' => 'error');
+
+            if ($data['amount'] >= $amount) {
+                # code...
+                $sub_total = $price * $amount;
+                $allData = $this->model->registerDetail('tmp_sales', $id_product, $id_user, $price, $amount, $sub_total);
+                if ($allData == "ok") {
+                    $message = array('message' => 'Producto añadido a la venta', 'icon' => 'success');
+                } else {
+                    $message = array('message' => 'Error al ingresar el producto a la venta', 'icon' => 'error');
+                }
+            }else {
+                $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
             }
+
         }else{
             $total_amount = $check['amount'] + $amount;
             $sub_total = $total_amount * $price;
-            $allData = $this->model->updateDetail('tmp_sales',$price, $total_amount, $sub_total, $id_product, $id_user);
-            if ($allData == "modificado") {
-                $message = array('message' => 'Venta modificada correctamente', 'icon' => 'success');
-            } else {
-                $message = array('message' => 'Error al modificar la venta', 'icon' => 'error');
+
+            if ($data['amount'] < $total_amount) {
+                $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
+            }else {
+                # code...
+                $allData = $this->model->updateDetail('tmp_sales',$price, $total_amount, $sub_total, $id_product, $id_user);
+                if ($allData == "modificado") {
+                    $message = array('message' => 'Venta modificada correctamente', 'icon' => 'success');
+                } else {
+                    $message = array('message' => 'Error al modificar la venta', 'icon' => 'error');
+                }
             }
+
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
