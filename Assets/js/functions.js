@@ -4,6 +4,43 @@ let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProduc
 
 document.addEventListener("DOMContentLoaded", function() {
 
+    $('#select_client').select2({
+        placeholder: 'Buscar Cliente',
+        minimumInputLength: 2,
+        ajax: {
+            url: base_url + 'Clients/searchClient',
+            dataType: 'json',
+            delay: 250,
+            data: function (params){
+                return {
+                    cli: params.term
+                };
+            },
+            cache: true
+        }
+    });
+
+    $('#select_pro').select2({
+        placeholder: 'Buscar Producto',
+        minimumInputLength: 2,
+        ajax: {
+            url: base_url + 'Products/searchProduct',
+            dataType: 'json',
+            delay: 250,
+            data: function (params){
+                return {
+                    pro: params.term
+                };
+            },
+            processResults: function (data){
+                return{
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+
     if (document.getElementById('my_modal')) {
         myModal = new bootstrap.Modal(document.getElementById('my_modal'));        
     }
@@ -14,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
         footer: true,
         title: 'Archivo',
         filename: 'Export_File',
-        text: '<span class="badge bg-success"><i class="fas fa-file-excel-o"></i></span>'
+        text: '<span class="badge bg-success"><i class="fas fa-file-excel"></i></span>'
     },
     {
 
@@ -23,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         footer: true,
         title: 'Reporte de usuarios',
         filename: 'Reporte de usuarios',
-        text: '<span class="badge bg-danger"><i class="fas fa-file-pdf-o"></i></span>"',
+        text: '<span class="badge bg-danger"><i class="fas fa-file-pdf"></i></span>',
         exportOptions: {
             columns: [0, ':visible']
         }
@@ -83,7 +120,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'user'
             },
             {
-                'data' : 'id_cash_register'
+                'data' : 'name'
+            },
+            {
+                'data' : 'cash_register'
             },
             {
                 'data' : 'status'
@@ -92,7 +132,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'actions'
             }
 
-        ]
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom,
+        buttons
     });
     //End table Users
 
@@ -127,7 +172,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'actions'
             }
 
-        ]
+        ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        },
+        dom,
+        buttons
     });
 
     //End table clients
