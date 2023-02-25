@@ -6,5 +6,5 @@ const user = "root";
 const password = "";
 const database = "degree-project-inventory";
 const charset = "charset=utf8";
-
+//prueba push
 ?>
