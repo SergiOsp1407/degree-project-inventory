@@ -21,16 +21,14 @@ function frmLogin(e){
         http.send(new FormData(frm));
         http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
                 const response = JSON.parse(this.responseText);
                 if ( response == "ok") {
                     window.location = base_url + "Administration/home";                    
                 }else{
-
                     document.getElementById("alerts").classList.remove("d-none");
                     document.getElementById("alerts").innerHTML = response;
-                }
-
-                
+                }                
             }
         }
     }

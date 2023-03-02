@@ -501,5 +501,115 @@ class Purchases extends Controller {
         die();
     }
 
+    public function generate_numbers($start, $count, $digits)
+    {
+        # code...
+        $result = array();
+        for ($n=$start; $n < $start + $count; $n++) { 
+            $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
+        }
+
+        return $result;
+    }
+
+
+    // Function to generate PDF for sales according to dates, this in the Sales view (sales_history)
+    public function saleViewPDF( ){
+        
+        $from_date = $_POST['from_date'];
+        $to_date = $_POST['to_date'];
+
+        if (empty($from_date) || empty($to_date)) {
+            $data = $this->model->getSalesHistory();
+        }else {
+            $data = $this->model->getSalesDates($from_date, $to_date);
+        }
+        
+        ob_start();        
+        require('Libraries/fpdf/fpdf.php');
+         
+        $pdf = new FPDF('P','mm',/*array(80,200)*/'Letter' );
+        $pdf->AddPage();
+        //$pdf->SetMargins(10,10,10);
+        $pdf->SetTitle('Reporte de ventas por fecha');
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->SetFillColor(0,0,0);
+        $pdf->SetTextColor(255,255,255);
+        //Header
+        // $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
+        // $pdf->Ln();        
+        // $pdf->Image(base_url . 'Assets/img/companyLogo.png', 150,10,30,30);
+        // $pdf->SetFont('Arial', 'B', 11);
+        // $pdf->Cell(25,5, 'Nit: ', 0, 0, 'L');        
+        // $pdf->SetFont('Arial', '', 11);
+        // $pdf->Cell(20,5, $company['id_company'], 0, 1, 'L');
+        
+        // $pdf->SetFont('Arial', 'B', 11);
+        // $pdf->Cell(25,5, utf8_decode('Teléfono: '), 0, 0, 'L');        
+        // $pdf->SetFont('Arial', '', 11);
+        // $pdf->Cell(20,5, $company['phone'], 0, 1, 'L');
+
+        // $pdf->SetFont('Arial', 'B', 11);
+        // $pdf->Cell(25,5, utf8_decode('Dirección: '), 0, 0, 'L');        
+        // $pdf->SetFont('Arial', '', 11);
+        // $pdf->Cell(20,5, utf8_decode($company['address']), 0, 1, 'L'); 
+    
+        // $pdf->SetFont('Arial', 'B', 11);
+        // $pdf->Cell(25,5, 'Orden de Compra Nro:', 0, 1, 'L');        
+        // $pdf->SetFont('Arial', '', 11);
+        // $pdf->Cell(20,5, $id_purchase, 0, 1, 'L');
+        // $pdf->Ln();
+        
+        // //Invoice Header
+        // $pdf->SetFillColor(0,0,0);
+        // $pdf->SetTextColor(255,255,255);
+        // $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
+        // $pdf->Cell(30,5, utf8_decode('Descripción'), 0, 0, 'L', true);
+        // $pdf->Cell(30,5, 'Precio', 0, 0, 'L', true);
+        // $pdf->Cell(30,5, 'Subtotal', 0, 1, 'L', true);
+        
+        // $pdf->SetTextColor(0,0,0);
+
+        // //Invoice content
+        // $total = 0.00;
+        // foreach ($products as $row){
+
+        //     $total = $total + $row['sub_total'];
+        //     $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
+        //     $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
+        //     $pdf->Cell(30,5, $row['product_price'], 0, 0, 'L');
+        //     $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
+
+        // // }
+
+        // $pdf->Ln();
+        // $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
+        // $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
+        $pdf->Cell(10,5, 'ID', 0, 0, 'L', true);
+        $pdf->Cell(80,5, 'Cliente', 0, 0, 'L', true);
+        $pdf->Cell(30,5, 'Fecha', 0, 0, 'L', true);
+        $pdf->Cell(25,5, 'Hora', 0, 1, 'L', true);
+        $pdf->SetFont('Arial', '', 14);
+        $pdf->SetTextColor(0,0,0);
+
+        foreach ($data as $row) {
+            # code...
+            $pdf->Cell(10,5, $row['id'], 0, 0, 'L');
+            $pdf->Cell(80,5, $row['name'], 0, 0, 'L');
+            $pdf->Cell(30,5, $row['sale_date'], 0, 0, 'L');
+            $pdf->Cell(25,5, $row['time_hours'], 0, 1, 'L');
+        }
+
+        $pdf->Output();
+        
+
+        //Body
+
+        ob_end_flush(); 
+
+        
+
+    }
+
 
 }

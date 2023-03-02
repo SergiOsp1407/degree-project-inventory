@@ -321,6 +321,14 @@ class PurchasesModel extends Query{
         
     }
 
+
+    public function getSalesDates(string $from_date, string $to_date)
+    {
+        $sql = "SELECT c.id, c.name, s.* FROM clients c INNER JOIN sales s ON s.id_client = c.id WHERE s.sale_date BETWEEN '$from_date' AND '$to_date'";
+        $data = $this->selectAll($sql);
+        return $data;
+    }
+
     
     
 

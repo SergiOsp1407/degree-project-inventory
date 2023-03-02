@@ -51,14 +51,14 @@ class Users extends Controller{
     }
 
     public function validate(){
-
+        
         if (empty($_POST['user']) || empty($_POST['password'])) {
             $message = "Los campos están vacios";
         }else{
             $user = $_POST['user'];
             $password = $_POST['password'];
-            $hash = hash("SHA256", $password);
-            $data = $this->model->getUser($user, $hash);
+            // $hash = hash("SHA256", $password);
+            $data = $this->model->getUser($user, $password);
 
             if ($data) {
                 $_SESSION['id_user'] = $data['id'];
@@ -71,6 +71,7 @@ class Users extends Controller{
             }
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
+        print_r($data);
         die();
     }
 

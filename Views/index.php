@@ -32,8 +32,8 @@
                                                 <input class="form-control" id="password" type="password" name="password" placeholder="Contraseña" />
                                                 <label for="password"><i class="fas fa-key"></i>Contraseña</label>
                                             </div>
-                                            <!-- This line was added in video 5 not sure if works -->
-                                            <!-- <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div> -->
+                                            <!--This line was added in video 5 not sure if works -->
+                                            <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div>
 
                                             <!-- <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
@@ -43,7 +43,7 @@
                                                 <a class="small" href="password.html">¿Olvidaste tu contraseña?</a>
                                                 <button type="button" class="btn btn-primary"  onclick="frmLogin(event)"><a class="btn btn-primary" href="index.html" >Ingresar</a></button>
                                             </div> -->
-                                            <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesión</button>
+                                            <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesion</button>
                                         </form>
                                     </div>
                                     <!-- <div class="card-footer text-center py-3">

@@ -4,7 +4,6 @@ class Query extends Connection{
 
     private $pdo, $con, $sql, $data;
 
-
     public function __construct() {
         $this->pdo = new Connection();
         $this->con = $this->pdo->connecting();
