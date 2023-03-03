@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'Config/Config.php';
+    require_once "Config/Config.php";
 
     // // Hide routes!!!
     $route = !empty($_GET['url']) ? $_GET['url'] : "Home/index";
@@ -22,7 +22,7 @@
         
         if(!empty($arrayIndex[2] != "")){
             for ($i = 2; $i < count($arrayIndex); $i++) { 
-                $param .= $arrayIndex[$i] . ",";
+                $param .= $arrayIndex[$i]. ",";
             }
             $param = trim($param, ",");
         }
@@ -31,7 +31,7 @@
     require_once 'Config/App/autoload.php';
 
     //Store the folders route of Controller directory
-    $dirControllers = "Controllers/" . $controller . ".php";
+    $dirControllers = "Controllers/".$controller.".php";
     if (file_exists($dirControllers)) {
         require_once $dirControllers;
         $controller = new $controller();

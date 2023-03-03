@@ -59,7 +59,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; SpeedBikers 2022</div>
+                            <div class="text-muted">Copyright &copy; SpeedBikers <?php echo date("Y");?></div>
                             <div>
                                 <a href="#">Política de privacidad</a>
                                 &middot;
@@ -73,7 +73,7 @@
         <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>
         <script>
-            const base_url = '<?php echo base_url; ?>';
+            const base_url = "<?php echo base_url; ?>";
         </script>
         <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
     </body>

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard Administrative</title>
+        <title>Panel Administrativo</title>
         <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
         <link href="<?php echo base_url; ?>Assets/DataTables/datatables.min.css"/>
         <link href="<?php echo base_url; ?>Assets/css/select2.min.css" rel="stylesheet"/>
@@ -167,7 +167,9 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Username
+                        <!-- <span>
+                            <?php echo $_POST['user'] ?>
+                        </span> -->
                     </div>
                 </nav>
             </div>

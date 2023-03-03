@@ -2,12 +2,10 @@
 <?php include "Views/Templates/header.php"; ?>
 
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Users</li>
+    <li class="breadcrumb-item active">Usuarios</li>
 </ol>
 
 <button class="btn btn-primary mb-2" type="button" onclick="frmUser();">Nuevo usuario <i class="fas fa-plus"></i></button>
-
-
 <table class="table table-light" id="tblUsers">
     <thead class="thead-dark">
         <tr>
@@ -24,7 +22,7 @@
 </table>
 
 <!--Format of the New Users table-->
-<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">

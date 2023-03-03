@@ -97,7 +97,7 @@ class UsersModel extends Query
 
     public function getPassword(string $password, int $id){
 
-        $sql = "SELECT * FROM users WHERE password = $'password' AND id = $id";
+        $sql = "SELECT * FROM users WHERE password = '$password' AND id = $id";
         $data = $this->select($sql);
 
         return $data;
