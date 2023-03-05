@@ -55,10 +55,8 @@ class ClientsModel extends Query
         $this->phone = $address;
         $this->address = $address;
         $this->id = $id;
-        
 
         //This implementation check if the dni already exists in the DB and update the Client
-
         $sql = "UPDATE clients SET dni_client = ?, name = ?, phone = ?, address = ? WHERE id = ?";
         $data = array($this->dni_client, $this->name, $this->phone, $this->address, $this->id);
         $allData = $this->save($sql, $data);

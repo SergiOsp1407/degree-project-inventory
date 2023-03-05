@@ -52,7 +52,7 @@ class Clients extends Controller{
         $id_user = $_SESSION['id_user'];
         $check = $this->model->verifyPermission($id_user, 'registrar_clientes');
         if (!empty($check) || $id_user == 1) {
-            $dni_client = $_POST['dni_client'];
+            $dni_client = $_POST['dni_client'];  
             $name = $_POST['name'];
             $phone = $_POST['phone'];
             $address = $_POST['address'];    

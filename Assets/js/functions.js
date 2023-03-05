@@ -696,7 +696,7 @@ function registerClient(e) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
                 alerts(response.message, this.response.icon);
-                //tblClients.ajax.reload();
+                tblClients.ajax.reload();
                 
             }            
         }
