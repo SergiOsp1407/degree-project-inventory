@@ -673,7 +673,7 @@ function frmClient() {
 
 function registerClient(e) {
     e.preventDefault();
-    const dni_client = document.getElementById("dni");
+    const dni_client = document.getElementById("dni_client");
     const name = document.getElementById("name");
     const phone = document.getElementById("phone");
     const address = document.getElementById("address");
@@ -719,7 +719,7 @@ function btnEditClient(id) {
 
             const response = JSON.parse(this.responseText);
             document.getElementById("id").value = response.id;
-            document.getElementById("dni").value = response.dni;
+            document.getElementById("dni_client").value = response.dni_client;
             document.getElementById("name").value = response.name;
             document.getElementById("phone").value = response.phone;
             document.getElementById("address").value = response.address;

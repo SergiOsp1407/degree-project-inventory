@@ -1,4 +1,3 @@
-
 <?php include "Views/Templates/header.php"; ?>
 
 <ol class="breadcrumb mb-4">

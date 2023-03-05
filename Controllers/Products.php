@@ -11,9 +11,9 @@ class Products extends Controller{
     public function index()
     {
 
-        // if (empty($_SESSION['active'])){
-        //     header("location: ".base_url);
-        // }
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }
 
         $data['measures'] = $this->model->getMeasures();
         $data['categories'] = $this->model->getCategories();

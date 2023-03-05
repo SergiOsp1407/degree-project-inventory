@@ -3,10 +3,10 @@
 
         public function __construct(){
 
-            // session_start();
-            // if (!empty($_SESSION['active'])){
-            //     header("location: ".base_url. "Users");
-            // }
+            session_start();
+            if (!empty($_SESSION['active'])){
+                header("location: ".base_url. "Users");
+            }
 
 
             parent::__construct();

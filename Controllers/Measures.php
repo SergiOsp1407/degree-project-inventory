@@ -3,9 +3,9 @@ class Measures extends Controller{
 
     public function __construct() {
         session_start();
-        // if (empty($_SESSION['active'])){
-        //     header("location: ".base_url);
-        // }
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }
         parent::__construct();
     }
 

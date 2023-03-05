@@ -3,7 +3,7 @@
 class ClientsModel extends Query
 {
 
-    private $dni, $name, $phone, $address, $id, $status;
+    private $dni_client, $name, $phone, $address, $id, $status;
 
     public function __construct()
     {
@@ -20,21 +20,21 @@ class ClientsModel extends Query
         return $data;
     }
 
-    public function registerClient(string $dni, string $name, string $phone, String $address)
+    public function registerClient(string $dni_client, string $name, string $phone, String $address)
     {
-        $this->dni = $dni;
+        $this->dni_client = $dni_client;
         $this->name = $name;
         $this->phone = $phone;
         $this->address = $address;        
 
-        //This implementation check if the dni already exists in the DB
-        $check = "SELECT * FROM clients WHERE dni_client = '$this->dni'";
+        //This implementation check if the dni_client already exists in the DB
+        $check = "SELECT * FROM clients WHERE dni_client = '$this->dni_client'";
         $exists = $this->select($check);
 
         if (empty($exists)) {
 
             $sql = "INSERT INTO clients(dni_client, name, phone, address) VALUES (?,?,?,?)";
-            $data = array($this->dni, $this->name, $this->phone, $this->address);
+            $data = array($this->dni_client, $this->name, $this->phone, $this->address);
             $allData = $this->save($sql, $data);
 
             if ($allData == 1) {
@@ -48,9 +48,9 @@ class ClientsModel extends Query
         return $response;
     }
 
-    public function modifyClient(string $dni, string $name, string $phone ,string $address, int $id)
+    public function modifyClient(string $dni_client, string $name, string $phone ,string $address, int $id)
     {
-        $this->dni = $dni;
+        $this->dni_client = $dni_client;
         $this->name = $name;
         $this->phone = $address;
         $this->address = $address;
@@ -60,7 +60,7 @@ class ClientsModel extends Query
         //This implementation check if the dni already exists in the DB and update the Client
 
         $sql = "UPDATE clients SET dni_client = ?, name = ?, phone = ?, address = ? WHERE id = ?";
-        $data = array($this->dni, $this->name, $this->phone, $this->address, $this->id);
+        $data = array($this->dni_client, $this->name, $this->phone, $this->address, $this->id);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {

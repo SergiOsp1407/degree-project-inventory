@@ -5,7 +5,7 @@ function frmLogin(e){
 
     // Verification of information on inputs holders in login page
     if (user.value == "") {
-        password.classList.remove("is-invalid");
+        password.classList.remove("is-invalid"); 
         user.classList.add("is-invalid");
         user.focus();       
     }else if(password.value == ""){

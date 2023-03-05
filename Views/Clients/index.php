@@ -1,10 +1,10 @@
 <?php include "Views/Templates/header.php" ?>
 
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Clients</li>
+    <li class="breadcrumb-item active">Clientes</li>
 </ol>
 
-<button class="btn btn-primary mb-2" type="button" onclick="frmClient();">Nuevo usuario <i class="fas fa-plus"></i></button>
+<button class="btn btn-primary mb-2" type="button" onclick="frmClient();">Nuevo cliente <i class="fas fa-plus"></i></button>
 
 <table class="table table-light" id="tblClients">
     <thead class="thead-dark">
@@ -23,7 +23,7 @@
 </table>
 
 <!--Format of the New Users table-->
-<div class="modal fade" id="new_client" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -37,8 +37,8 @@
                 <form method="post" id="frmClient">
                     <div class="form-floating mb-3">                        
                         <input type="hidden" id="id" name="id">
-                        <input type="text" class="form-control" name="dni" id="dni" placeholder="Documento de identidad">
-                        <label for="dni">DNI</label>
+                        <input type="text" class="form-control" name="dni_client" id="dni_client" placeholder="Documento de identidad">
+                        <label for="dni_client">DNI</label>
                     </div>
                     <div class="form-floating mb-3">                        
                         <input type="text" class="form-control" name="name" id="name" placeholder="Nombre">

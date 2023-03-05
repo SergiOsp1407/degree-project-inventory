@@ -2,10 +2,12 @@
 class Clients extends Controller{
 
     public function __construct() {
-        session_start();
-        // if (empty($_SESSION['active'])){
-        //     header("location: ".base_url);
-        // }
+
+        session_start();        
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }
+
         parent::__construct();
     }
 
@@ -50,18 +52,18 @@ class Clients extends Controller{
         $id_user = $_SESSION['id_user'];
         $check = $this->model->verifyPermission($id_user, 'registrar_clientes');
         if (!empty($check) || $id_user == 1) {
-            $dni = $_POST['dni_client'];
+            $dni_client = $_POST['dni_client'];
             $name = $_POST['name'];
             $phone = $_POST['phone'];
             $address = $_POST['address'];    
             $id = $_POST['id'];
 
 
-            if (empty($dni) || empty($name) || empty($phone) || empty($address)) {
+            if (empty($dni_client) || empty($name) || empty($phone) || empty($address)) {
                 $message = "Debes llenar todos los campos.";
             }else {
                 if($id == ""){
-                    $data = $this->model->registerClient($dni, $name, $phone, $address);
+                    $data = $this->model->registerClient($dni_client, $name, $phone, $address);
                     if ($data == "ok") {
                         $message = array('message' => 'Cliente creado correctamente.', 'icon' => 'success');
                     } else if ($data == "exists") {
@@ -70,7 +72,7 @@ class Clients extends Controller{
                         $message = array('message' => 'Error al registrar el Cliente', 'icon' => 'error');
                     }               
                 }else{
-                    $data = $this->model->modifyClient($dni, $name, $phone,$address, $id);
+                    $data = $this->model->modifyClient($dni_client, $name, $phone,$address, $id);
 
                     if ($data == "modificado") {
                         $message = array('message' => 'Cliente modificado correctamente.', 'icon' => 'success');

@@ -11,9 +11,9 @@ class Users extends Controller{
     public function index()
     {
         //This encrypt the url
-        // if (empty($_SESSION['active'])){
-        //     header("location: ".base_url);
-        // }
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }
 
         
         $data['cashRegister'] = $this->model->getCashRegister();

@@ -46,14 +46,14 @@ class Categories extends Controller{
     }
 
     public function register(){
-        $dni = $_POST['dni'];
+        $dni_client = $_POST['dni_client'];
         $name = $_POST['name'];
         $phone = $_POST['phone'];
         $address = $_POST['address'];    
         $id = $_POST['id'];
 
 
-        if (empty($dni) || empty($name) || empty($phone) || empty($address)) {
+        if (empty($dni_client) || empty($name) || empty($phone) || empty($address)) {
 
             $message = "Debes llenar todos los campos.";
 
@@ -61,7 +61,7 @@ class Categories extends Controller{
 
             if($id == ""){
 
-                $data = $this->model->registerCategory($dni, $name, $phone, $address);
+                $data = $this->model->registerCategory($dni_client, $name, $phone, $address);
 
                 if ($data == "ok") {
                     $message = array('message' => 'Categoria registrada correctamente.', 'icon' => 'success');
@@ -72,7 +72,7 @@ class Categories extends Controller{
                 }
                
             }else{
-                $data = $this->model->modifyCategory($dni, $name, $phone,$address, $id);
+                $data = $this->model->modifyCategory($dni_client, $name, $phone,$address, $id);
 
                 if ($data == "modificado") {
                     $message = array('message' => 'Categoria modificada correctamente.', 'icon' => 'success');
