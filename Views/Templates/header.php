@@ -16,7 +16,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="<?php echo base_url; ?>Administration/home">Punto de venta</a>
+            <a class="navbar-brand ps-3" href="<?php echo base_url; ?>Administration/home">Speed Bikers</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -52,7 +52,7 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div> -->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-cogs fa-2x"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-cogs fa-2x text-danger"></i></div>
                                 Administración
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -65,7 +65,7 @@
 
                             <!--Products-->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLProduct" aria-expanded="false" aria-controls="collapseProduct">
-                                <div class="sb-nav-link-icon"><i class="fab fa-product-hunt fa-2x"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fab fa-product-hunt fa-2x text-danger"></i></div>
                                 Productos
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -79,7 +79,7 @@
 
                             <!--Cash Register (Cajas)-->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCashRegister" aria-expanded="false" aria-controls="collapseCashRegister">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box fa-2x"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-box fa-2x text-danger"></i></div>
                                 Cajas
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -92,13 +92,13 @@
 
                             <!-- Clients -->
                             <a class="nav-link" href="<?php echo base_url; ?>Clients">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users fa-2x"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-users fa-2x text-danger"></i></div>
                                 Clientes
                             </a>
 
                             <!--Purchases (Entradas)-->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePurchases" aria-expanded="false" aria-controls="collapsePurchases">
-                                <div class="sb-nav-link-icon"><i class="fas fa-shipping-fast fa-2x"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-shipping-fast fa-2x text-danger"></i></div>
                                 Compras
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -111,7 +111,7 @@
 
                             <!--Sales (Ventas)-->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
-                                <div class="sb-nav-link-icon"><i class="fas fa-cash-register fa-2x"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-cash-register fa-2x text-danger"></i></div>
                                 Ventas
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>

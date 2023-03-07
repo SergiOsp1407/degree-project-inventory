@@ -27,7 +27,7 @@ class Administration extends Controller{
         $data['users'] = $this->model->getData('users');
         $data['clients'] = $this->model->getData('clients');
         $data['products'] = $this->model->getData('products');
-        $data['sales'] = $this->model->getSales();
+        $data['sales'] = $this->model->getSales('sales');
         $this->views->getView($this, "home", $data);
     }
 

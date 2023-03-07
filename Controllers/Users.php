@@ -14,7 +14,6 @@ class Users extends Controller{
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
         }
-
         
         $data['cashRegister'] = $this->model->getCashRegister();
         $this->views->getView($this, "index" , $data);
@@ -58,8 +57,9 @@ class Users extends Controller{
             $user = $_POST['user'];
             $password = $_POST['password'];
             // $hash = hash("SHA256", $password);
+            // $data = $this->model->getUser($user, $hash);
             $data = $this->model->getUser($user, $password);
-
+            
             if ($data) {
                 $_SESSION['id_user'] = $data['id'];
                 $_SESSION['user'] = $data['user'];

@@ -35,15 +35,15 @@
                                             <!--This line was added in video 5 not sure if works -->
                                             <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div>
 
-                                            <!-- <div class="form-check mb-3">
+                                            <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
                                                 <label class="form-check-label" for="inputRememberPassword">Recordar contraseña</label>
                                             </div>
+                                            <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesion</button>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.html">¿Olvidaste tu contraseña?</a>
-                                                <button type="button" class="btn btn-primary"  onclick="frmLogin(event)"><a class="btn btn-primary" href="index.html" >Ingresar</a></button>
-                                            </div> -->
-                                            <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesion</button>
+                                                <!-- <button type="button" class="btn btn-primary"  onclick="frmLogin(event)"><a class="btn btn-primary" href="index.html" >Ingresar</a></button> -->
+                                            </div>
                                         </form>
                                     </div>
                                     <!-- <div class="card-footer text-center py-3">
@@ -70,7 +70,7 @@
                 </footer>
             </div>
         </div>
-        <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script>
+        <!-- <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script> -->
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>
         <script>
             const base_url = "<?php echo base_url; ?>";

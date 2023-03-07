@@ -532,7 +532,6 @@ function frmUser() {
     document.getElementById("passwords").classList.remove("d-none");
     document.getElementById("frmUser").reset();
     myModal.show();
-    //Pending verify if this document.getElement have to be erase
     document.getElementById("id").value = "";
     
 }
