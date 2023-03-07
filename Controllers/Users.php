@@ -206,9 +206,9 @@ class Users extends Controller{
     public function permissions($id)
     {
         
-        // if (empty($_SESSION['active'])){
-        //     header("location: ".base_url);
-        // }
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }
 
         
         $data['allData'] = $this->model->getPermissions();

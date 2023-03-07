@@ -2,6 +2,7 @@
 class Categories extends Controller{
 
     public function __construct() {
+
         session_start();
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
@@ -29,8 +30,8 @@ class Categories extends Controller{
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-primary" type="button" onclick="btnEditClient(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteClient(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-primary" type="button" onclick="btnEditClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
@@ -46,14 +47,10 @@ class Categories extends Controller{
     }
 
     public function register(){
-        $dni_client = $_POST['dni_client'];
-        $name = $_POST['name'];
-        $phone = $_POST['phone'];
-        $address = $_POST['address'];    
         $id = $_POST['id'];
-
-
-        if (empty($dni_client) || empty($name) || empty($phone) || empty($address)) {
+        $name = $_POST['name'];   
+        
+        if (empty($name)) {
 
             $message = "Debes llenar todos los campos.";
 
@@ -61,7 +58,7 @@ class Categories extends Controller{
 
             if($id == ""){
 
-                $data = $this->model->registerCategory($dni_client, $name, $phone, $address);
+                $data = $this->model->registerCategory($name);
 
                 if ($data == "ok") {
                     $message = array('message' => 'Categoria registrada correctamente.', 'icon' => 'success');
@@ -72,7 +69,7 @@ class Categories extends Controller{
                 }
                
             }else{
-                $data = $this->model->modifyCategory($dni_client, $name, $phone,$address, $id);
+                $data = $this->model->modifyCategory($name, $id);
 
                 if ($data == "modificado") {
                     $message = array('message' => 'Categoria modificada correctamente.', 'icon' => 'success');
@@ -87,7 +84,7 @@ class Categories extends Controller{
 
     public function edit(int $id){
 
-        $data = $this->model->editClient($id);
+        $data = $this->model->editCategory($id);
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
 
@@ -119,6 +116,4 @@ class Categories extends Controller{
     }
 
 }
-
-?>
 

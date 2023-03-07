@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     $('#client').select2();
+
     const buttons = [{
         extend: 'excelHtml5',
         footer: true,

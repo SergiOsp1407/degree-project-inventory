@@ -2,7 +2,9 @@
 class Measures extends Controller{
 
     public function __construct() {
+
         session_start();
+
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
         }
@@ -22,8 +24,8 @@ class Measures extends Controller{
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-primary" type="button" onclick="btnEditMeasure(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteMeasure(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-primary" type="button" onclick="btnEditMeasure('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteMeasure('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
@@ -58,18 +60,18 @@ class Measures extends Controller{
                 if ($data == "ok") {
                     $message = "Si";
                 } else if ($data == "exists") {
-                    $message = "El Documento de identificación ya existe";
+                    $message = "El id para esta medida ya existe";
                 } else {
-                    $message = "Error al registar el Cliente";
+                    $message = "Error al registar la medida";
                 }
                
             }else{
                 $data = $this->model->modifyMeasure($id, $name, $short_name);
 
                 if ($data == "modificado") {
-                    $message = "modificado";
+                    $message = array('message' => 'Medida modificada correctamente.', 'icon' => 'success');
                 }else {
-                    $message = "Error al modificar el cliente";
+                    $message = array('message' => 'Error al modificar la medida', 'icon' => 'error');
                 }
             }            
         }
@@ -89,9 +91,9 @@ class Measures extends Controller{
 
         $data = $this->model->actionMeasure(0, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Medida eliminada correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al eliminar el Cliente";
+            $message = array('message' => 'Error al eliminar la medida', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -101,9 +103,9 @@ class Measures extends Controller{
 
         $data = $this->model->actionMeasure(1, $id);
         if($data == 1){
-            $message = "ok";
+            $message = array('message' => 'Medida reingresada correctamente.', 'icon' => 'success');
         } else{
-            $message = "Error al reingresar el Cliente";
+            $message = array('message' => 'La medida no se pudo reingresar', 'icon' => 'error');
         }
 
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -111,6 +113,4 @@ class Measures extends Controller{
     }
 
 }
-
-?>
 

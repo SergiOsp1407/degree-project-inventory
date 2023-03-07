@@ -30,9 +30,10 @@ class Clients extends Controller{
 
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-primary" type="button" onclick="btnEditClient(' . $data[$i]['id'] . ');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteClient(' . $data[$i]['id'] . ');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-primary" type="button" onclick="btnEditClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
@@ -127,6 +128,4 @@ class Clients extends Controller{
     }
 
 }
-
-?>
 
