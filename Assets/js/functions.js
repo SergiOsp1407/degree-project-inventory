@@ -314,69 +314,71 @@ document.addEventListener("DOMContentLoaded", function() {
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
         },
-        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-        // buttons: [
-        //     'copyHtml5',
-        //     'excelHtml5',
-        //     'csvHtml5',
-        //     'pdfHtml5'
-        // ]
-        buttons: [{
+    //     dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+    //             "<'row'<'col-sm-12'tr>>" +
+    //             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+    //     // buttons: [
+    //     //     'copyHtml5',
+    //     //     'excelHtml5',
+    //     //     'csvHtml5',
+    //     //     'pdfHtml5'
+    //     // ]
+    //     buttons: [{
 
-            //Excel button
-            extend: 'excelHtml5',
-            footer: true,
-            title: 'Archivo',
-            filename: 'Export_File',
+    //         //Excel button
+    //         extend: 'excelHtml5',
+    //         footer: true,
+    //         title: 'Archivo',
+    //         filename: 'Export_File',
 
-            //Personalize button
-            text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
-        },
-        //PDF button
-        {
-            extend: 'pdfHtml5',
-            download: 'open',
-            footer: true,
-            title: 'Reporte de usuarios',
-            filename: 'Reporte de usuarios',
-            text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
-            exportOptions: {
-                columns: [0, ':visible']
-            }
-        },
-        //Copy button
-        {
-            extend: 'copyHtml5',
-            footer: true,
-            title: 'Reporte de usuarios',
-            filename: 'Reporte de usuarios',
-            text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
-            exportOptions: {
-                columns: [0, ':visible']
-            }
-        },
-        //Print button
-        {
-            extend: 'print',
-            footer: true,
-            filename: 'Export_File_print',
-            text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
-        },
-        //CVS button
-        {
-            extend: 'csvHtml5',
-            footer: true,
-            filename: 'Export_File_csv',
-            text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
-        },
-        {
-            extend: 'colvis',
-            text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-            postfixButtons: ['colvisRestore']
-        }
-    ]
+    //         //Personalize button
+    //         text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
+    //     },
+    //     //PDF button
+    //     {
+    //         extend: 'pdfHtml5',
+    //         download: 'open',
+    //         footer: true,
+    //         title: 'Reporte de usuarios',
+    //         filename: 'Reporte de usuarios',
+    //         text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
+    //         exportOptions: {
+    //             columns: [0, ':visible']
+    //         }
+    //     },
+    //     //Copy button
+    //     {
+    //         extend: 'copyHtml5',
+    //         footer: true,
+    //         title: 'Reporte de usuarios',
+    //         filename: 'Reporte de usuarios',
+    //         text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
+    //         exportOptions: {
+    //             columns: [0, ':visible']
+    //         }
+    //     },
+    //     //Print button
+    //     {
+    //         extend: 'print',
+    //         footer: true,
+    //         filename: 'Export_File_print',
+    //         text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
+    //     },
+    //     //CVS button
+    //     {
+    //         extend: 'csvHtml5',
+    //         footer: true,
+    //         filename: 'Export_File_csv',
+    //         text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
+    //     },
+    //     {
+    //         extend: 'colvis',
+    //         text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
+    //         postfixButtons: ['colvisRestore']
+    //     }
+    //]
+        dom,
+        buttons
     });
     //End table Products
 
@@ -424,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'name'
             },
             {
-                'data' : 'total'
+                'data' : 'total_sales'
             },
             {
                 'data' : 'sale_date'
@@ -1235,9 +1237,6 @@ function frmProduct() {
     
 }
 
-
-
-
 //Function used in Product module to register new products
 function registerProduct(e) {
     e.preventDefault();
@@ -1263,6 +1262,7 @@ function registerProduct(e) {
         http.onreadystatechange = function() {
 
             if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
                 const response = JSON.parse(this.responseText);
                 alerts(response.message, this.response.icon);
                 frm.reset();
@@ -1287,7 +1287,7 @@ function btnEditProduct(id) {
     http.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
-
+            // console.log(this.responseText);
             const response = JSON.parse(this.responseText);
             document.getElementById("id").value = response.id;
             document.getElementById("code").value = response.code;
@@ -1311,7 +1311,7 @@ function btnDeleteProduct(id){
 
     Swal.fire({
         title: '¿Estas seguro de eliminarlo?',
-        text: "Esta acción no eliminará de manera permanente, cambiará el estado a Inactivo",
+        text: "El producto no eliminará de manera permanente, cambiará el estado a Inactivo",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -1540,7 +1540,6 @@ if (document.getElementById('tblSales')) {
 }
 
 function loadDetail() {
-
     const url = base_url + "Purchases/list/tmp_details";
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
@@ -1548,7 +1547,6 @@ function loadDetail() {
     http.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
-
             const response = JSON.parse(this.responseText);
             let html = '';
             response.detail.forEach(row => {
@@ -1729,11 +1727,9 @@ function modifyCompany() {
 
                 alert('Modificado');
                 
-            }
-                          
+            }                          
         }
     }
-
 }
 
 function alerts(alert_message, alert_icon) {

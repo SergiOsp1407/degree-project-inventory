@@ -5,16 +5,13 @@ class ProductsModel extends Query
 
     private $code, $description, $purchase_price, $selling_price, $id_measure, $id_category, $id, $status, $image;
 
-    public function __construct()
-    {
+    public function __construct(){
 
         parent::__construct();
     }
 
     public function getMeasures(){
         $sql = "SELECT * FROM measures WHERE status = 1";
-
-        // Instance from the Query class, to run the query and assign to data var
         $data = $this->selectAll($sql);
         return $data;
     }
@@ -28,6 +25,7 @@ class ProductsModel extends Query
     }
 
     public function getProducts(){
+
         $sql = "SELECT p.*, m.id AS id_measure, m.name AS measure, c.id AS id_category, c.name AS category FROM products p INNER JOIN measures m ON p.id_measure = m.id INNER JOIN categories c ON p.id_category = c.id";
 
         // Instance from the Query class, to run the query and assign to data var

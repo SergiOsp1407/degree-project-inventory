@@ -42,7 +42,6 @@ class CashRegisterModel extends Query
     {
         $this->cash_register = $cash_register;
         $this->id = $id;
-
         $sql = "UPDATE cash_register SET cash_register = ? WHERE id = ?";
         $data = array($this->cash_register, $this->id);
         $allData = $this->save($sql, $data);

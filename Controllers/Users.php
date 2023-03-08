@@ -71,7 +71,7 @@ class Users extends Controller{
             }
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
-        print_r($data);
+        // print_r($data);
         die();
     }
 

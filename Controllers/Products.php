@@ -65,6 +65,7 @@ class Products extends Controller{
         if (empty($code) || empty($description) || empty($purchase_price) || empty($selling_price)) {
 
             $message = "Debes llenar todos los campos.";
+
         }else {
 
             if(!empty($name)){
@@ -159,6 +160,4 @@ class Products extends Controller{
     }
 
 }
-
-?>
 
