@@ -1,6 +1,6 @@
 
 // Receive data using Ajax
-let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProducts, t_h_c, t_h_v, t_balance, myModal;
+let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProducts, t_h_c, t_h_v, t_balance, myModal,tblDetail;
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -314,71 +314,63 @@ document.addEventListener("DOMContentLoaded", function() {
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
         },
-    //     dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
-    //             "<'row'<'col-sm-12'tr>>" +
-    //             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-    //     // buttons: [
-    //     //     'copyHtml5',
-    //     //     'excelHtml5',
-    //     //     'csvHtml5',
-    //     //     'pdfHtml5'
-    //     // ]
-    //     buttons: [{
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+       
+        buttons: [{
 
-    //         //Excel button
-    //         extend: 'excelHtml5',
-    //         footer: true,
-    //         title: 'Archivo',
-    //         filename: 'Export_File',
+            //Excel button
+            extend: 'excelHtml5',
+            footer: true,
+            title: 'Archivo',
+            filename: 'Export_File',
 
-    //         //Personalize button
-    //         text: '<span class="badge badge-success"><i class="fas fa-file-excel"></i></span>'
-    //     },
-    //     //PDF button
-    //     {
-    //         extend: 'pdfHtml5',
-    //         download: 'open',
-    //         footer: true,
-    //         title: 'Reporte de usuarios',
-    //         filename: 'Reporte de usuarios',
-    //         text: '<span class="badge  badge-danger"><i class="fas fa-file-pdf"></i></span>',
-    //         exportOptions: {
-    //             columns: [0, ':visible']
-    //         }
-    //     },
-    //     //Copy button
-    //     {
-    //         extend: 'copyHtml5',
-    //         footer: true,
-    //         title: 'Reporte de usuarios',
-    //         filename: 'Reporte de usuarios',
-    //         text: '<span class="badge  badge-primary"><i class="fas fa-copy"></i></span>',
-    //         exportOptions: {
-    //             columns: [0, ':visible']
-    //         }
-    //     },
-    //     //Print button
-    //     {
-    //         extend: 'print',
-    //         footer: true,
-    //         filename: 'Export_File_print',
-    //         text: '<span class="badge badge-light"><i class="fas fa-print"></i></span>'
-    //     },
-    //     //CVS button
-    //     {
-    //         extend: 'csvHtml5',
-    //         footer: true,
-    //         filename: 'Export_File_csv',
-    //         text: '<span class="badge  badge-success"><i class="fas fa-file-csv"></i></span>'
-    //     },
-    //     {
-    //         extend: 'colvis',
-    //         text: '<span class="badge  badge-info"><i class="fas fa-columns"></i></span>',
-    //         postfixButtons: ['colvisRestore']
-    //     }
-    //]
-        dom,
-        buttons
+            //Personalize button
+            text: '<span class="badge bg-success"><i class="fas fa-file-excel"></i></span>'
+        },
+        //PDF button
+        {
+            extend: 'pdfHtml5',
+            download: 'open',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge bg-danger"><i class="fas fa-file-pdf"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Copy button
+        {
+            extend: 'copyHtml5',
+            footer: true,
+            title: 'Reporte de usuarios',
+            filename: 'Reporte de usuarios',
+            text: '<span class="badge bg-primary"><i class="fas fa-copy"></i></span>',
+            exportOptions: {
+                columns: [0, ':visible']
+            }
+        },
+        //Print button
+        {
+            extend: 'print',
+            footer: true,
+            filename: 'Export_File_print',
+            text: '<span class="badge bg-dark"><i class="fas fa-print"></i></span>'
+        },
+        //CVS button
+        {
+            extend: 'csvHtml5',
+            footer: true,
+            filename: 'Export_File_csv',
+            text: '<span class="badge bg-success"><i class="fas fa-file-csv"></i></span>'
+        },{
+            extend: 'colvis',
+            text: '<span class="badge bg-info"><i class="fas fa-columns"></i></span>',
+            postfixButtons: ['colvisRestore']
+        }
+    ]
     });
     //End table Products
 
@@ -531,7 +523,7 @@ function frmUser() {
 
     document.getElementById("title").textContent = "Nuevo Usuario";
     document.getElementById("btnAction").textContent = "Registrar";
-    document.getElementById("passwords").classList.remove("d-none");
+    document.getElementById("password").classList.remove("d-none");
     document.getElementById("frmUser").reset();
     myModal.show();
     document.getElementById("id").value = "";
@@ -590,7 +582,7 @@ function btnEditUser(id) {
             document.getElementById("user").value = response.user;
             document.getElementById("name").value = response.name;
             document.getElementById("cashRegister").value = response.id_cash_register;
-            document.getElementById("passwords").classList.add("d-none");
+            document.getElementById("password").classList.add("d-none");
             myModal.show();
             
         }
@@ -855,7 +847,7 @@ function btnEditCategory(id) {
             document.getElementById("user").value = response.user;
             document.getElementById("name").value = response.name;
             document.getElementById("cashRegister").value = response.id_cash_register;
-            document.getElementById("passwords").classList.add("d-none");
+            document.getElementById("password").classList.add("d-none");
             myModal.show();
             
         }
@@ -1399,10 +1391,9 @@ function searchCode(e){
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
-    
+            http.onreadystatechange = function() {    
                 if (this.readyState == 4 && this.status == 200) {
-                    
+                    console.log(this.responseText);
                     const response = JSON.parse(this.responseText);
                     
                     if (response) {
@@ -1588,7 +1579,7 @@ function loadDetailSale() {
                 <td>${row['id']}</td>
                 <td>${row['description']}</td>
                 <td>${row['amount']}</td>
-                <td><input class="form-control" placeholder="Descuento" typ="text" onkeyup="calculateDiscount(event, ${row['id']} )">></td>
+                <td><input class="form-control" placeholder="Descuento" type="text" onkeyup="calculateDiscount(event, ${row['id']} )"></td>
                 <td>${row['discount']}</td>
                 <td>${row['price']}</td>
                 <td>${row['sub_total']}</td>
@@ -1820,31 +1811,29 @@ function soldProducts() {
 
 
 // // Charts, Metrics and Visual reports
-var ctx = document.getElementById("minimumStock");
-var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ["Blue", "Red", "Yellow", "Green"],
-        datasets: [{
-            data: [12.21, 15.58, 11.25, 8.32],
-            backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
-        }],
-    },
-});
+// var ctx = document.getElementById("minimumStock");
+// var myPieChart = new Chart(ctx, {
+//     type: 'pie',
+//     data: {
+//         labels: ["Blue", "Red", "Yellow", "Green"],
+//         datasets: [{
+//             data: [12.21, 15.58, 11.25, 8.32],
+//             backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
+//         }],
+//     },
+// });
 
-
-
-var ctx = document.getElementById("soldProducts");
-var myPieChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ["Blue", "Red", "Yellow", "Green"],
-        datasets: [{
-            data: [12.21, 15.58, 11.25, 8.32],
-            backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
-        }],
-    },
-});
+// var ctx = document.getElementById("soldProducts");
+// var myPieChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data: {
+//         labels: ["Blue", "Red", "Yellow", "Green"],
+//         datasets: [{
+//             data: [12.21, 15.58, 11.25, 8.32],
+//             backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
+//         }],
+//     },
+// });
 
 
 function btnCancelPurchase(id) {    

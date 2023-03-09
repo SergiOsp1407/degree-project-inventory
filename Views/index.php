@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Ingreso - SpeedBikers</title>
-        <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet" />
+        <link href="<?php echo base_url; ?>Assets/css/styles.css" rel="stylesheet"/>
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -18,7 +18,7 @@
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header text-center">
-                                        <h3 class=" font-weight-light my-4">Bienvenido!</h3>
+                                        <h3 class="font-weight-light my-4">Bienvenido!</h3>
                                         <img src="<?php echo base_url; ?>Assets/img/logo.png" class="img-fluid rounded" alt="logo" width="150">
                                     </div>
                                     <div class="card-body">
@@ -36,7 +36,7 @@
                                             <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div>
 
                                             <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value=""/>
                                                 <label class="form-check-label" for="inputRememberPassword">Recordar contraseña</label>
                                             </div>
                                             <button type="button" class="btn btn-primary" onclick="frmLogin(event)">Iniciar Sesion</button>
@@ -70,10 +70,10 @@
                 </footer>
             </div>
         </div>
-        <!-- <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script> -->
+        <script src="<?php echo base_url; ?>Assets/js/bootstrap.bundle.min.js"></script>
         <script src="<?php echo base_url; ?>Assets/js/scripts.js"></script>
         <script>
-            const base_url = "<?php echo base_url; ?>";
+            const base_url = '<?php echo base_url; ?>';
         </script>
         <script src="<?php echo base_url; ?>Assets/js/login.js"></script>
     </body>

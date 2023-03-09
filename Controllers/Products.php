@@ -47,7 +47,6 @@ class Products extends Controller{
     }
 
     public function register(){
-
         
         $code = $_POST['code'];
         $description = $_POST['description'];
@@ -59,7 +58,7 @@ class Products extends Controller{
         $image = $_FILES['image'];
         $name = $image['name'];
         $temp_name = $image['temp_name'];
-        $direction = "Assets/img/".$name;
+    
         $date = date("YmdHis");
 
         if (empty($code) || empty($description) || empty($purchase_price) || empty($selling_price)) {
@@ -70,8 +69,8 @@ class Products extends Controller{
 
             if(!empty($name)){
 
-                $imageName = $date. ".jpg";
-                $direction = "Assets/img/" . $imageName;
+                $imageName = $date.".jpg";
+                $direction = "Assets/img/".$imageName;
 
             }else if(!empty($_POST['actual_image']) && empty($name)){
 
@@ -104,9 +103,9 @@ class Products extends Controller{
 
                 $imageDelete = $this->model->editProduct($id);
                 if ($imageDelete['image'] != 'default.jpg') {
-                    if (file_exists( "Assets/img/" . $imageDelete['image'])) {
+                    if (file_exists( "Assets/img/".$imageDelete['image'])) {
 
-                        unlink( "Assets/img/" . $imageDelete['image']);
+                        unlink( "Assets/img/".$imageDelete['image']);
                     }
                 }
 

@@ -5,8 +5,6 @@
 </ol>
 
 <button class="btn btn-primary mb-2" type="button" onclick="frmCategory();">Nueva categoría <i class="fas fa-plus"></i></button>
-
-
 <table class="table table-light" id="tblCategories">
     <thead class="thead-dark">
         <tr>

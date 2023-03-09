@@ -44,13 +44,14 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                             <div class="nav">
-<!--                             Dashboard that maybe can work in the future
+                            <!-- Dashboard that maybe can work in the future -->
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="<?php echo base_url; ?>Administration/home">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div> -->
+
+                            <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-cogs fa-2x text-danger"></i></div>
                                 Administración
@@ -64,8 +65,8 @@
                             </div>
 
                             <!--Products-->
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLProduct" aria-expanded="false" aria-controls="collapseProduct">
-                                <div class="sb-nav-link-icon"><i class="fab fa-product-hunt fa-2x text-danger"></i></div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+                                <div class="sb-nav-link-icon"><i class="fab fa-codepen fa-2x text-danger"></i></div>
                                 Productos
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -80,7 +81,7 @@
                             <!--Cash Register (Cajas)-->
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCashRegister" aria-expanded="false" aria-controls="collapseCashRegister">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box fa-2x text-danger"></i></div>
-                                Cajas
+                                Cajas - Balances
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseCashRegister" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -102,7 +103,7 @@
                                 Compras
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseInputs" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="collapse" id="collapsePurchases" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?php echo base_url; ?>Purchases">Nueva Compra</a>
                                     <a class="nav-link" href="<?php echo base_url; ?>Purchases/history">Historial Compras</a>
@@ -122,7 +123,7 @@
                                 </nav>
                             </div>
 
-<!--                         Addons or puglins to create report like Chart (grafica pastel) or Tables
+                        <!-- Addons or puglins to create report like Chart (grafica pastel) or Tables
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Pages

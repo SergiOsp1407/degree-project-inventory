@@ -2,7 +2,7 @@
 <?php include "Views/Templates/header.php"; ?>
 <div class="row">
     <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary text-white mb-4">
+        <div class="card bg-dark text-white mb-4">
             <div class="card-body">
                 <i class="fas fa-user fa-2x"></i>
                 Usuarios
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
-        <div class="card bg-warning text-white mb-4">
+        <div class="card bg-danger text-white mb-4">
             <div class="card-body">
                 <i class="fas fa-users fa-2x"></i>
                 Clientes
@@ -26,9 +26,9 @@
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
-        <div class="card bg-success text-white mb-4">
+        <div class="card bg-secondary text-white mb-4">
             <div class="card-body">
-                <i class="fas fa-product-hunt fa-2x"></i>
+                <i class="fab fa-codepen fa-2x"></i>
                 Productos
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
-        <div class="card bg-danger text-white mb-4">
+        <div class="card bg-dark  text-white mb-4">
             <div class="card-body">
                 <i class="fas fa-cash-register fa-2x"></i>
                 Ventas por dia
@@ -50,13 +50,13 @@
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
-        <div class="card bg-warning text-white mb-4">
+        <div class="card bg-danger text-white mb-4">
             <div class="card-body">
                 <i class="fas fa-cash-register fa-2x"></i>
-                Ventas por Día
+                Otros
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/sales_history">View Details</a>
+                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/#">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>

@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="code"><i class="fas fa-barcode"></i> Código de barras</label>
                         <input type="hidden" id="id" name="id">
-                        <input id="code" type="text" class="form-control" name="code" placeholder="Codigo de barras" onkeyup="searchCode(event)">
+                        <input id="code" type="text" class="form-control" name="code" placeholder="Código de barras" onkeyup="searchCode(event)">
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -59,7 +59,6 @@
         </tr>
     </thead>
     <tbody id="tblDetail">
-
     </tbody>
 </table>
 <div class="row">

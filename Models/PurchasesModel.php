@@ -11,12 +11,9 @@ class PurchasesModel extends Query{
     }
 
     public function getClients(){
-
         $sql = "SELECT * FROM clients WHERE status = 1";
         $data = $this->selectAll($sql);
         return $data;
-
-
     }
 
 
