@@ -25,12 +25,12 @@ class Measures extends Controller{
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditMeasure('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteMeasure('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-danger" type="button" onclick="btnDeleteMeasure('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-success" type="button" onclick="btnReenterMeasure('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                <button class="btn btn-success" type="button" onclick="btnReenterMeasure('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
 
@@ -45,16 +45,10 @@ class Measures extends Controller{
         $name = $_POST['name'];
         $short_name = $_POST['short_name'];
 
-
-
         if (empty($id) || empty($name) || empty($short_name)) {
-
             $message = "Debes llenar todos los campos.";
-
         }else {
-
             if($id == ""){
-
                 $data = $this->model->registerMeasure($id, $name, $short_name);
 
                 if ($data == "ok") {

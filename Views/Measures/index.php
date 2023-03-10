@@ -4,15 +4,14 @@
     <li class="breadcrumb-item active">Metricas</li>
 </ol>
 
-<button class="btn btn-primary mb-2" type="button" onclick="frmMeasures();"> <i class="fas fa-plus"></i></button>
-
+<button class="btn btn-primary mb-2" type="button" onclick="frmMeasures();"> Nueva medida <i class="fas fa-plus"></i></button>
 <div class="table-responsive">
     <table class="table table-light" id="tblProducts">
         <thead class="thead-dark">
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Nombre corto</th>
+                <th>Abreviación</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -36,13 +35,12 @@
                         <label for="name">Nombre</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" short_name="name" id="name" placeholder="Nombre corto">
+                        <input type="text" class="form-control" short_name="short_name" id="short_name" placeholder="Nombre corto">
                         <label for="short_name">Nombre corto</label>
                     </div>
-                    <button class="btn btn-primary" type="button" onclick="registerMeasure(event)"></button>
+                    <button class="btn btn-primary" type="button" onclick="registerMeasure(event)" id="btnAction"></button>
                     <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
                 </form>
-
             </div>
         </div>
     </div>

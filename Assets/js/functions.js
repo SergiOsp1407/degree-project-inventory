@@ -1094,7 +1094,7 @@ function frmMeasures() {
 }
 
 
-function registerMeasures(e) {
+function registerMeasure(e) {
 
     e.preventDefault();
     const name = document.getElementById("name");
@@ -1102,7 +1102,6 @@ function registerMeasures(e) {
     if (name.value == "" || short_name.value == "") {
         alerts('Todos los campos son obligatorios', 'warning');        
     }else{
-
         const url = base_url + "Measures/register";
         const frm = document.getElementById("frmMeasures");
         const http = new XMLHttpRequest();
@@ -1132,7 +1131,6 @@ function btnEditMeasure(id) {
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function () {
-
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
             document.getElementById("id").value = response.id;
@@ -1145,7 +1143,6 @@ function btnEditMeasure(id) {
 
 
 function btnDeleteMeasure(id){
-
     Swal.fire({
         title: '¿Estas seguro de eliminar la metrica?',
         text: "Esta metrica no eliminará de manera permanente, cambiará el estado a Inactivo",

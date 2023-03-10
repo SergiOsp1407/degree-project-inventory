@@ -25,7 +25,7 @@ class Products extends Controller{
 
         for ($i=0; $i < count($data); $i++) { 
 
-            $data[$i]['image'] = '<img class="img-thumbnail" src="'. base_url. "Assets/img/". $data[$i]['image'].'" width="100">';
+            $data[$i]['image'] = '<img class="img-thumbnail" src="'. base_url."Assets/img/".$data[$i]['image'].'" width="100">';
 
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';

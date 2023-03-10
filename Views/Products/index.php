@@ -23,13 +23,14 @@
     </tbody>
 </table>
 </div>
-
 <div class="modal fade" id="my_modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="title"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="title">Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <span aria-hidden="true">&times;</span> -->
+                </button>                
             </div>
             <div class="modal-body">
             <form method="post" id="frmProduct">
@@ -103,5 +104,4 @@
         </div>
     </div>
 </div>
-
 <?php include "Views/Templates/footer.php"; ?>
