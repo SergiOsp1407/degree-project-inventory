@@ -47,7 +47,7 @@
                             <!-- Dashboard that maybe can work in the future -->
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="<?php echo base_url; ?>Administration/home">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt fa-2x text-danger"></i></div>
                                 Dashboard
                             </a>
 

@@ -1,4 +1,3 @@
-
 <?php
 class UsersModel extends Query
 {

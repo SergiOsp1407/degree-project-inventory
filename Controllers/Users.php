@@ -35,13 +35,14 @@ class Users extends Controller{
                     $data[$i]['actions'] = '<div>
                     <a class="btn btn-dark" href="'.base_url.'Users/permissions/'.$data[$i]['id'].'"><i class="fas fa-key"></i></a>
                     <button class="btn btn-primary" type="button" onclick="btnEditUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>
+                    
+                    <button class="btn btn-danger" type="button" onclick="btnDeleteUser('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
                     </div>'; 
                 }
             }else {
                 $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>            
-                <button class="btn btn-success" type="button" onclick="btnReenterUser('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                <button class="btn btn-success" type="button" onclick="btnReenterUser('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
         }
@@ -85,7 +86,7 @@ class Users extends Controller{
         $id = $_POST['id'];
 
         //Encrypting password
-        $hash = hash("SHA256", $password);
+        // $hash = hash("SHA256", $password);
 
         if (empty($user) || empty($name) || /*empty($password) ||*/ empty($cashRegister)) {
 

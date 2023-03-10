@@ -33,7 +33,7 @@ class Clients extends Controller{
                 
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';

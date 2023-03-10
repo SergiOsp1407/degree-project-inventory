@@ -14,7 +14,6 @@ class ClientsModel extends Query
     public function getClients()
     {
         $sql = "SELECT * FROM clients";
-
         // Instance from the Query class, to run the query and assign to data var
         $data = $this->selectAll($sql);
         return $data;

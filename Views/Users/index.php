@@ -21,7 +21,7 @@
 </table>
 
 <!--Format of the New Users table-->
-<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -65,12 +65,10 @@
                         </select>
                         <label for="cashRegister">Caja</label>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="registerUser(event);" id="">Registrar</button>
+                    <button type="button" class="btn btn-primary" onclick="registerUser(event);" id="btnAction">Registrar</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                 </form>
-
-            </div>
-            
+            </div>            
         </div>
     </div>
 </div>

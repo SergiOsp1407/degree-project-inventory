@@ -54,7 +54,7 @@
                     </div>
                     
                     
-                    <button type="button" class="btn btn-primary" onclick="registerClient(event);" id="">Registrar</button>
+                    <button type="button" class="btn btn-primary" onclick="registerClient(event);" id="btnAction">Registrar</button>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                 </form>
 

@@ -486,17 +486,15 @@ function frmChangePassword(e) {
     const confirmPassword = document.getElementById('confirmPassword').value;
 
     if (actualPassword == '' || newPassword == '' || confirmPassword == '') {
-
         alerts('Todos los campos son obligatorios', 'warning');
+        return false;
         
     }else{
-
         if (newPassword != confirmPassword) {
-
-            alerts('Las contraseñas no coinciden', 'warning');            
+            alerts('Las contraseñas no coinciden', 'warning');  
+            return false;          
 
         } else {
-
             const url = base_url + "Users/changePassword";
             const frm = document.getElementById("frmChangePassword");
             const http = new XMLHttpRequest();
@@ -548,16 +546,13 @@ function registerUser(e) {
         const frm = document.getElementById("frmUser");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
-        http.send(new FormData(frm));
-        
+        http.send(new FormData(frm));        
         http.onreadystatechange = function() {
-
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
                 alerts(response.message, response.icon);
-                tblUsers.ajax.reload();
-                
+                tblUsers.ajax.reload();                
             }            
         }
     }    
@@ -586,8 +581,7 @@ function btnEditUser(id) {
             myModal.show();
             
         }
-    }
-    
+    }    
 }
 
 function btnDeleteUser(id){
@@ -603,7 +597,6 @@ function btnDeleteUser(id){
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
             const url = base_url + "Users/delete/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
@@ -633,7 +626,6 @@ function btnReenterUser(id) {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
             const url = base_url + "Users/reenter/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
@@ -656,9 +648,8 @@ function btnReenterUser(id) {
 
 //This function was updated in video 31 when updating Bootstrap
 function frmClient() {
-
-    document.getElementById("title").innerHTML = "Nuevo Cliente";
-    document.getElementById("btnAction").innerHTML = "Registrar";
+    document.getElementById("title").textContent = "Nuevo Cliente";
+    document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmClient").reset();
     myModal.show();
     document.getElementById("id").value = "";
@@ -1724,17 +1715,13 @@ function modifyCompany() {
 }
 
 function alerts(alert_message, alert_icon) {
-
     Swal.fire({
         position: 'top-end',
         icon: alert_icon,
-        titleL: alert_message,
+        title: alert_message,
         showConfirmButton: false,
         timer: 3000
-    })
-
-
-    
+    })    
 }
 
 
