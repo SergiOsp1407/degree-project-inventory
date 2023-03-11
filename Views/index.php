@@ -19,7 +19,8 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header text-center">
                                         <h3 class="font-weight-light my-4">Bienvenido!</h3>
-                                        <img src="<?php echo base_url; ?>Assets/img/logo.png" class="img-fluid rounded" alt="logo" width="150">
+                                        <!--Se agrega logo de SpeedBikers formato png-->
+                                        <img src="<?php echo base_url; ?>Assets/img/cebiche.png" class="img-fluid rounded" alt="logo" width="150">
                                     </div>
                                     <div class="card-body">
                                         <!-- The frmLogin id is used to work with Ajax and the requests to Database -->
