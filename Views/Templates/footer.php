@@ -16,9 +16,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="my-modal-title">Modificar contraseña</h5>
-                <button class="btn-close" data-bs-dismiss="model" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <h5 class="modal-title" id="title">Modificar contraseña</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
             </div>
             <div class="modal-body">

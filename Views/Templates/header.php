@@ -33,7 +33,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!" data-bs-toggle="modal" data-bs-target="#changePassword">Mi perfil</a></li>
                         <li><a class="dropdown-item" href="#!">Configuraciones</a></li>
-                        <li><hr class="dropdown-divider" /></li>                        
+                        <!-- <li><hr class="dropdown-divider" /></li>                         -->
                         <li><a class="dropdown-item" href="<?php echo base_url; ?>Users/logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>

@@ -26,7 +26,7 @@
 <div class="modal fade" id="my_modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="title">Nuevo Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <!-- <span aria-hidden="true">&times;</span> -->
@@ -76,7 +76,7 @@
                             <select name="category" id="category" class="form-control">
                                 <?php
                                 foreach ($data['categories'] as $row) { ?>
-                                    <option value="<?php echo $row['name'] ?>"></option>
+                                    <option value="<?php echo $row['name']; ?>"></option>
                                 <?php } ?>
                             </select>
                             <label for="category">Categorías</label>

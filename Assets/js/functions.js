@@ -1,4 +1,4 @@
-
+tblDetail
 // Receive data using Ajax
 let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProducts, t_h_c, t_h_v, t_balance, myModal,tblDetail;
 
@@ -680,7 +680,7 @@ function registerClient(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerts(response.message, this.response.icon);
+                alerts(response.message, response.icon);
                 tblClients.ajax.reload();
                 
             }            
@@ -737,7 +737,7 @@ function btnDeleteClient(id){
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    alerts(response.message, this.response.icon);
+                    alerts(response.message, response.icon);
                     tblClients.ajax.reload();    
                 }
             }            
@@ -766,7 +766,7 @@ function btnReenterClient(id) {
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    alerts(response.message, this.response.icon);
+                    alerts(response.message, response.icon);
                     tblClients.ajax.reload();                    
                 }
             }            
@@ -811,7 +811,7 @@ function registerCategory(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerts(response.message, this.response.icon);
+                alerts(response.message, response.icon);
                 tblCategories.ajax.reload();
                 
             }            
@@ -1111,7 +1111,7 @@ function registerMeasure(e) {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerts(response.message, this.response.icon);
+                alerts(response.message, response.icon);
                 tblMeasures.ajax.reload();
                 
             }            
@@ -1228,27 +1228,22 @@ function registerProduct(e) {
     const id_category = document.getElementById("category");
 
     if (code.value == "" || description.value == "" || purchase_price.value == "" || selling_price.value ) {
-
-        alerts('Todos los campos son obligatorios!' , 'warning');
-        
+        alerts('Todos los campos son obligatorios!' , 'warning');        
     }else{
         // Petiton with Ajax
         const url = base_url + "Products/register";
         const frm = document.getElementById("frmProduct");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
-        http.send(new FormData(frm));
-        
-        http.onreadystatechange = function() {
-
+        http.send(new FormData(frm));        
+        http.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.responseText);
                 const response = JSON.parse(this.responseText);
-                alerts(response.message, this.response.icon);
+                alerts(response.message, response.icon);
                 frm.reset();
                 myModal.hide();
-                tblProducts.ajax.reload();
-                
+                tblProducts.ajax.reload();                
             }            
         }
     }    
@@ -1257,7 +1252,6 @@ function registerProduct(e) {
 
 //Function used in User module to edit Products
 function btnEditProduct(id) {
-
     document.getElementById("title").textContent = "Actualizar producto";
     document.getElementById("btnAction").textContent = "Modificar";
     const url = base_url + "Products/edit/" + id;
@@ -1265,7 +1259,6 @@ function btnEditProduct(id) {
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
             // console.log(this.responseText);
             const response = JSON.parse(this.responseText);
@@ -1283,12 +1276,10 @@ function btnEditProduct(id) {
             myModal.show();
             
         }
-    }
-    
+    }    
 }
 
 function btnDeleteProduct(id){
-
     Swal.fire({
         title: '¿Estas seguro de eliminarlo?',
         text: "El producto no eliminará de manera permanente, cambiará el estado a Inactivo",
@@ -1300,13 +1291,11 @@ function btnDeleteProduct(id){
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
             const url = base_url + "Products/delete/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     alerts(response.message, response.icon);
