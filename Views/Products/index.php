@@ -85,7 +85,7 @@
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
                             <label>Imagen</label>
-                            <div class="card border-primary">
+                            <div class="card border-danger">
                                 <div class="card-body">
                                     <label for="image" id="icon-image" class="btn btn-primary"><i class="fas fa-image"></i></label>
                                     <span id="icon-close"></span>

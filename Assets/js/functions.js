@@ -277,12 +277,10 @@ document.addEventListener("DOMContentLoaded", function() {
     tblProducts = $('#tblProducts').DataTable({
 
         ajax: {
-
             url: base_url + "Products/list",
             dataSrc: ''
         },
         columns: [
-
             {
                 'data' : 'id'
             },
@@ -307,9 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
             {
                 'data' : 'actions'
             },
-
         ],
-
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
         },
@@ -1339,13 +1335,11 @@ function btnReenterProduct(id) {
 
 
 function preview(e) {
-
     const url_image = e.target.files[0];
     const url_tmp = URL.createObjectURL(url_image);
     document.getElementById("img-preview").src = url_tmp;
     document.getElementById("icon-image").classList.add("d-none");
-    document.getElementById("icon-close").innerHTML = `<button class="btn btn-danger" onclick="deleteImage()"><i class="fas fa-times"></i></button>${url_image['name']}`;
-    
+    document.getElementById("icon-close").innerHTML = `<button class="btn btn-danger" onclick="deleteImage()"><i class="fas fa-times"></i></button>${url_image['name']}`;    
 }
 
 function deleteImage() {

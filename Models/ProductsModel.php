@@ -1,7 +1,6 @@
 <!-- Products Model for manipulation of products -->
 <?php
-class ProductsModel extends Query
-{
+class ProductsModel extends Query{
 
     private $code, $description, $purchase_price, $selling_price, $id_measure, $id_category, $id, $status, $image;
 
@@ -47,7 +46,6 @@ class ProductsModel extends Query
         $exists = $this->select($check);
 
         if (empty($exists)) {
-
             $sql = "INSERT INTO products(code, description, purchase_price, selling_price, id_measure, id_category, image ) VALUES (?,?,?,?,?,?,?)";
             $data = array($this->code, $this->description, $this->purchase_price, $this->selling_price, $this->id_measure, $this->id_category, $this->image);
             $allData = $this->save($sql, $data);

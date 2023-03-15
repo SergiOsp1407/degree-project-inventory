@@ -28,6 +28,7 @@ class Products extends Controller{
 
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
+
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditProduct('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteProduct('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
@@ -75,16 +76,14 @@ class Products extends Controller{
 
             }else{
 
-                $imageName = "default.jpg";
+                $imageName = "default.png";
 
             }
            
             if($id == ""){
-
-                    $data = $this->model->registerProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $imageName );
+                    $data = $this->model->registerProduct($code, $description, $purchase_price, $selling_price, $measure, $category, $imageName);
 
                     if ($data == "ok") {
-
                         if(!empty($name)){
                             move_uploaded_file($temp_name, $direction);
                         }
