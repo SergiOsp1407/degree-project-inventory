@@ -1,4 +1,3 @@
-tblDetail
 // Receive data using Ajax
 let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProducts, t_h_c, t_h_v, t_balance, myModal,tblDetail;
 
