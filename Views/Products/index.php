@@ -1,7 +1,7 @@
-<?php include "Views/Templates/header.php" ?>
+<?php include "Views/Templates/header.php"; ?>
 
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Products</li>
+    <li class="breadcrumb-item active">Productos</li>
 </ol>
 
 <button class="btn btn-primary mb-2" type="button" onclick="frmProduct();">Nuevo producto <i class="fas fa-plus"></i></button>
@@ -23,7 +23,9 @@
     </tbody>
 </table>
 </div>
-<div class="modal fade" id="my_modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+
+
+<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -65,7 +67,7 @@
                             <select name="measure" id="measure" class="form-control">
                                 <?php
                                 foreach ($data['measures'] as $row) { ?>
-                                    <option value="<?php echo $row['name'] ?>"></option>
+                                <option value="<?php echo $row['name'] ?>"></option>
                                 <?php } ?>
                             </select>
                             <label for="measure">Medidas</label>

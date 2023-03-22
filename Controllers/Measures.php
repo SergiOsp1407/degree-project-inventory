@@ -5,19 +5,21 @@ class Measures extends Controller{
 
         session_start();
 
-        if (empty($_SESSION['active'])){
-            header("location: ".base_url);
-        }
+        
         parent::__construct();
     }
 
-    public function index()
-    {
+    public function index(){
+
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }
+        
         $this->views->getView($this, "index");
     }
 
     public function list(){
-        $data = $this->model->getMeasures();
+        $data = $this->model->getMeasure();
 
         for ($i=0; $i < count($data); $i++) { 
 
@@ -41,26 +43,27 @@ class Measures extends Controller{
     }
 
     public function register(){
+
         $id = $_POST['id'];
         $name = $_POST['name'];
         $short_name = $_POST['short_name'];
 
-        if (empty($id) || empty($name) || empty($short_name)) {
+        if (empty($name) || empty($short_name)) {
             $message = "Debes llenar todos los campos.";
         }else {
             if($id == ""){
-                $data = $this->model->registerMeasure($id, $name, $short_name);
+                $data = $this->model->registerMeasure($name, $short_name);
 
                 if ($data == "ok") {
-                    $message = "Si";
+                    $message = array('message' => 'Medida registrada correctamente.', 'icon' => 'success');
                 } else if ($data == "exists") {
-                    $message = "El id para esta medida ya existe";
+                    $message = array('message' => 'La medida ya existe', 'icon' => 'warning');
                 } else {
-                    $message = "Error al registar la medida";
+                    $message = array('message' => 'Error al registrar la medida', 'icon' => 'error');
                 }
                
             }else{
-                $data = $this->model->modifyMeasure($id, $name, $short_name);
+                $data = $this->model->modifyMeasure($name, $short_name,$id);
 
                 if ($data == "modificado") {
                     $message = array('message' => 'Medida modificada correctamente.', 'icon' => 'success');

@@ -240,9 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         language: {
             "url" : "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-        },
-        dom,
-        buttons
+        }
     });
     //End table Medidas
 
@@ -329,8 +327,8 @@ document.addEventListener("DOMContentLoaded", function() {
             extend: 'pdfHtml5',
             download: 'open',
             footer: true,
-            title: 'Reporte de usuarios',
-            filename: 'Reporte de usuarios',
+            title: 'Reporte de Productos',
+            filename: 'Reporte de Productos',
             text: '<span class="badge bg-danger"><i class="fas fa-file-pdf"></i></span>',
             exportOptions: {
                 columns: [0, ':visible']
@@ -340,8 +338,8 @@ document.addEventListener("DOMContentLoaded", function() {
         {
             extend: 'copyHtml5',
             footer: true,
-            title: 'Reporte de usuarios',
-            filename: 'Reporte de usuarios',
+            title: 'Reporte de Productos',
+            filename: 'Reporte de Productos',
             text: '<span class="badge bg-primary"><i class="fas fa-copy"></i></span>',
             exportOptions: {
                 columns: [0, ':visible']
@@ -899,17 +897,15 @@ function btnReenterCategory(id) {
     
 }
 //End Categories
-// /hello/
-/*
+
+
 function frmCashRegister() {
 
-    document.getElementById("title").textContent = "Nuevo Usuario";
+    document.getElementById("title").textContent = "Nueva Caja";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("passwords").classList.remove("d-none");
-    document.getElementById("frmUser").reset();
-    /*This Ajax function was used to show new users
-    $("#new_user").modal("show");*/
-    /*myModal.show(); 
+    document.getElementById("frmUser").reset();    
+    myModal.show(); 
 
     //Pending verify if this document.getElement have to be erase
     document.getElementById("id").value = "";
@@ -917,7 +913,7 @@ function frmCashRegister() {
     
 }
 
-*/
+
 
 /*
 
@@ -1083,8 +1079,8 @@ function frmMeasures() {
     document.getElementById("title").textContent = "Nueva Medida";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmMeasures").reset();
-    document.getElementById("id").value = "";
     myModal.show();
+    document.getElementById("id").value = "";
     
 }
 
@@ -1107,13 +1103,10 @@ function registerMeasure(e) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
                 alerts(response.message, response.icon);
-                tblMeasures.ajax.reload();
-                
+                tblMeasures.ajax.reload();                
             }            
         }
-
-    }
-    
+    }    
 }
 
 
@@ -1222,7 +1215,7 @@ function registerProduct(e) {
     const id_measure = document.getElementById("measure");
     const id_category = document.getElementById("category");
 
-    if (code.value == "" || description.value == "" || purchase_price.value == "" || selling_price.value ) {
+    if (code.value == "" || description.value == "" || purchase_price.value == "" || selling_price.value == "" ) {
         alerts('Todos los campos son obligatorios!' , 'warning');        
     }else{
         // Petiton with Ajax

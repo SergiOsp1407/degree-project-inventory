@@ -17,7 +17,6 @@ class ProductsModel extends Query{
 
     public function getCategories(){
         $sql = "SELECT * FROM categories WHERE status = 1";
-
         // Instance from the Query class, to run the query and assign to data var
         $data = $this->selectAll($sql);
         return $data;

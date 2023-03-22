@@ -27,8 +27,8 @@ class UsersModel extends Query
         return $data;
     }
 
-    public function getUsers()
-    {
+    public function getUsers(){
+
         $sql = "SELECT u.*, c.id AS id_cash_register, c.cash_register FROM users u INNER JOIN cash_register c WHERE u.id_cash_register = c.id";
 
         // Instance from the Query class, to run the query and assign to data var
@@ -36,8 +36,8 @@ class UsersModel extends Query
         return $data;
     }
 
-    public function registerUser(string $user, string $name, string $password, int $id_cash_register)
-    {
+    public function registerUser(string $user, string $name, string $password, int $id_cash_register){
+        
         $this->user = $user;
         $this->name = $name;
         $this->password = $password;

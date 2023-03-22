@@ -8,8 +8,8 @@ class Users extends Controller{
         parent::__construct();
     }
 
-    public function index()
-    {
+    public function index(){
+        
         //This encrypt the url
         if (empty($_SESSION['active'])){
             header("location: ".base_url);

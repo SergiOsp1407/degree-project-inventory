@@ -31,7 +31,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- aqui se debe agregar el codigo recortado-->
                 <form method="post" id="frmUser">
                     <div class="form-floating mb-3">                        
                         <input type="hidden" id="id" name="id">
@@ -66,7 +65,7 @@
                         <label for="cashRegister">Caja</label>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="registerUser(event);" id="btnAction">Registrar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
             </div>            
         </div>

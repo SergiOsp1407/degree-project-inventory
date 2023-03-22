@@ -2,7 +2,7 @@
 class MeasuresModel extends Query
 {
 
-    private $user, $name, $password, $id_cash_register, $id, $status;
+    private $name, $short_name, $id, $status;
 
     public function __construct()
     {
@@ -10,48 +10,30 @@ class MeasuresModel extends Query
         parent::__construct();
     }
 
-    public function getUser(string $user, string $password)
+    public function getMeasure()
     {
-        $sql = "SELECT * FROM users WHERE user = '$user' AND  password = '$password'";
-
-        // Instance from the Query class, to run the query and assign to data var
-        $data = $this->select($sql);
-        return $data;
-    }
-
-    public function getCashRegister()
-    {
-        $sql = "SELECT * FROM cash_register WHERE status = 1";
+        $sql = "SELECT * FROM measures WHERE status = 1";
 
         // Instance from the Query class, to run the query and assign to data var
         $data = $this->selectAll($sql);
         return $data;
     }
 
-    public function getUsers()
-    {
-        $sql = "SELECT u.*, c.id AS id_cash_register, c.cash_register FROM users u INNER JOIN cash_register c WHERE u.id_cash_register = c.id";
-
-        // Instance from the Query class, to run the query and assign to data var
-        $data = $this->selectAll($sql);
-        return $data;
-    }
-
-    public function registerUser(string $user, string $name, string $password, int $id_cash_register)
-    {
-        $this->user = $user;
+    
+    
+    public function registerMeasure(string $name, string $short_name){
+        
         $this->name = $name;
-        $this->password = $password;
-        $this->id_cash_register = $id_cash_register;        
+        $this->short_name = $short_name;       
 
         //This implementation check if the user already exists in the DB
-        $check = "SELECT * FROM users WHERE user = '$this->user'";
+        $check = "SELECT * FROM measures WHERE name = '$this->name'";
         $exists = $this->select($check);
 
         if (empty($exists)) {
 
-            $sql = "INSERT INTO users(user, name, password, id_cash_register) VALUES (?,?,?,?)";
-            $data = array($this->user, $this->name, $this->password, $this->id_cash_register);
+            $sql = "INSERT INTO measures(name, short_name) VALUES (?,?)";
+            $data = array($this->name, $this->short_name);
             $allData = $this->save($sql, $data);
 
             if ($allData == 1) {
@@ -65,17 +47,16 @@ class MeasuresModel extends Query
         return $response;
     }
 
-    public function modifyUser(string $user, string $name, int $id_cash_register, int $id)
+    public function modifyMeasure(string $name, int $short_name, int $id)
     {
-        $this->user = $user;
         $this->name = $name;
+        $this->short_name = $short_name;
         $this->id = $id;
-        $this->id_cash_register = $id_cash_register;
 
         //This implementation check if the user already exists in the DB
 
-        $sql = "UPDATE users SET user = ?, name = ?, id_cash_register = ? WHERE id = ?";
-        $data = array($this->user, $this->name, $this->id_cash_register, $this->id);
+        $sql = "UPDATE measures SET name = ?, short_name = ? WHERE id = ?";
+        $data = array($this->name, $this->short_name, $this->id);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -86,46 +67,24 @@ class MeasuresModel extends Query
         return $response;
     }
 
-    public function editUser(int $id){
+    public function editMeasure(int $id){
 
-        $sql = "SELECT * FROM users WHERE id = $id";
+        $sql = "SELECT * FROM measures WHERE id = $id";
         $data = $this->select($sql);
 
         return $data;
 
     }
 
-    public function getPassword(string $password, int $id){
-
-        $sql = "SELECT * FROM users WHERE password = $'password' AND id = $id";
-        $data = $this->select($sql);
-
-        return $data;
-
-    }
-
-
-    public function actionUser( int $status, int $id){
+    public function actionMeasure( int $status, int $id){
 
         $this->id = $id;
         $this->status = $status;
-        $sql = "UPDATE users SET status = ? WHERE id = ?";
+        $sql = "UPDATE measures SET status = ? WHERE id = ?";
         $data = array($this->status, $this->id);
         $allData = $this->save($sql, $data);
 
         return $allData;
 
-    }
-
-    public function modifyPassword(string $password, int $id){
-
-        $sql = "UPDATE users SET password = ? WHERE id = ?";
-        $data = array($password, $id);
-        $allData = $this->save($sql, $data);
-
-        return $allData;
-
-    }
-
-  
+    }  
 }

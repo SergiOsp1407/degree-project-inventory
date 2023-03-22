@@ -43,8 +43,4 @@
     }else {
         header('Location: '.base_url.'Errors');
     }
-    
-
-
-
 ?>
