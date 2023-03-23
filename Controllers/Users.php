@@ -1,4 +1,4 @@
-<?php
+<?phpsession
 class Users extends Controller{
 
     public function __construct() {
@@ -27,7 +27,7 @@ class Users extends Controller{
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 
-                if ($data[$i]['id'] == 1) {
+                if ($data[$i]['id_user'] == 1) {
                     $data[$i]['actions'] = '<div>            
                     <span class="badge bg-primary">Administrador</span>
                     </div>';
@@ -57,12 +57,12 @@ class Users extends Controller{
         }else{
             $user = $_POST['user'];
             $password = $_POST['password'];
-            // $hash = hash("SHA256", $password);
-            // $data = $this->model->getUser($user, $hash);
+            $hash = hash("SHA256", $password);
+            $data = $this->model->getUser($user, $hash);
             $data = $this->model->getUser($user, $password);
             
             if ($data) {
-                $_SESSION['id_user'] = $data['id'];
+                $_SESSION['id'] = $data['id_user'];
                 $_SESSION['user'] = $data['user'];
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['active'] = true;
@@ -86,17 +86,13 @@ class Users extends Controller{
         $id = $_POST['id'];
 
         //Encrypting password
-        // $hash = hash("SHA256", $password);
+        $hash = hash("SHA256", $password);
 
-        if (empty($user) || empty($name) || /*empty($password) ||*/ empty($cashRegister)) {
+        if (empty($user) || empty($name) || empty($password) || empty($cashRegister)) {
 
             $message = array('message' => 'Debes llenar todos los campos!', 'icon' => 'warning');
 
-        }/*else if ($password != $confirmPassword) {
-
-            $message = "Las contraseñas no coinciden!";
-            
-        }*/else {
+        }else {
 
             if($id == ""){
 
@@ -173,7 +169,6 @@ class Users extends Controller{
             $message = array('message' => 'Todos los campos son obligatorios.', 'icon' => 'warning');
 
         }else {
-
             if ($newPassword != $confirmPassword) {
                 $message = array('message' => 'Las contraseñas no coinciden', 'icon' => 'warning');
             }else{

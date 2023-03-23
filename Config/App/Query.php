@@ -1,4 +1,3 @@
-
 <?php
 class Query extends Connection{ 
 

@@ -2,16 +2,16 @@
 class CashRegisterModel extends Query
 {
 
-    private $dni_client, $cash_register, $phone, $address, $id, $status;
+    private $cash_register, $id, $status;
 
     public function __construct(){
         
         parent::__construct();
     }
 
-    public function getCashRegister(string $table)
-    {
-        $sql = "SELECT * FROM $table";
+    public function getCashRegister(string $cash_register){
+
+        $sql = "SELECT * FROM $cash_register";
         $data = $this->selectAll($sql);
         return $data;
     }

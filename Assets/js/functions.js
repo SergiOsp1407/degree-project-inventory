@@ -464,10 +464,6 @@ document.addEventListener("DOMContentLoaded", function() {
         buttons
     });
     //End table Balance
-
-
-    
-
 })
 
 
@@ -903,58 +899,44 @@ function frmCashRegister() {
 
     document.getElementById("title").textContent = "Nueva Caja";
     document.getElementById("btnAction").textContent = "Registrar";
-    document.getElementById("passwords").classList.remove("d-none");
-    document.getElementById("frmUser").reset();    
-    myModal.show(); 
-
-    //Pending verify if this document.getElement have to be erase
+    document.getElementById("frmCashRegister").reset();    
     document.getElementById("id").value = "";
-    document.getElementById("title").textContent = "Nuevo Usuario";
+    myModal.show(); 
     
 }
 
 
-
-/*
-
 function registerCashRegister(e) {
     e.preventDefault();
-    const user = document.getElementById("user");
-    const name = document.getElementById("name");
-    const cashRegister = document.getElementById("cashRegister");
+    const cashRegister = document.getElementById("cash_register");
 
-    if (user.value == "" || name.value == "" || cashRegister.value == "") {
-
+    if (cashRegister.value == "") {
         
         alerts('Todos los campos son obligatorios!' , 'warning');
         
     }else{
         // Petiton with Ajax
-        const url = base_url + "Users/register";
-        const frm = document.getElementById("frmUser");
+        const url = base_url + "CashRegister/register";
+        const frm = document.getElementById("frmCashRegister");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
-        http.send(new FormData(frm));
-        
+        http.send(new FormData(frm));        
         http.onreadystatechange = function() {
-
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
-                alerts(response.message, this.response.icon);
-                tblUsers.ajax.reload();
-                
+                alerts(response.message, response.icon);
+                tblCashRegister.ajax.reload();                
             }            
         }
     }    
-}*/
+}
 
-/*
 function btnEditCashRegister(id) {
 
-    document.getElementById("title").textContent = "Actualizar usuario";
+    document.getElementById("title").textContent = "Actualizar caja";
     document.getElementById("btnAction").textContent = "Modificar";
-    const url = base_url + "Users/edit/" + id;
+    const url = base_url + "CashRegister/edit/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -963,19 +945,14 @@ function btnEditCashRegister(id) {
         if (this.readyState == 4 && this.status == 200) {
 
             const response = JSON.parse(this.responseText);
-            document.getElementById("id").value = response.id;
-            document.getElementById("user").value = response.user;
-            document.getElementById("name").value = response.name;
+            document.getElementById("cash_register").value = response.cashRegister;
             document.getElementById("cashRegister").value = response.id_cash_register;
-            document.getElementById("passwords").classList.add("d-none");
             myModal.show();
             
         }
-    }
-    
-}*/
+    }    
+}
 
-/*
 function btnDeleteCashRegister(id){
 
     Swal.fire({
@@ -989,8 +966,7 @@ function btnDeleteCashRegister(id){
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
-            const url = base_url + "Users/delete/" + id;
+            const url = base_url + "CashRegister/delete/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
@@ -998,36 +974,19 @@ function btnDeleteCashRegister(id){
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
-
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblUsers.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, response.icon);
+                    tblCashRegister.ajax.reload();              
                 }
             }            
         }
       })
-}*/
+}
 
-/*
+
 function btnReenterCashRegister(id) {
 
     Swal.fire({
-        title: '¿Estas seguro de reingresar el usuario?',
+        title: '¿Estas seguro de activar la caja?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -1036,8 +995,7 @@ function btnReenterCashRegister(id) {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
-            const url = base_url + "Users/reenter/" + id;
+            const url = base_url + "CashRegister/reenter/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
@@ -1045,31 +1003,14 @@ function btnReenterCashRegister(id) {
 
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response == "ok") {
 
-                        Swal.fire(
-                            'Mensaje!',
-                            'Usuario eliminado con exito',
-                            'success'
-                        )
-                        
-                        tblUsers.ajax.reload();
-                        
-                    }else{
-
-                        Swal.fire(
-                            'Mensaje!',
-                            response,
-                            'error'
-                        )     
-
-                    }                    
+                    alerts(response.message, response.icon);
+                    tblUsers.ajax.reload();              
                 }
             }            
         }
-      })
-    
-}*/
+      })    
+}
 
 //End CashRegister
 

@@ -4,13 +4,13 @@ class UsersModel extends Query
 
     private $user, $name, $password, $id_cash_register, $id, $status;
 
-    public function __construct()
-    {
+    public function __construct(){
+
         parent::__construct();
     }
 
-    public function getUser(string $user, string $password)
-    {
+    public function getUser(string $user, string $password){
+        
         $sql = "SELECT * FROM users WHERE user = '$user' AND  password = '$password'";
 
         // Instance from the Query class, to run the query and assign to data var
@@ -152,8 +152,8 @@ class UsersModel extends Query
         return $response;
     }
 
-    public function deletePermissions(int $id_user)
-    {
+    public function deletePermissions(int $id_user){
+
         $sql = "DELETE FROM detail_permissions WHERE id_user = ?";
         $data = array($id_user);
         $allData = $this->save($sql, $data);
@@ -167,8 +167,8 @@ class UsersModel extends Query
         return $response;
     }
 
-    public function getDetailPermissions(int $id_user)
-    {
+    public function getDetailPermissions(int $id_user){
+
         $sql = "SELECT * FROM detail_permissions WHERE id_user = $id_user";
         $data = $this->selectAll($sql);
         return $data;
@@ -176,3 +176,5 @@ class UsersModel extends Query
 
   
 }
+
+?>

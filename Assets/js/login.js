@@ -24,7 +24,7 @@ function frmLogin(e){
                 console.log(this.responseText);
                 const response = JSON.parse(this.responseText);
                 if ( response == "ok") {
-                    window.location = base_url + "Administration/home";                                 
+                    window.location = base_url + "Administration/Home";                                 
                 }else{
                     document.getElementById("alerts").classList.remove("d-none");
                     document.getElementById("alerts").innerHTML = response;
