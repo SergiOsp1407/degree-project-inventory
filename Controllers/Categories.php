@@ -17,7 +17,7 @@ class Categories extends Controller{
         if (!empty($check) || $id_user == 1) {
             $this->views->getView($this, "index");
         }else {
-            header('Location: '.base_url. 'Errors/permissions');
+            header('Location: '.base_url.'Errors/permissions');
         }
         
     }
@@ -28,31 +28,30 @@ class Categories extends Controller{
         for ($i=0; $i < count($data); $i++) { 
 
             if ($data[$i]['status'] == 1) {
-                $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></button>                
+                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>                
                 </div>';
             }else {
-                $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
-
-            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
 
     public function register(){
-        $id = $_POST['id'];
+
         $name = $_POST['name'];   
+        $id = $_POST['id'];
         
         if (empty($name)) {
 
-            $message = "Debes llenar todos los campos.";
+            $message = array('message' => 'Todos los campos son obligatorios', 'icon' => 'success');
 
         }else {
 

@@ -1,10 +1,10 @@
 <?php
 class Administration extends Controller{
 
-    public function __construct() {
+    public function __construct(){
         session_start();
         if (empty($_SESSION['active'])){
-            header("location: " . base_url);
+            header("location: ".base_url);
         }
         parent::__construct();
     }
@@ -17,7 +17,7 @@ class Administration extends Controller{
             $data = $this->model->getCompany();
             $this->views->getView($this, "index", $data);
         }else {
-            header('Location: '.base_url. 'Errors/permissions');
+            header('Location: '.base_url.'Errors/permissions');
         }
         
     }

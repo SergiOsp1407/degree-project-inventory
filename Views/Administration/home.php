@@ -65,7 +65,7 @@
 <div class="row">
     <div class="col-xl-6">
         <div class="card mb-4">
-            <div class="card-header">
+            <div class="card-header bg-dark text-white">
                 <i class="fas fa-chart-area me-1"></i>
                 Productos con poca existencia en Inventario
             </div>
@@ -74,7 +74,7 @@
     </div>
     <div class="col-xl-6">
         <div class="card mb-4">
-            <div class="card-header">
+            <div class="card-header bg-dark text-white">
                 <i class="fas fa-chart-bar me-1"></i>
                 Producto más vendidos
             </div>

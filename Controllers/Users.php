@@ -1,4 +1,4 @@
-<?phpsession
+<?php
 class Users extends Controller{
 
     public function __construct() {
@@ -27,7 +27,7 @@ class Users extends Controller{
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 
-                if ($data[$i]['id_user'] == 1) {
+                if ($data[$i]['id'] == 1) {
                     $data[$i]['actions'] = '<div>            
                     <span class="badge bg-primary">Administrador</span>
                     </div>';
@@ -62,7 +62,7 @@ class Users extends Controller{
             $data = $this->model->getUser($user, $password);
             
             if ($data) {
-                $_SESSION['id'] = $data['id_user'];
+                $_SESSION['id'] = $data['id'];
                 $_SESSION['user'] = $data['user'];
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['active'] = true;

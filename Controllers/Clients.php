@@ -17,7 +17,7 @@ class Clients extends Controller{
         if (!empty($check) || $id_user == 1) {
             $this->views->getView($this, "index");
         }else {
-            header('Location: '.base_url. 'Errors/permissions');
+            header('Location: '.base_url.'Errors/permissions');
         }
 
         
@@ -29,16 +29,15 @@ class Clients extends Controller{
         for ($i=0; $i < count($data); $i++) { 
 
             if ($data[$i]['status'] == 1) {
-                $data[$i]['status'] = '<span class="badge badge-success">Activo</span>';
-                
+                $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';                
                 $data[$i]['actions'] = '<div>
                 <button class="btn btn-primary" type="button" onclick="btnEditClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>                
                 </div>';
             }else {
-                $data[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></button>
+                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
 
@@ -61,7 +60,7 @@ class Clients extends Controller{
 
 
             if (empty($dni_client) || empty($name) || empty($phone) || empty($address)) {
-                $message = "Debes llenar todos los campos.";
+                $message = array('message' => 'Debes llenar todos los campos.', 'icon' => 'success');
             }else {
                 if($id == ""){
                     $data = $this->model->registerClient($dni_client, $name, $phone, $address);
