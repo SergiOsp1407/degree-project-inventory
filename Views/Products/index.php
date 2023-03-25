@@ -23,8 +23,6 @@
     </tbody>
 </table>
 </div>
-
-
 <div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

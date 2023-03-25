@@ -525,8 +525,7 @@ function registerUser(e) {
     const name = document.getElementById("name");
     const cashRegister = document.getElementById("cashRegister");
 
-    if (user.value == "" || name.value == "" || cashRegister.value == "") {
-        
+    if (user.value == "" || name.value == "" || cashRegister.value == "") {        
         alerts('Debes llenar todos los campos!' , 'warning');
         
     }else{
