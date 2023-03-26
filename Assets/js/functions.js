@@ -1438,13 +1438,11 @@ function loadDetail() {
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
-    http.onreadystatechange = function() {
-
+    http.onreadystatechange = function(){
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
             let html = '';
             response.detail.forEach(row => {
-
                 html += `<tr>
                 <td>${row['id']}</td>
                 <td>${row['description']}</td>

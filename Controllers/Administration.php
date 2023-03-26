@@ -2,6 +2,7 @@
 class Administration extends Controller{
 
     public function __construct(){
+        
         session_start();
         if (empty($_SESSION['active'])){
             header("location: ".base_url);

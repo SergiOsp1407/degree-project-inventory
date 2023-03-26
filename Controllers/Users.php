@@ -62,7 +62,7 @@ class Users extends Controller{
             $data = $this->model->getUser($user, $password);
             
             if ($data) {
-                $_SESSION['id'] = $data['id'];
+                $_SESSION['id_user'] = $data['id'];
                 $_SESSION['user'] = $data['user'];
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['active'] = true;

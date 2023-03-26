@@ -25,6 +25,7 @@ function frmLogin(e){
                 const response = JSON.parse(this.responseText);
                 if ( response == "ok") {
                     window.location = base_url + "Administration/home";                                 
+                    // window.location = base_url + "Users";  
                 }else{
                     document.getElementById("alerts").classList.remove("d-none");
                     document.getElementById("alerts").innerHTML = response;

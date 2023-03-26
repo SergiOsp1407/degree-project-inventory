@@ -1,4 +1,3 @@
-
 <?php
 
 class Views{
@@ -13,10 +12,8 @@ class Views{
             $view = "Views/".$controller."/".$view.".php";
 
         }
-
         require $view;
     }
-
 }
 
 ?>

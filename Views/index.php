@@ -33,7 +33,7 @@
                                                 <input class="form-control" id="password" type="password" name="password" placeholder="Contraseña" />
                                                 <label for="password"><i class="fas fa-key"></i>Contraseña</label>
                                             </div>
-                                            <!--This line was added in video 5 not sure if works -->
+                                            <!--Alert in login form if theres an bad input data -->
                                             <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div>
 
                                             <div class="form-check mb-3">

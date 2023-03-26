@@ -1,8 +1,7 @@
 <?php
 class Controller{
 
-    //public View $views;
-    //public readonly Models $model;
+    protected $views, $model;
 
     public function __construct()
     {
@@ -12,15 +11,12 @@ class Controller{
     //Loading the Model
     public function loadModel()
     {
-        $model = get_class($this)."Model";
-        $route = "Models/".$model.".php";
+        $modelName = get_class($this)."Model";
+        $route = "Models/".$modelName.".php";
 
         if (file_exists($route)){
             require_once $route;
-
-            $this->model = new $model();
-            
-            
+            $this->model = new $modelName();
         }
     }
 }
