@@ -32,7 +32,7 @@ class PurchasesModel extends Query{
 
     }
 
-    public function registerDetail(string $table,nt $id_product,  int $id_user, string $price, int $amount, string $sub_total){
+    public function registerDetail(string $table,int $id_product,  int $id_user, string $price, int $amount, string $sub_total){
 
         $sql = "INSERT INTO $table(id_product, id_user, price, amount, sub_total) VALUES (?,?,?,?,?)";
         $data = array($id_product, $id_user, $price, $amount, $sub_total);
@@ -235,7 +235,6 @@ class PurchasesModel extends Query{
 
         $sql = "INSERT INTO sales (id_user, id_client, total_sales, sale_date, time_hours) VALUES (?,?,?,?,?)";
         $data = array($id_user, $id_client, $total_sales, $sale_date, $time_hours);
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -325,9 +324,4 @@ class PurchasesModel extends Query{
         $data = $this->selectAll($sql);
         return $data;
     }
-
-    
-    
-
-    
 }

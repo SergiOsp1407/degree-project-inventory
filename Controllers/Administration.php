@@ -24,7 +24,6 @@ class Administration extends Controller{
     }
 
     public function home(){
-
         $data['users'] = $this->model->getData('users');
         $data['clients'] = $this->model->getData('clients');
         $data['products'] = $this->model->getData('products');

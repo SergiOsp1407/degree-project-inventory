@@ -9,6 +9,7 @@
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?php echo base_url; ?>Users">Ver detalle</a>
+                <span class="text-white"><?php echo $data['users']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -21,6 +22,7 @@
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?php echo base_url; ?>Clients">Ver detalle</a>
+                <span class="text-white"><?php echo $data['clients']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -33,6 +35,7 @@
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?php echo base_url; ?>Products">View Details</a>
+                <span class="text-white"><?php echo $data['products']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -45,6 +48,7 @@
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/sales_history">View Details</a>
+                <span class="text-white"><?php echo $data['sales']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
@@ -57,6 +61,7 @@
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/#">View Details</a>
+                <span class="text-white"><?php echo $data['products']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>

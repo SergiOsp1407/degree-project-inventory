@@ -1,6 +1,5 @@
 <?php
-class UsersModel extends Query
-{
+class UsersModel extends Query{
 
     private $user, $name, $password, $id_cash_register, $id, $status;
 
@@ -89,7 +88,6 @@ class UsersModel extends Query
 
         $sql = "SELECT * FROM users WHERE id = $id";
         $data = $this->select($sql);
-
         return $data;
 
     }
@@ -98,7 +96,6 @@ class UsersModel extends Query
 
         $sql = "SELECT * FROM users WHERE password = '$password' AND id = $id";
         $data = $this->select($sql);
-
         return $data;
 
     }

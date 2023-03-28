@@ -1,4 +1,4 @@
-<?php include "Views/Templates/header.php" ?>
+<?php include "Views/Templates/header.php"; ?>
 <div class="card">
     <div class="card-header bg-dark text-white">
         Compras
@@ -22,4 +22,4 @@
     </div>
 </div>
 
-<?php include "Views/Templates/footer.php" ?>
+<?php include "Views/Templates/footer.php"; ?>

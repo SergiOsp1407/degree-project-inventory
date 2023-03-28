@@ -18,7 +18,6 @@
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="title">Modificar contraseña</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
             </div>
             <div class="modal-body">

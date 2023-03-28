@@ -325,20 +325,15 @@ class Purchases extends Controller {
 
         $data = $this->model->getPurchaseHistory();
         for ($i=0; $i < count($data); $i++) {
-
             
             if ($data[$i]['status'] == 1) {
-                $data[$i]['status'] = '<span class="badge badge-success">Completado</span>';
+                $data[$i]['status'] = '<span class="badge bg-success">Completado</span>';
                 $data[$i]['actions'] = '<div><button class="btn btn-warning" onclick="btnCancelPurchase(' . $data[$i]['id'] . ')"><i class="fas fa-ban"></i></button><a class="btn btn-danger" href="'.base_url."Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
             }else {
 
-                $data[$i]['status'] = '<span class="badge badge-danger">Anulado</span>';
+                $data[$i]['status'] = '<span class="badge bg-danger">Anulado</span>';
                 $data[$i]['actions'] = '<div><a class="btn btn-danger" href="'.base_url. "Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
             }
-
-            
-
-            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
@@ -348,10 +343,7 @@ class Purchases extends Controller {
 
         $data = $this->model->getSalesHistory();
         for ($i=0; $i < count($data); $i++) { 
-
-            $data[$i]['actions'] = '<div><a class="btn btn-danger" href="'.base_url. "Purchases/triggerPDFSale/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
-
-            
+            $data[$i]['actions'] = '<div><a class="btn btn-danger" href="'.base_url."Purchases/triggerPDFSale/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
@@ -441,19 +433,13 @@ class Purchases extends Controller {
 
         $pdf->Ln();
         $pdf->Cell(120,10,'Descuento total', 0, 1, 'R');
-        $pdf->Cell(120,10,number_format($descuento['total'], 2, ',' , '.'), 0, 1, 'R');
+        $pdf->Cell(120,10,number_format($discount['total'], 2, ',' , '.'), 0, 1, 'R');
         $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
         $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
 
-        $pdf->Output();
-        
-
+        $pdf->Output();       
         //Body  
-
         ob_end_flush(); 
-
-        
-
     }
 
     public function calculateDiscount($data){
@@ -469,7 +455,7 @@ class Purchases extends Controller {
             $sub_total = ($actual_discount['amount'] * $actual_discount['price']) - $total_discount ;
             $allData = $this->model->updateDiscount($total_discount, $sub_total,$id);
 
-            if ($alldata == 'ok') {
+            if ($allData == 'ok') {
                 $message = array('message' => 'Descuento aplicado', 'icon' => 'success');
             }else{
                 $message = array('message' => 'Error al aplicar el descuento', 'icon' => 'error');

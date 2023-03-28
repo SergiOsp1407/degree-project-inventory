@@ -368,9 +368,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //End table Products
 
     t_h_c = $('#t_history_purchase').DataTable({
-
         ajax: {
-
             url: base_url + "Purchases/list_history",
             dataSrc: ''
         },
@@ -396,9 +394,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     t_h_v = $('#t_history_sale').DataTable({
-
         ajax: {
-
             url: base_url + "Purchases/list_sales_history",
             dataSrc: ''
         },
@@ -476,13 +472,11 @@ function frmChangePassword(e) {
 
     if (actualPassword == '' || newPassword == '' || confirmPassword == '') {
         alerts('Todos los campos son obligatorios', 'warning');
-        return false;
-        
+        return false;        
     }else{
         if (newPassword != confirmPassword) {
             alerts('Las contraseñas no coinciden', 'warning');  
-            return false;          
-
+            return false;
         } else {
             const url = base_url + "Users/changePassword";
             const frm = document.getElementById("frmChangePassword");
@@ -495,11 +489,8 @@ function frmChangePassword(e) {
                     myModal.hide();
                     alerts(response.message, response.icon);                
                     frm.reset();
-                }            
-        
-            
+                }               
             }
-
         } 
     }
 }
@@ -559,15 +550,13 @@ function btnEditUser(id) {
     http.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
-
             const response = JSON.parse(this.responseText);
             document.getElementById("id").value = response.id;
             document.getElementById("user").value = response.user;
             document.getElementById("name").value = response.name;
             document.getElementById("cashRegister").value = response.id_cash_register;
             document.getElementById("password").classList.add("d-none");
-            myModal.show();
-            
+            myModal.show();            
         }
     }    
 }
@@ -594,8 +583,7 @@ function btnDeleteUser(id){
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);                    
                     alerts(response.message, response.icon);
-                    tblUsers.ajax.reload();
-                         
+                    tblUsers.ajax.reload();                         
                 }
             }            
         }
@@ -1611,14 +1599,10 @@ function modifyCompany() {
     http.open("POST", url, true);
     http.send(new FormData(frm));
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
-
             if (response = 'ok') {
-
-                alert('Modificado');
-                
+                alert('Modificado');                
             }                          
         }
     }
@@ -1649,10 +1633,10 @@ function reportStock() {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);  
-            let name = [];
+            let description = [];
             let amount = [];
             for (let i = 0; i < response.length; i++) {
-                name.push(response[i]['description']);
+                description.push(response[i]['description']);
                 amount.push(response[i]['amount']);                
             }
             //Pie Chart for stock
@@ -1660,7 +1644,7 @@ function reportStock() {
             var myPieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: name,
+                    labels: description,
                     datasets: [{
                         data: amount,
                         backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
@@ -1681,20 +1665,18 @@ function soldProducts() {
 
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);  
-            let name = [];
+            let description = [];
             let amount = [];
             for (let i = 0; i < response.length; i++) {
-
-                name.push(response[i]['description']);
-                amount.push(response[i]['Total']);
-                
+                description.push(response[i]['description']);
+                amount.push(response[i]['total']);                
             }
             //Pie Chart for stock
             var ctx = document.getElementById("soldProducts");
             var myPieChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: name,
+                    labels: description,
                     datasets: [{
                         data: amount,
                         backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],

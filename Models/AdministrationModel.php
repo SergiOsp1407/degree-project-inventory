@@ -49,7 +49,7 @@ class AdministrationModel extends Query
 
     public function getSoldProducts(){
 
-        $sql = "SELECT d.id_product, d.amount, p.id, p_description SUM(d.amount) AS total FROM sales_details d INNER JOIN products p ON p.id = d.id_product GROUP BY d.id_product ORDER BY d.amount DESC LIMIT 10";
+        $sql = "SELECT d.id_product, d.amount, p.id, p.description, SUM(d.amount) AS total FROM sales_details d INNER JOIN products p ON p.id = d.id_product GROUP BY d.id_product ORDER BY d.amount DESC LIMIT 10";
         $data = $this->selectAll($sql);
         return $data;
     }

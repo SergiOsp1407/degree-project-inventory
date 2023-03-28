@@ -27,11 +27,11 @@
                                         <form id="frmLogin">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="user" type="text" name="user" placeholder="Usuario"/>
-                                                <label for="user"><i class="fas fa-user"></i>Usuario</label>
+                                                <label for="user"><i class="fas fa-user"></i> Usuario</label>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="password" type="password" name="password" placeholder="Contraseña" />
-                                                <label for="password"><i class="fas fa-key"></i>Contraseña</label>
+                                                <label for="password"><i class="fas fa-key"></i> Contraseña</label>
                                             </div>
                                             <!--Alert in login form if theres an bad input data -->
                                             <div class="alert alert-danger text-center d-none" id="alerts" role="alert"></div>

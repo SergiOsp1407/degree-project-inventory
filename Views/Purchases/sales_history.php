@@ -1,4 +1,4 @@
-<?php include "Views/Templates/header.php" ?>
+<?php include "Views/Templates/header.php"; ?>
 <form action="<?php echo base_url; ?>Purchases/saleViewPDF" method="POST" target="_blank">    
     <div class="row">
         <div class="col-md-3">
@@ -23,7 +23,6 @@
 
 
 <div class="card my-2">
-
     <div class="card">
         <div class="card-header bg-dark text-white">
             Ventas
@@ -48,4 +47,4 @@
     </div>
 </div>
 
-<?php include "Views/Templates/footer.php" ?>
+<?php include "Views/Templates/footer.php"; ?>
