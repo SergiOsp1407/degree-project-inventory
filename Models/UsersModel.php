@@ -19,7 +19,6 @@ class UsersModel extends Query{
     public function getCashRegister()
     {
         $sql = "SELECT * FROM cash_register WHERE status = 1";
-
         // Instance from the Query class, to run the query and assign to data var
         $data = $this->selectAll($sql);
         return $data;

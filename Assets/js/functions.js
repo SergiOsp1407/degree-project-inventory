@@ -517,8 +517,7 @@ function registerUser(e) {
     const cashRegister = document.getElementById("cashRegister");
 
     if (user.value == "" || name.value == "" || cashRegister.value == "") {        
-        alerts('Debes llenar todos los campos!' , 'warning');
-        
+        alerts('Debes llenar todos los campos!' , 'warning');        
     }else{
         // Petiton with Ajax
         const url = base_url + "Users/register";

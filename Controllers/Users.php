@@ -21,9 +21,7 @@
 
     public function list(){
         $data = $this->model->getUsers();
-
-        for ($i=0; $i < count($data); $i++) { 
-            
+        for ($i=0; $i < count($data); $i++) {             
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 
@@ -89,20 +87,13 @@
         $hash = hash("SHA256", $password);
 
         if (empty($user) || empty($name) || empty($password) || empty($cashRegister)) {
-
             $message = array('message' => 'Debes llenar todos los campos!', 'icon' => 'warning');
-
         }else {
-
             if($id == ""){
-
                 if($password != $confirmPassword){
                     $message = array('message' => 'Las contraseñas no coinciden', 'icon' => 'warning');
-
                 }else{
-
                     $data = $this->model->registerUser($user, $name, $hash, $cashRegister);
-
                     if ($data == "ok") {
                         $message = array('message' => 'Usuario registrado correctamente.', 'icon' => 'success');
                     } else if ($data == "exists") {
