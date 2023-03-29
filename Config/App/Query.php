@@ -41,8 +41,6 @@ class Query extends Connection{
             $response = 0;
         }
         return $response;
-
     }
-
 }
 ?>
