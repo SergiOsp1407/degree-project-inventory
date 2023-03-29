@@ -5,7 +5,7 @@
 
             session_start();
             if (!empty($_SESSION['active'])){
-                header("location: ".base_url. "Users");
+                header("location: ".base_url. "Administration/home");
             }
 
 

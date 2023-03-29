@@ -118,8 +118,8 @@
                             </a>
                             <div class="collapse" id="collapseSales" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales">Nueva venta</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales_history">Historial Ventas</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales"><i class="fas fa-shopping-cart mr-2 text-danger"></i> Nueva venta</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales_history"> Historial Ventas</a>
                                 </nav>
                             </div>
 

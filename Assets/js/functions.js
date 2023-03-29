@@ -540,7 +540,6 @@ function registerUser(e) {
 //This function was updated in video 31 when updating Bootstrap
 //Function used in User module to edit users
 function btnEditUser(id) {
-
     document.getElementById("title").textContent = "Actualizar usuario";
     document.getElementById("btnAction").textContent = "Modificar";
     const url = base_url + "Users/edit/" + id;
