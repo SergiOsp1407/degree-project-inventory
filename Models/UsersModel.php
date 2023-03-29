@@ -11,7 +11,6 @@ class UsersModel extends Query{
     public function getUser(string $user, string $password){
         
         $sql = "SELECT * FROM users WHERE user = '$user' AND  password = '$password'";
-
         // Instance from the Query class, to run the query and assign to data var
         $data = $this->select($sql);
         return $data;
