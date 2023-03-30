@@ -501,7 +501,7 @@ function frmUser() {
 
     document.getElementById("title").textContent = "Nuevo Usuario";
     document.getElementById("btnAction").textContent = "Registrar";
-    document.getElementById("password").classList.remove("d-none");
+    document.getElementById("passwords").classList.remove("d-none");
     document.getElementById("frmUser").reset();
     myModal.show();
     document.getElementById("id").value = "";
@@ -546,14 +546,13 @@ function btnEditUser(id) {
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
             document.getElementById("id").value = response.id;
             document.getElementById("user").value = response.user;
             document.getElementById("name").value = response.name;
             document.getElementById("cashRegister").value = response.id_cash_register;
-            document.getElementById("password").classList.add("d-none");
+            document.getElementById("passwords").classList.add("d-none");
             myModal.show();            
         }
     }    

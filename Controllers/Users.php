@@ -86,7 +86,7 @@
         //Encrypting password
         $hash = hash("SHA256", $password);
 
-        if (empty($user) || empty($name) || empty($password) || empty($cashRegister)) {
+        if (empty($user) || empty($name) /*|| empty($password)*/ || empty($cashRegister)) {
             $message = array('message' => 'Debes llenar todos los campos!', 'icon' => 'warning');
         }else {
             if($id == ""){
@@ -104,7 +104,6 @@
                 }                
             }else{
                 $data = $this->model->modifyUser($user, $name, $cashRegister, $id);
-
                 if ($data == "modificado") {
                     $message = array('message' => 'Usuario modificado correctamente.', 'icon' => 'success');
                 }else {
@@ -185,7 +184,7 @@
             }
         }
 
-        echo json_encode($message), JSON_UNESCAPED_UNICODE;
+        echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
 
     }

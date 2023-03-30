@@ -58,7 +58,7 @@
                     <div class="form-floating mb-3">                        
                         <select name="cashRegister" id="cashRegister" class="form-control">
                         <?php foreach ($data['cashRegister'] as $row) { ?> 
-                            <option value="<?php echo $row['id'] ?>"><?php echo $row['cash_register'] ?></option>
+                            <option value="<?php echo $row['id']; ?>"><?php echo $row['cash_register']; ?></option>
                             <?php } ?>
                         </select>
                         <label for="cashRegister">Caja</label>

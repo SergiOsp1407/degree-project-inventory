@@ -8,7 +8,8 @@
     // // Hide routes!!!
     $route = (!empty($_GET['url'])) ? $_GET['url'] : "Home/index";
     $arrayIndex = explode("/", $route);
-    $controller = $arrayIndex[0];
+    //ucfirst() works to make the first letter Capital when moving to hosting
+    $controller = ucfirst($arrayIndex[0]);
     $method = 'index';
     $param = '';
 
