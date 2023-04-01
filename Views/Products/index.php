@@ -65,7 +65,7 @@
                             <select name="measure" id="measure" class="form-control">
                                 <?php
                                 foreach ($data['measures'] as $row) { ?>
-                                <option value="<?php echo $row['name'] ?>"></option>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                                 <?php } ?>
                             </select>
                             <label for="measure">Medidas</label>
@@ -76,7 +76,7 @@
                             <select name="category" id="category" class="form-control">
                                 <?php
                                 foreach ($data['categories'] as $row) { ?>
-                                    <option value="<?php echo $row['name']; ?>"></option>
+                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
                                 <?php } ?>
                             </select>
                             <label for="category">Categorías</label>

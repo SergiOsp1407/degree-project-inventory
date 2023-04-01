@@ -64,7 +64,7 @@ class Products extends Controller{
 
             if(!empty($name)){
 
-                $imageName = $date.".jpg";
+                $imageName = $date.".png";
                 $direction = "Assets/img/".$imageName;
 
             }else if(!empty($_POST['actual_image']) && empty($name)){

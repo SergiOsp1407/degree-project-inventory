@@ -1124,8 +1124,8 @@ function frmProduct() {
     document.getElementById("title").textContent = "Nuevo Producto";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmProduct").reset();
-    document.getElementById("id").value = "";
     myModal.show();
+    document.getElementById("id").value = "";
     deleteImage();
     
 }
@@ -1151,11 +1151,10 @@ function registerProduct(e) {
         http.send(new FormData(frm));        
         http.onreadystatechange = function(){
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
                 const response = JSON.parse(this.responseText);
+                myModal.hide();
                 alerts(response.message, response.icon);
                 frm.reset();
-                myModal.hide();
                 tblProducts.ajax.reload();                
             }            
         }
