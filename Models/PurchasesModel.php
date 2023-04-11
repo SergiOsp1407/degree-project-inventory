@@ -73,9 +73,7 @@ class PurchasesModel extends Query{
         } else {
             $response = "error";
         }
-
         return $response;
-
     }
 
     public function checkDetail(string $table, int $id_product, int $id_user){
@@ -257,14 +255,14 @@ class PurchasesModel extends Query{
 
     public function checkDiscount(int $id)
     {
-        $sql = "SELECT * FROM tmp_details WHERE id = $id";
+        $sql = "SELECT * FROM tmp_purchases WHERE id = $id";
         $data = $this->select($sql);
         return $data;
     }
 
     public function updateDiscount (string $discount, string $sub_total, int $id){
 
-        $sql = "UPDATE tmp_details SET discount = ?, sub_total = ? WHERE id = ?";
+        $sql = "UPDATE tmp_purchases SET discount = ?, sub_total = ? WHERE id = ?";
         $data = array($discount, $sub_total, $id);
         $allData = $this->save($sql, $data);
 

@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating mb-1">
-                        <input id="amount" type="number" class="form-control" name="amount" onkeyup="calculateSalPrice(event)" disabled>
+                        <input id="amount" type="number" class="form-control" name="amount" onkeyup="calculateSalePrice(event)" disabled>
                         <label for="amount">Cantidad</label>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating mb-3">
-                        <input id="subtotal" type="text" class="form-control" name="subtotal" placeholder="Precio compra" disabled>
-                        <label for="subtotal">Subtotal</label>
+                        <input id="sub_total" type="text" class="form-control" name="sub_total" placeholder="Precio compra" disabled>
+                        <label for="sub_total">Subtotal</label>
                     </div>
                 </div>
             </div>

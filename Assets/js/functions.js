@@ -1334,7 +1334,7 @@ function calculatePrice(e) {
     e.preventDefault();
     const amount = document.getElementById("amount").value;
     const purchase_price = document.getElementById("purchase_price").value;
-    document.getElementById("subtotal").value = purchase_price * amount;
+    document.getElementById("sub_total").value = purchase_price * amount;
 
     if (e.which == 13) {
         if (amount > 0) {
@@ -1344,14 +1344,11 @@ function calculatePrice(e) {
             http.open("POST", url, true);
             http.send(new FormData(frm));
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
-
                     const response = JSON.parse(this.responseText);                    
-                    alerts(this.response.message, this.response.icon);
+                    alerts(response.message, response.icon);
                     frm.reset;
                     loadDetail();
-
                     document.getElementById('amount').setAttribute('disabled','disabled');
                     document.getElementById('code').focus();
                 }
@@ -1363,9 +1360,8 @@ function calculatePrice(e) {
 function calculateSalePrice(e) {
     e.preventDefault();
     const amount = document.getElementById("amount").value;
-    const purchase_price = document.getElementById("purchase_price").value;
-    document.getElementById("subtotal").value = purchase_price * amount;
-
+    const selling_price = document.getElementById("selling_price").value;
+    document.getElementById("sub_total").value = selling_price * amount;
     if (e.which == 13) {
         if (amount > 0) {
             const url = base_url + "Purchases/inputSale/";
@@ -1374,11 +1370,9 @@ function calculateSalePrice(e) {
             http.open("POST", url, true);
             http.send(new FormData(frm));
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
-
                     const response = JSON.parse(this.responseText);                    
-                    alerts(this.response.message, this.response.icon);
+                    alerts(response.message, response.icon);
                     frm.reset;
                     loadDetailSale();
                     document.getElementById('amount').setAttribute('disabled','disabled');
@@ -1401,7 +1395,7 @@ if (document.getElementById('tblSales')) {
 }
 
 function loadDetail() {
-    const url = base_url + "Purchases/list/tmp_details";
+    const url = base_url + "Purchases/list/tmp_purchases";
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
@@ -1519,8 +1513,7 @@ function deleteDetail(id, action) {
 }
 
 
-function triggerTransaction(action) {    
-
+function triggerTransaction(action) { 
     Swal.fire({
         title: '¿Estas seguro de realizar la compra?',
         icon: 'warning',
@@ -1531,7 +1524,6 @@ function triggerTransaction(action) {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
             let url;
             if (action == 1) {
                 url = base_url + "Purchases/registerPurchase/";        

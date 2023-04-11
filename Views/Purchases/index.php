@@ -39,8 +39,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="subtotal">Subtotal</label>
-                        <input id="subtotal" type="number" class="form-control" name="subtotal" placeholder="Precio compra" disabled>
+                        <label for="sub_total">Subtotal</label>
+                        <input id="sub_total" type="number" class="form-control" name="sub_total" placeholder="Precio compra" disabled>
                     </div>
                 </div>
             </div>

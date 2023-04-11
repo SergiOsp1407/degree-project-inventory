@@ -35,19 +35,17 @@ class Purchases extends Controller {
 
     
     public function inputInfo(){
-
         $id = $_POST['id'];
         $data = $this->model->getProducts($id);
         $id_product = $data['id'];
         $id_user = $_SESSION['id_user'];
-        $price = $data['price'];
-        $amount = $_POST['amount'];
-        
-        $check = $this->model->checkDetail('tmp_details', $id_product, $id_user);
+        $price = $data['purchase_price'];
+        $amount = $_POST['amount'];        
+        $check = $this->model->checkDetail('tmp_purchases', $id_product, $id_user);
 
         if(empty($check)){
             $sub_total = $price * $amount;
-            $allData = $this->model->registerDetail('tmp_details',$id_product, $id_user, $price, $amount, $sub_total);
+            $allData = $this->model->registerDetail('tmp_purchases',$id_product, $id_user, $price, $amount, $sub_total);
             if ($allData == "ok") {
                 $message = array('message' => 'Producto ingresado a la compra', 'icon' => 'success');
             } else {
@@ -56,31 +54,27 @@ class Purchases extends Controller {
         }else{
             $total_amount = $check['amount'] + $amount;
             $sub_total = $total_amount * $price;
-            $allData = $this->model->updateDetail('tmp_details', $price, $total_amount, $sub_total, $id_product, $id_user);
+            $allData = $this->model->updateDetail('tmp_purchases', $price, $total_amount, $sub_total, $id_product, $id_user);
             if ($allData == "modificado") {
                 $message = array('message' => 'Producto modificado correctamente', 'icon' => 'success');
             } else {
                 $message = array('message' => 'Error al modificar el product', 'icon' => 'error');
             }
         }
-
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();        
     }
 
     public function inputSale(){
-
         $id = $_POST['id'];
         $data = $this->model->getProducts($id); //Stores all the product using the id
         $id_product = $data['id'];
         $id_user = $_SESSION['id_user'];
         $price = $data['selling_price'];
-        $amount = $_POST['amount'];
-        
+        $amount = $_POST['amount'];        
         $check = $this->model->checkDetail('tmp_sales', $id_product, $id_user);
 
         if(empty($check)){
-
             if ($data['amount'] >= $amount) {
                 # code...
                 $sub_total = $price * $amount;
@@ -93,7 +87,6 @@ class Purchases extends Controller {
             }else {
                 $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
             }
-
         }else{
             $total_amount = $check['amount'] + $amount;
             $sub_total = $total_amount * $price;
@@ -109,9 +102,7 @@ class Purchases extends Controller {
                     $message = array('message' => 'Error al modificar la venta', 'icon' => 'error');
                 }
             }
-
         }
-
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();        
     }
@@ -128,7 +119,7 @@ class Purchases extends Controller {
 
     public function delete($id){
 
-        $data = $this->model->deleteDetail('tmp_details',$id);
+        $data = $this->model->deleteDetail('tmp_purchases',$id);
 
         if($data == 'ok'){
             $message = array('message' => 'Producto eliminado correctamente', 'icon' => 'success');
@@ -154,17 +145,14 @@ class Purchases extends Controller {
 
         echo json_encode($message);
         die();
-
-
     }
 
     public function registerPurchase(){
-
         $id_user = $_SESSION['id_user'];
-        $total = $this->model->calculatePurchase('tmp_details',$id_user);
+        $total = $this->model->calculatePurchase('tmp_purchases',$id_user);
         $data = $this->model->registerPurchase($total['total']);
         if($data == 'ok'){
-            $detail['detail'] = $this->model->getDetail('tmp_details',$id_user);
+            $detail['detail'] = $this->model->getDetail('tmp_purchases',$id_user);
             $id_purchase = $this->model->getId('purchases');
             foreach ($detail AS $row){
                 $id_product = $row['id_product'];
@@ -178,7 +166,7 @@ class Purchases extends Controller {
             }
 
             //Clean the Details of the purchase to print new info in the invoice
-            $clean = $this->model->cleanDetails('tmp_details',$id_user);
+            $clean = $this->model->cleanDetails('tmp_purchases',$id_user);
 
             if($clean == 'ok'){
                 $message = array('message' => 'ok', 'id_purchase' => $id_purchase['id']);
@@ -192,14 +180,12 @@ class Purchases extends Controller {
     }
 
     public function registerSale($id_client){
-
         $id_user = $_SESSION['id_user'];
         $check = $this->model->checkCashRegister($id_user);
 
         if (empty($check)) {
             $message = array('message' => 'La caja esta cerrada', 'icon' => 'warning');
-        }else{
-            
+        }else{            
             $sale_date = date('Y-m-d');
             $time_hours = date('H:i:s'); 
             $total_sales = $this->model->calculatePurchase('tmp_sales',$id_user);
