@@ -21,8 +21,7 @@ class Purchases extends Controller {
         $this->views->getView($this, "sales", $data);
     }
 
-    public function sales_history(){
-        
+    public function sales_history(){        
         $this->views->getView($this, "sales_history");
     }
 

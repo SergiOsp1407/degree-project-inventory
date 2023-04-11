@@ -1272,7 +1272,6 @@ function searchCode(e){
     e.preventDefault();
     const code = document.getElementById("code").value;
     if (code != '') {
-
         if (e.which == 13) {            
             const url = base_url + "Purchases/searchCode/" + code;
             const http = new XMLHttpRequest();
@@ -1280,24 +1279,17 @@ function searchCode(e){
             http.send();
             http.onreadystatechange = function() {    
                 if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
-                    const response = JSON.parse(this.responseText);
-                    
-                    if (response) {
-    
+                    const response = JSON.parse(this.responseText);                    
+                    if (response) {    
                         document.getElementById("description").value = response.description;
                         document.getElementById("purchase_price").value = response.purchase_price;
                         document.getElementById("id").value = response.id;
-                        document.getElementById("ammount").removeAttribute('disabled');
-                        document.getElementById("ammount").focus();
-                        
-                    }else{
-    
+                        document.getElementById("amount").removeAttribute('disabled');
+                        document.getElementById("amount").focus();                        
+                    }else{    
                         alerts('El producto no existe', 'warning');
                         document.getElementById("code").value = '';
-                        document.getElementById("code").focus();
-    
-                        
+                        document.getElementById("code").focus();                        
                     }
                 }
             }            
@@ -1311,33 +1303,24 @@ function searchCodeSale(e){
     e.preventDefault();
     const code = document.getElementById("code").value;
     if (code != '') {
-
         if (e.which == 13) {            
             const url = base_url + "Purchases/searchCode/" + code;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
-            http.onreadystatechange = function() {
-    
-                if (this.readyState == 4 && this.status == 200) {
-                    
-                    const response = JSON.parse(this.responseText);
-                    
-                    if (response) {
-    
+            http.onreadystatechange = function() {    
+                if (this.readyState == 4 && this.status == 200) {                    
+                    const response = JSON.parse(this.responseText);                    
+                    if (response) {    
                         document.getElementById("description").value = response.description;
-                        document.getElementById("purchase_price").value = response.sale_price;
+                        document.getElementById("selling_price").value = response.selling_price;
                         document.getElementById("id").value = response.id;
-                        document.getElementById("ammount").removeAttribute('disabled');
-                        document.getElementById("ammount").focus();
-                        
-                    }else{
-    
+                        document.getElementById("amount").removeAttribute('disabled');
+                        document.getElementById("amount").focus();                        
+                    }else{    
                         alerts('El producto no existe', 'warning');
                         document.getElementById("code").value = '';
-                        document.getElementById("code").focus();
-    
-                        
+                        document.getElementById("code").focus();                    
                     }
                 }
             }            

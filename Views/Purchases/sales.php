@@ -1,4 +1,4 @@
-<?php include "Views/Templates/header.php" ?>
+<?php include "Views/Templates/header.php"; ?>
 
 <div class="card">
     <div class="card-header bg-primary text-white">
@@ -29,8 +29,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating mb-3">
-                        <input id="sale_price" type="text" class="form-control" name="sale_price" placeholder="Precio venta" disabled>
-                        <label for="sale_price">Precio</label>
+                        <input id="selling_price" type="text" class="form-control" name="selling_price" placeholder="Precio venta" disabled>
+                        <label for="selling_price">Precio</label>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -69,8 +69,7 @@
                     <?php } ?>
             </select>
             </div>
-    </div>    
-
+    </div>
     <div class="col-md-3 ml-auto">
         <div class="form-floating mb-3">
             <input id="total" type="text" class="form-control" name="total" placeholder="Total" disabled>
@@ -80,4 +79,4 @@
     </div>
 </div>
 
-<?php include "Views/Templates/footer.php" ?>
+<?php include "Views/Templates/footer.php"; ?>
