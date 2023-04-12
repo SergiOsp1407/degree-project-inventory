@@ -164,14 +164,11 @@ class Purchases extends Controller {
                 $stock = $actual_stock['amount'] + $amount;
                 $this->model->updateStock($stock, $id_product);
             }
-
             //Clean the Details of the purchase to print new info in the invoice
             $clean = $this->model->cleanDetails('tmp_purchases',$id_user);
-
             if($clean == 'ok'){
                 $message = array('message' => 'ok', 'id_purchase' => $id_purchase['id']);
             }
-
         }else{
             $message = array('message' => 'Error al realizar la compra', 'icon' => 'error');
         }

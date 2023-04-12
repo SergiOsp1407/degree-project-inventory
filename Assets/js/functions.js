@@ -1384,14 +1384,11 @@ function calculateSalePrice(e) {
 }
 
 if (document.getElementById('tblDetail')) {
-
-    loadDetail();
-    
+    loadDetail();    
 }
-if (document.getElementById('tblSales')) {
 
-    loadDetailSale();
-    
+if (document.getElementById('tblSales')) {
+    loadDetailSale();    
 }
 
 function loadDetail() {
@@ -1415,25 +1412,19 @@ function loadDetail() {
                 </td>
                 </tr>`;                
             });
-
-            document.getElementById("tblDetail").innerHTML= html;
-            document.getElementById("total").innerHTML= response.total_pay.total;
-            
+            document.getElementById("tblDetail").innerHTML = html;
+            document.getElementById("total").innerHTML= response.total_pay.total;            
         }
-    }
-    
+    }    
 }
 
 function loadDetailSale() {
-
     const url = base_url + "Purchases/list/tmp_sales";
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
-
             const response = JSON.parse(this.responseText);
             let html = '';
             response.detail.forEach(row => {
@@ -1450,23 +1441,18 @@ function loadDetailSale() {
                 </td>
                 </tr>`;                
             });
-
             document.getElementById("tblSales").innerHTML= html;
-            document.getElementById("total").innerHTML= response.total_pay.total;
-            
+            document.getElementById("total").innerHTML= response.total_pay.total;            
         }
-    }
-    
+    }    
 }
 
 function calculateDiscount(e, id) {
     e.preventDefault();
-
     if (e.target.value == '') {
         alerts('Ingrese el descuento', 'warning');        
     }else{
         if (e.which == 13) {
-
             const url = base_url + "Purchases/calculateDiscount/" + id + "/" + e.target.value;  
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
@@ -1475,8 +1461,7 @@ function calculateDiscount(e, id) {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     alerts(response.message, response.icon);
-                    loadDetailSale();
-                    
+                    loadDetailSale();                    
                 }
             }            
         }
@@ -1512,7 +1497,6 @@ function deleteDetail(id, action) {
     }    
 }
 
-
 function triggerTransaction(action) { 
     Swal.fire({
         title: '¿Estas seguro de realizar la compra?',
@@ -1530,16 +1514,14 @@ function triggerTransaction(action) {
             }else{
                 const id_client = document.getElementById('id_client').value;
                 url = base_url + "Purchases/registerSale/" + id_client; 
-            }
-            
+            }            
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    if (response.message == "ok") {    
-                                            
+                    if (response.message == "ok") {
                         alerts(response.message, response.icon);
                         let route;
                         if (action == 1) {
@@ -1563,7 +1545,6 @@ function triggerTransaction(action) {
 }
 
 function modifyCompany() {
-
     const frm = document.getElementById('frmCompany');
     const url = base_url + "Administration/modify";
     const http = new XMLHttpRequest();
@@ -1627,13 +1608,11 @@ function reportStock() {
 }
 
 function soldProducts() {
-
     const url = base_url + "Administration/soldProducts";
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);  
             let description = [];
@@ -1655,8 +1634,7 @@ function soldProducts() {
                 },
             });
         }
-    }
-    
+    }    
 }
 
 
