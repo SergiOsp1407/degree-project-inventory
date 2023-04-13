@@ -6,12 +6,12 @@ class Administration extends Controller{
         session_start();
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
-        }
+        }        
         parent::__construct();
     }
 
     public function index(){
-
+        
         $id_user = $_SESSION['id_user'];
         $check = $this->model->verifyPermission($id_user, 'configuracion');
         if (!empty($check) || $id_user == 1) {

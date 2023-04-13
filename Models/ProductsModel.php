@@ -72,7 +72,6 @@ class ProductsModel extends Query{
         $this->id = $id;
 
         //This implementation check if the Product already exists in the DB
-
         $sql = "UPDATE products SET code = ?, description = ?, purchase_price = ?, selling_price = ?, id_measure = ?, id_category = ?, image = ? WHERE id = ?";
         $data = array($this->code, $this->description, $this->purchase_price, $this->selling_price, $this->id_measure, $this->id_category, $this->image, $this->id);
         $allData = $this->save($sql, $data);
@@ -89,7 +88,6 @@ class ProductsModel extends Query{
 
         $sql = "SELECT * FROM products WHERE id = $id";
         $data = $this->select($sql);
-
         return $data;
 
     }
@@ -102,7 +100,6 @@ class ProductsModel extends Query{
         $sql = "UPDATE products SET status = ? WHERE id = ?";
         $data = array($this->status, $this->id);
         $allData = $this->save($sql, $data);
-
         return $allData;
 
     }

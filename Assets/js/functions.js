@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             {
                 'data' : 'actions'
-            },
+            }
         ],
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
@@ -751,76 +751,57 @@ function btnReenterClient(id) {
 //End Clients
 
 function frmCategory() {
-
     document.getElementById("title").textContent = "Nueva Categoría";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmCategory").reset();
-    document.getElementById("id").value = "";
-    myModal.show();   
-   
-    
+    myModal.show();     
+    document.getElementById("id").value = "";    
 }
 
-//This function was updated in video 31 when updating Bootstrap
-//Function used in User module to register new users
+
 function registerCategory(e) {
     e.preventDefault();
     const name = document.getElementById("name");
-
     if (name.value == "") {
-
-        alerts(response.message, response.icon);
-        
+        alerts('Debes llenar todos los campos!' , 'warning');     
     }else{
         // Petiton with Ajax
-        const url = base_url + "Category/register";
+        const url = base_url + "Categories/register";
         const frm = document.getElementById("frmCategory");
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
-        http.send(new FormData(frm));
-        
+        http.send(new FormData(frm));        
         http.onreadystatechange = function() {
-
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 myModal.hide();
                 alerts(response.message, response.icon);
-                tblCategories.ajax.reload();
-                
+                tblCategories.ajax.reload();                
             }            
         }
     }    
 }
 
 
-//Function used in Category module to edit users
+//Function used in Category module to edit Categories
 function btnEditCategory(id) {
-
-    document.getElementById("title").textContent = "Actualizar usuario";
+    document.getElementById("title").textContent = "Actualizar categoria";
     document.getElementById("btnAction").textContent = "Modificar";
-    const url = base_url + "Users/edit/" + id;
+    const url = base_url + "Categories/edit/" + id;
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
-
             const response = JSON.parse(this.responseText);
             document.getElementById("id").value = response.id;
-            document.getElementById("user").value = response.user;
             document.getElementById("name").value = response.name;
-            document.getElementById("cashRegister").value = response.id_cash_register;
-            document.getElementById("password").classList.add("d-none");
-            myModal.show();
-            
+            myModal.show();            
         }
-    }
-    
+    }    
 }
 
 function btnDeleteCategory(id){
-
     Swal.fire({
         title: '¿Estas seguro de eliminarlo?',
         text: "Esta acción no eliminará de manera permanente, cambiará el estado a Inactivo",
@@ -832,16 +813,15 @@ function btnDeleteCategory(id){
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
-            const url = base_url + "Users/delete/" + id;
+            const url = base_url + "Categories/delete/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    alerts(response.message, response.icon);                    
+                    alerts(response.message, response.icon);
+                    tblCategories.ajax.reload();
                 }
             }            
         }
@@ -849,9 +829,8 @@ function btnDeleteCategory(id){
 }
 
 function btnReenterCategory(id) {
-
     Swal.fire({
-        title: '¿Estas seguro de reingresar el usuario?',
+        title: '¿Estas seguro de reingresar la categoría?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -860,21 +839,19 @@ function btnReenterCategory(id) {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
             const url = base_url + "Categories/reenter/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    alerts(response.message, response.icon);                   
+                    alerts(response.message, response.icon);   
+                    tblCategories.ajax.reload();
                 }
             }            
         }
-      })
-    
+      })    
 }
 //End Categories
 
@@ -1111,23 +1088,17 @@ function btnReenterMeasure(id) {
                 }
             }            
         }
-      })
-    
+      })    
 }
-
-
 //End Measures Functions
 
-
 function frmProduct() {
-
     document.getElementById("title").textContent = "Nuevo Producto";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmProduct").reset();
     myModal.show();
     document.getElementById("id").value = "";
-    deleteImage();
-    
+    deleteImage();    
 }
 
 //Function used in Product module to register new products

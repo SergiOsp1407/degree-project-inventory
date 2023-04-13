@@ -72,9 +72,9 @@
                             </a>
                             <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Measures">Medidas</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Categories">Categorias</a>
                                     <a class="nav-link" href="<?php echo base_url; ?>Products">Productos</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Categories">Categorias</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Measures">Medidas</a>
                                 </nav>
                             </div>
 

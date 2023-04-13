@@ -18,18 +18,14 @@ class CategoriesModel extends Query{
 
     }
 
-    public function registerCategories(string $name){
-
+    public function registerCategory(string $name){
         $this->name = $name;
         $check = "SELECT * FROM categories WHERE name = '$this->name'";
         $exists = $this->select($check);
-
         if (empty($exists)) {
-
             $sql = "INSERT INTO categories(name) VALUES (?)";
             $data = array($this->name);
             $allData = $this->save($sql, $data);
-
             if ($allData == 1) {
                 $response = "ok";
             } else {
@@ -67,7 +63,7 @@ class CategoriesModel extends Query{
     }
 
     public function actionCategory(int $status, int $id){
-
+        
         $this->id = $id;
         $this->status = $status;
         $sql = "UPDATE categories SET status = ? WHERE id = ?";

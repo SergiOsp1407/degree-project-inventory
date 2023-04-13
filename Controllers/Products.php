@@ -19,7 +19,6 @@ class Products extends Controller{
 
     public function list(){
         $data = $this->model->getProducts();
-
         for ($i=0; $i < count($data); $i++) {
             $data[$i]['image'] = '<img class="img-thumbnail" src="'.base_url."Assets/img/".$data[$i]['image'].'" width="100">';
 

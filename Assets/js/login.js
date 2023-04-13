@@ -19,10 +19,9 @@ function frmLogin(e){
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
         http.send(new FormData(frm));
-        window.location.reload(); // se agrega funcion de recarga de pagina para ingresar al home 
+        // window.location.reload(); // se agrega funcion de recarga de pagina para ingresar al home 
         http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
                 const response = JSON.parse(this.responseText);
                 if ( response == "ok") {
                     window.location = base_url + "Administration/home";                                

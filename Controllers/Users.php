@@ -2,7 +2,6 @@
     class Users extends Controller{
 
     public function __construct() {
-
         session_start();
         
         parent::__construct();
@@ -64,7 +63,7 @@
                 $_SESSION['user'] = $data['user'];
                 $_SESSION['name'] = $data['name'];
                 $_SESSION['active'] = true;
-                $message = "It works!";
+                $message = "ok";
             }else {
                 $message = "Usuario o contraseña incorrecta";
             }

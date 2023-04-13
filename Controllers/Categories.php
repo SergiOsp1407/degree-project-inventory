@@ -23,20 +23,18 @@ class Categories extends Controller{
     }
 
     public function list(){
-        $data = $this->model->getCategory();
-
+        $data = $this->model->getCategories();
         for ($i=0; $i < count($data); $i++) { 
-
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-primary" type="button" onclick="btnEditClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger" type="button" onclick="btnDeleteClient('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>                
+                <button class="btn btn-primary" type="button" onclick="btnEditCategory('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger" type="button" onclick="btnDeleteCategory('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>                
                 </div>';
             }else {
                 $data[$i]['status'] = '<span class="badge bg-danger">Inactivo</span>';
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-success" type="button" onclick="btnReenterCategory('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
         }
@@ -45,31 +43,22 @@ class Categories extends Controller{
     }
 
     public function register(){
-
         $name = $_POST['name'];   
         $id = $_POST['id'];
-        
         if (empty($name)) {
-
-            $message = array('message' => 'Todos los campos son obligatorios', 'icon' => 'success');
-
+            $message = array('message' => 'Debes llenar todos los campos!', 'icon' => 'warning');
         }else {
-
             if($id == ""){
-
                 $data = $this->model->registerCategory($name);
-
                 if ($data == "ok") {
                     $message = array('message' => 'Categoria registrada correctamente.', 'icon' => 'success');
                 } else if ($data == "exists") {
                     $message = array('message' => 'La categoria ya existe.', 'icon' => 'warning');
                 } else {
                     $message = array('message' => 'La categoria no se registro correctamnte', 'icon' => 'error');
-                }
-               
+                }               
             }else{
                 $data = $this->model->modifyCategory($name, $id);
-
                 if ($data == "modificado") {
                     $message = array('message' => 'Categoria modificada correctamente.', 'icon' => 'success');
                 }else {
@@ -109,10 +98,8 @@ class Categories extends Controller{
         } else{
             $message = array('message' => 'Error al reingresar la categoria', 'icon' => 'error');
         }
-
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }
-
 }
 
