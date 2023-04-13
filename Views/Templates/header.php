@@ -169,7 +169,7 @@
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         <!-- <span>
-                            <?php echo $_POST['user'] ?>
+                            <?php echo $_POST['user']; ?>
                         </span> -->
                     </div>
                 </nav>

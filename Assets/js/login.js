@@ -19,13 +19,11 @@ function frmLogin(e){
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
         http.send(new FormData(frm));
-        // window.location.reload(); // se agrega funcion de recarga de pagina para ingresar al home 
         http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
                 if ( response == "ok") {
-                    window.location = base_url + "Administration/home";                                
-                    // window.location = base_url + "Users";  
+                    window.location = base_url + "Administration/home";
                 }else{
                     document.getElementById("alerts").classList.remove("d-none");
                     document.getElementById("alerts").innerHTML = response;

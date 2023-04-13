@@ -2,32 +2,26 @@
 class Clients extends Controller{
 
     public function __construct() {
-
         session_start();        
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
         }
-
         parent::__construct();
     }
 
     public function index(){
         $id_user = $_SESSION['id_user'];
-        $check = $this->model->verifyPermission($id_user, 'clients');
+        $check = $this->model->verifyPermission($id_user, 'clientes');
         if (!empty($check) || $id_user == 1) {
             $this->views->getView($this, "index");
         }else {
-            header('Location: '.base_url.'Errors/permissions');
-        }
-
-        
+            header('location: '.base_url.'Errors/permissions');
+        }       
     }
 
     public function list(){
         $data = $this->model->getClients();
-
         for ($i=0; $i < count($data); $i++) { 
-
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';                
                 $data[$i]['actions'] = '<div>
@@ -40,15 +34,12 @@ class Clients extends Controller{
                 <button class="btn btn-success" type="button" onclick="btnReenterClient('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
-
-            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
 
     public function register(){
-
         $id_user = $_SESSION['id_user'];
         $check = $this->model->verifyPermission($id_user, 'registrar_clientes');
         if (!empty($check) || $id_user == 1) {
@@ -57,7 +48,6 @@ class Clients extends Controller{
             $phone = $_POST['phone'];
             $address = $_POST['address'];    
             $id = $_POST['id'];
-
 
             if (empty($dni_client) || empty($name) || empty($phone) || empty($address)) {
                 $message = array('message' => 'Debes llenar todos los campos.', 'icon' => 'success');
@@ -80,17 +70,12 @@ class Clients extends Controller{
                         $message = array('message' => 'Error al modificar el cliente.', 'icon' => 'error');
                     }
                 }            
-            }
-            
+            }            
         }else {
-
-            $message = array('message' => 'No tienes permisos para registrar clientes', 'icon' => 'warning');
-            
+            $message = array('message' => 'No tienes permisos para registrar clientes', 'icon' => 'warning');            
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
-
-        
     }
 
     public function edit(int $id){

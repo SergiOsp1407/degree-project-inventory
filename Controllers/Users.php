@@ -56,7 +56,6 @@
             $password = $_POST['password'];
             $hash = hash("SHA256", $password);
             $data = $this->model->getUser($user, $hash);
-            $data = $this->model->getUser($user, $password);
             
             if ($data) {
                 $_SESSION['id_user'] = $data['id'];
@@ -188,13 +187,11 @@
 
     }
 
-    public function permissions($id)
-    {
+    public function permissions($id){
         
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
         }
-
         
         $data['allData'] = $this->model->getPermissions();
         $permissions = $this->model->getDetailPermissions($id);

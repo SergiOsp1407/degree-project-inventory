@@ -79,19 +79,16 @@ class ClientsModel extends Query
 
 
     public function actionClient( int $status, int $id){
-
         $this->id = $id;
         $this->status = $status;
         $sql = "UPDATE clients SET status = ? WHERE id = ?";
         $data = array($this->status, $this->id);
         $allData = $this->save($sql, $data);
-
         return $allData;
 
     }
 
-    public function verifyPermission(int $id_user, string $permission_name)
-    {
+    public function verifyPermission(int $id_user, string $permission_name){
         $sql = "SELECT p.id, p.permission, d.id, d.id_user, d.id_permission FROM permissions p INNER JOIN detail_permissions d ON p.id = d.id_permission WHERE d.id_user = $id_user AND p.permission = '$permission_name'";
         $data = $this->selectAll($sql);
         return $data;

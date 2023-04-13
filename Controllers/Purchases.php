@@ -118,7 +118,6 @@ class Purchases extends Controller {
     }
 
     public function delete($id){
-
         $data = $this->model->deleteDetail('tmp_purchases',$id);
 
         if($data == 'ok'){
@@ -126,11 +125,8 @@ class Purchases extends Controller {
         }else{
             $message = array('message' => 'Producto no se elimino correctamente', 'icon' => 'error');
         }
-
         echo json_encode($message);
         die();
-
-
     }
 
     public function deleteSale($id){

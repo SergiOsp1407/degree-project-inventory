@@ -13,7 +13,7 @@ class Categories extends Controller{
     public function index(){
 
         $id_user = $_SESSION['id_user'];
-        $check = $this->model->verifyPermission($id_user, 'categories');
+        $check = $this->model->verifyPermission($id_user, 'categorias');
         if (!empty($check) || $id_user == 1) {
             $this->views->getView($this, "index");
         }else {
