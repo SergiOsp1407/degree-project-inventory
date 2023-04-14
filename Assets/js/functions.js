@@ -283,10 +283,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'id'
             },
             {
-                'data' : 'code'
+                'data' : 'image'
             },
             {
-                'data' : 'image'
+                'data' : 'code'
             },
             {
                 'data' : 'description'

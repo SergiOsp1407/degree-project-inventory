@@ -11,7 +11,7 @@ class Products extends Controller{
         if (empty($_SESSION['active'])){
             header("location: ".base_url);
         }
-
+  
         $data['measures'] = $this->model->getMeasures();
         $data['categories'] = $this->model->getCategories();
         $this->views->getView($this, "index" , $data);

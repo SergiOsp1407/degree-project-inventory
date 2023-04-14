@@ -1,4 +1,3 @@
-<!-- Products Model for manipulation of products -->
 <?php
 class ProductsModel extends Query{
 

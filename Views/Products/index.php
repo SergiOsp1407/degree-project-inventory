@@ -38,13 +38,13 @@
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
                             <input type="hidden" id="id" name="id">
-                            <input type="text" class="form-control" name="code" id="code" placeholder="Codigo">
+                            <input id="code" class="form-control" type="text"  name="code"  placeholder="Codigo">
                             <label for="code">Código de barras</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="description" id="description" placeholder="Descripción">
+                            <input id="description" class="form-control" type="text"  name="description"  placeholder="Descripción">
                             <label for="description">Descripción</label>
                         </div>
                     </div>
