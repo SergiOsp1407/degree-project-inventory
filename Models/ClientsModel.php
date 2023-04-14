@@ -1,4 +1,3 @@
-<!-- Clients Model for creation, saving or updating Clients -->
 <?php
 class ClientsModel extends Query
 {

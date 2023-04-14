@@ -40,8 +40,7 @@ class Products extends Controller{
         die();
     }
 
-    public function register(){
-        
+    public function register(){  
         $code = $_POST['code'];
         $description = $_POST['description'];
         $purchase_price = $_POST['purchase_price'];
@@ -51,7 +50,7 @@ class Products extends Controller{
         $id = $_POST['id'];
         $image = $_FILES['image'];
         $name = $image['name'];
-        $temp_name = $image['temp_name'];
+        $tmp_name = $image['tmp_name'];
     
         $date = date("YmdHis");
 
@@ -62,18 +61,12 @@ class Products extends Controller{
         }else {
 
             if(!empty($name)){
-
                 $imageName = $date.".png";
                 $direction = "Assets/img/".$imageName;
-
             }else if(!empty($_POST['actual_image']) && empty($name)){
-
                 $imageName = $_POST['actual_image'];
-
             }else{
-
                 $imageName = "default.png";
-
             }
            
             if($id == ""){
@@ -81,18 +74,15 @@ class Products extends Controller{
 
                     if ($data == "ok") {
                         if(!empty($name)){
-                            move_uploaded_file($temp_name, $direction);
+                            move_uploaded_file($tmp_name, $direction);
                         }
                         $message = array('message' => 'Producto registrado correctamente.', 'icon' => 'success');
-                        
                     } else if ($data == "exists") {
                         $message = array('message' => 'El producto ya esta creado.', 'icon' => 'warning');
                     } else {
                         $message = array('message' => 'Error al registrar el producto', 'icon' => 'error');
-                    }
-                   
+                    }                   
             }else{
-
                 $imageDelete = $this->model->editProduct($id);
                 if ($imageDelete['image'] != 'default.jpg') {
                     if (file_exists( "Assets/img/".$imageDelete['image'])) {
@@ -105,7 +95,7 @@ class Products extends Controller{
 
                 if ($data == "modificado") {
                     if (!empty($name)) {
-                        move_uploaded_file($temp_name, $direction);
+                        move_uploaded_file($tmp_name, $direction);
                     }
                     $message = array('message' => 'Producto modificado correctamente.', 'icon' => 'success');
                 } else {

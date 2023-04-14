@@ -1,4 +1,4 @@
-<?php include "Views/Templates/header.php" ?>
+<?php include "Views/Templates/header.php"; ?>
 
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Clientes</li>
@@ -29,7 +29,7 @@
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title" id="title">Nuevo Cliente</h5>
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
             </div>
             <div class="modal-body">

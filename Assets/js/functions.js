@@ -1215,8 +1215,7 @@ function btnReenterProduct(id) {
                 }
             }            
         }
-      })
-    
+      })    
 }
 
 //End Products
