@@ -1402,7 +1402,7 @@ function loadDetailSale() {
                 <td>${row['id']}</td>
                 <td>${row['description']}</td>
                 <td>${row['amount']}</td>
-                <td><input class="form-control" placeholder="Descuento" type="text" onkeyup="calculateDiscount(event, ${row['id']} )"></td>
+                <td><input class="form-control" placeholder="Descuento" type="text" onkeyup="calculateDiscount(event, ${row['id']})"></td>
                 <td>${row['discount']}</td>
                 <td>${row['price']}</td>
                 <td>${row['sub_total']}</td>

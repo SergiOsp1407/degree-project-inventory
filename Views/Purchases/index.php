@@ -1,8 +1,4 @@
-<?php include "Views/Templates/header.php" ?>
-
-<!-- <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Nueva compra</li>
-</ol> -->
+<?php include "Views/Templates/header.php"; ?>
 
 <div class="card">
     <div class="card-header bg-primary text-white">
@@ -14,32 +10,32 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="code"><i class="fas fa-barcode"></i> Código de barras</label>
+                        <label for="code" style="font-weight: bold;"><i class="fas fa-barcode"></i> Código de barras</label>
                         <input type="hidden" id="id" name="id">
                         <input id="code" type="text" class="form-control" name="code" placeholder="Código de barras" onkeyup="searchCode(event)">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="description">Descripción</label>
+                        <label for="description" style="font-weight: bold;">Descripción</label>
                         <input id="description" type="text" class="form-control" name="description" placeholder="Descripción de productos" disabled>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="amount">Cantidad</label>
+                        <label for="amount" style="font-weight: bold;">Cantidad</label>
                         <input id="amount" type="number" class="form-control" name="amount" onkeyup="calculatePrice(event)" disabled>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="purchase_price">Precio</label>
+                        <label for="purchase_price" style="font-weight: bold;">Precio</label>
                         <input id="purchase_price" type="number" class="form-control" name="purchase_price" placeholder="Precio compra" disabled>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="sub_total">Subtotal</label>
+                        <label for="sub_total" style="font-weight: bold;">Subtotal</label>
                         <input id="sub_total" type="number" class="form-control" name="sub_total" placeholder="Precio compra" disabled>
                     </div>
                 </div>
@@ -64,11 +60,11 @@
 <div class="row">
     <div class="col-md-4 ml-auto">
         <div class="form-group">
-            <label for="total" class="font-weight-bold">Total</label>
+            <label for="total" style="font-weight: bold;">Total</label>
             <input id="total" type="text" class="form-control" name="total" placeholder="Total" disabled>
             <button class="btn btn-primary mt-2 btn-block" type="button" onclick="triggerTransaction(1)">Generar compra</button>
         </div>        
     </div>
 </div>
 
-<?php include "Views/Templates/footer.php" ?>
+<?php include "Views/Templates/footer.php"; ?>

@@ -12,6 +12,7 @@
         <link href="<?php echo base_url; ?>Assets/css/select2.min.css" rel="stylesheet"/>
         <link href="<?php echo base_url; ?>Assets/css/personalStyles.css" rel="stylesheet"/>
         <script src="<?php echo base_url; ?>Assets/js/all.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -59,8 +60,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Users"><i class="fas fa-user mr-2"></i> Usuarios</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Administration"><i class="fas fa-tools mr-2"></i> Configuración</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Users"><i class="fas fa-user mr-2"></i>&nbsp;Usuarios</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Administration"><i class="fas fa-tools mr-2"></i>&nbsp;Configuración</a>
                                 </nav>
                             </div>
 
@@ -72,9 +73,9 @@
                             </a>
                             <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Products">Productos</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Categories">Categorias</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Measures">Medidas</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Products"><i class="bi bi-boxes"></i>&nbsp;Productos</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Categories"><i class="bi bi-tags-fill"></i>&nbsp;Categorias</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Measures"><i class="bi bi-rulers"></i>&nbsp;Medidas</a>
                                 </nav>
                             </div>
 
@@ -86,8 +87,8 @@
                             </a>
                             <div class="collapse" id="collapseCashRegister" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>CashRegister">Cajas</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>CashRegister/cash_balance">Balances</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>CashRegister"><i class="bi bi-cash-coin"></i>&nbsp;Cajas</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>CashRegister/cash_balance"><i class="bi bi-plus-slash-minus"></i>&nbsp;Balances</a>
                                 </nav>
                             </div>
 
@@ -105,8 +106,8 @@
                             </a>
                             <div class="collapse" id="collapsePurchases" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases">Nueva Compra</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/history">Historial Compras</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases"><i class="bi bi-receipt-cutoff "></i>&nbsp;Nueva Compra</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/history"><i class="bi bi-clock-history "></i>&nbsp;Historial Compras</a>
                                 </nav>
                             </div>
 
@@ -118,8 +119,8 @@
                             </a>
                             <div class="collapse" id="collapseSales" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales"><i class="fas fa-shopping-cart mr-2 text-danger"></i> Nueva venta</a>
-                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales_history"> Historial Ventas</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales"><i class="fas fa-shopping-cart mr-2"></i>&nbsp;Nueva venta</a>
+                                    <a class="nav-link" href="<?php echo base_url; ?>Purchases/sales_history"><i class="bi bi-clock-history"></i>&nbsp;Historial Ventas</a>
                                 </nav>
                             </div>
 

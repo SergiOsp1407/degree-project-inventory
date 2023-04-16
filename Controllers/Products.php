@@ -59,14 +59,13 @@ class Products extends Controller{
             $message = "Debes llenar todos los campos.";
 
         }else {
-
             if(!empty($name)){
                 $imageName = $date.".png";
                 $direction = "Assets/img/".$imageName;
             }else if(!empty($_POST['actual_image']) && empty($name)){
                 $imageName = $_POST['actual_image'];
             }else{
-                $imageName = "default.png";
+                $imageName = "product-default.png";
             }
            
             if($id == ""){
@@ -84,9 +83,8 @@ class Products extends Controller{
                     }                   
             }else{
                 $imageDelete = $this->model->editProduct($id);
-                if ($imageDelete['image'] != 'default.jpg') {
+                if ($imageDelete['image'] != 'product-default.png') {
                     if (file_exists( "Assets/img/".$imageDelete['image'])) {
-
                         unlink( "Assets/img/".$imageDelete['image']);
                     }
                 }

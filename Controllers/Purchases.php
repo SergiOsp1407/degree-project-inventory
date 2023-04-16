@@ -32,7 +32,6 @@ class Purchases extends Controller {
         die();
 
     }
-
     
     public function inputInfo(){
         $id = $_POST['id'];
@@ -421,7 +420,6 @@ class Purchases extends Controller {
     }
 
     public function calculateDiscount($data){
-
         $array = explode(",", $data);
         $id = $array[0];
         $discount = $array[1];

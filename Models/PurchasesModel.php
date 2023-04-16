@@ -19,14 +19,14 @@ class PurchasesModel extends Query{
 
     public function getProductCode(string $code){
 
-        $sql = "SELECT * FROM products WHERE code='$code' ";
+        $sql = "SELECT * FROM products WHERE code='$code'";
         $data = $this->select($sql);
         return $data;
     }
 
     public function getProducts(int $id){
 
-        $sql = "SELECT * FROM products WHERE id = $id ";
+        $sql = "SELECT * FROM products WHERE id = $id";
         $data = $this->select($sql);
         return $data;
 
@@ -253,16 +253,16 @@ class PurchasesModel extends Query{
 
     }
 
-    public function checkDiscount(int $id)
-    {
-        $sql = "SELECT * FROM tmp_purchases WHERE id = $id";
+    public function checkDiscount(int $id){
+        
+        $sql = "SELECT * FROM tmp_sales WHERE id = $id";
         $data = $this->select($sql);
         return $data;
     }
 
     public function updateDiscount (string $discount, string $sub_total, int $id){
 
-        $sql = "UPDATE tmp_purchases SET discount = ?, sub_total = ? WHERE id = ?";
+        $sql = "UPDATE tmp_sales SET discount = ?, sub_total = ? WHERE id = ?";
         $data = array($discount, $sub_total, $id);
         $allData = $this->save($sql, $data);
 
