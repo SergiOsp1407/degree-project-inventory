@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 04:06 AM
+-- Generation Time: Apr 16, 2023 at 05:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -39,6 +39,13 @@ CREATE TABLE `cash_balance` (
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cash_balance`
+--
+
+INSERT INTO `cash_balance` (`id`, `id_user`, `initial_amount`, `opening_date`, `closing_date`, `final_amount`, `total_sales`, `total_sales_amount`, `status`) VALUES
+(1, 1, '100000.00', '2023-03-09', '2023-03-09', '150000.00', 5000, '1.00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -57,7 +64,7 @@ CREATE TABLE `cash_register` (
 
 INSERT INTO `cash_register` (`id`, `cash_register`, `status`) VALUES
 (1, 'General', 1),
-(2, 'Auxiliar', 1);
+(3, 'Auxiliar', 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +106,8 @@ CREATE TABLE `clients` (
 
 INSERT INTO `clients` (`id`, `dni_client`, `name`, `phone`, `address`, `status`) VALUES
 (1, '1', 'Sergio', '31924242', 'Calle 78', 1),
-(2, '324745464', 'Client test', '32545867576', 'Calle 23 ', 1);
+(2, '324745464', 'Client test', '32545867576', 'Calle 23 ', 1),
+(3, '125642', 'Cliente 2 ', '318513423', 'Calle 13', 1);
 
 -- --------------------------------------------------------
 
@@ -142,12 +150,48 @@ CREATE TABLE `detail_permissions` (
 INSERT INTO `detail_permissions` (`id`, `id_user`, `id_permission`) VALUES
 (1, 1, 5),
 (2, 1, 8),
-(3, 2, 5),
-(4, 2, 6),
-(5, 2, 7),
-(6, 2, 8),
-(7, 2, 11),
-(8, 2, 12);
+(36, 2, 1),
+(37, 2, 2),
+(38, 2, 3),
+(39, 2, 4),
+(40, 2, 5),
+(41, 2, 6),
+(42, 2, 7),
+(43, 2, 8),
+(44, 2, 9),
+(45, 2, 10),
+(46, 2, 11),
+(47, 2, 12),
+(48, 2, 13),
+(49, 2, 14),
+(50, 4, 1),
+(51, 4, 2),
+(52, 4, 3),
+(53, 4, 4),
+(54, 4, 5),
+(55, 4, 6),
+(56, 4, 7),
+(57, 4, 8),
+(58, 4, 9),
+(59, 4, 10),
+(60, 4, 11),
+(61, 4, 12),
+(62, 4, 13),
+(63, 4, 14),
+(78, 6, 1),
+(79, 6, 2),
+(80, 6, 3),
+(81, 6, 4),
+(82, 6, 5),
+(83, 6, 6),
+(84, 6, 7),
+(85, 6, 8),
+(86, 6, 9),
+(87, 6, 10),
+(88, 6, 11),
+(89, 6, 12),
+(90, 6, 13),
+(91, 6, 14);
 
 -- --------------------------------------------------------
 
@@ -224,7 +268,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `code`, `description`, `purchase_price`, `selling_price`, `amount`, `id_measure`, `id_category`, `image`, `status`) VALUES
-(1, '001', 'Producto 1', '1000.00', '1500.00', 10, 1, 1, '', 1);
+(2, '123', 'Producto 1', '100000.00', '150000.00', 2, 1, 1, 'default.png', 1),
+(3, '1243', 'Product 2', '50000.00', '5500.00', 3, 1, 1, 'default.png', 1),
+(4, '123341', 'Producto 3', '350000.00', '400000.00', 0, 1, 1, '20230331212234.jpg', 1),
+(5, '123456', 'Producto Test', '100000.00', '150000.00', 0, 1, 1, '20230331212904.jpg', 1),
+(6, '7654', 'Producto 6', '20000.00', '25000.00', 0, 1, 1, '20230331215034.png', 1),
+(7, '1032', 'Producto Test 1', '20500.00', '50000.00', 0, 1, 1, '20230413204125.png', 1),
+(8, '23', '45345Product', '1234.00', '123.00', 0, 1, 1, '20230413212904.png', 1),
+(9, '7653', 'Producto prueba', '45000.00', '50000.00', 0, 1, 1, '20230413215407.png', 1);
 
 -- --------------------------------------------------------
 
@@ -238,6 +289,13 @@ CREATE TABLE `purchases` (
   `purchase_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `total`, `purchase_date`, `status`) VALUES
+(1, '230000.00', '2023-03-28 00:53:04', 1);
 
 -- --------------------------------------------------------
 
@@ -259,7 +317,7 @@ CREATE TABLE `purchases_details` (
 --
 
 INSERT INTO `purchases_details` (`id`, `id_purchase`, `id_product`, `amount`, `product_price`, `sub_total`) VALUES
-(1, 1, 1, 2, '100.00', '100.00');
+(2, 1, 2, 5, '50000.00', '200000.00');
 
 -- --------------------------------------------------------
 
@@ -301,13 +359,20 @@ CREATE TABLE `sales_details` (
   `sub_total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sales_details`
+--
+
+INSERT INTO `sales_details` (`id`, `id_sale`, `id_product`, `amount`, `discount`, `price`, `sub_total`) VALUES
+(2, 1, 2, 2, '100.00', '130000.00', '140000.00');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tmp_details`
+-- Table structure for table `tmp_purchases`
 --
 
-CREATE TABLE `tmp_details` (
+CREATE TABLE `tmp_purchases` (
   `id` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
@@ -327,7 +392,7 @@ CREATE TABLE `tmp_sales` (
   `id` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `actual_price` decimal(10,2) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
   `amount` int(11) NOT NULL,
   `sub_total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -353,7 +418,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `user`, `name`, `password`, `id_cash_register`, `status`) VALUES
 (1, 'Sergio', 'Sergio', 'sergio', 1, 1),
-(2, 'Admin', 'Admin', 'admin', 1, 1);
+(2, 'Admin', 'Admin', 'admin', 3, 1),
+(3, 'DaniGov', 'Daniela', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1, 1),
+(4, 'AdminGeneral', 'Administrador General', 'fe2592b42a727e977f055947385b709cc82b16b9a87f88c6abf3900d65d0cdc3', 1, 1),
+(5, 'Prueba1', 'Prueba', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 1),
+(6, 'AdminSergio', 'AdminSergio', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -414,7 +483,9 @@ ALTER TABLE `permissions`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_measure` (`id_measure`),
+  ADD KEY `id_category` (`id_category`);
 
 --
 -- Indexes for table `purchases`
@@ -447,9 +518,9 @@ ALTER TABLE `sales_details`
   ADD KEY `id_product` (`id_product`);
 
 --
--- Indexes for table `tmp_details`
+-- Indexes for table `tmp_purchases`
 --
-ALTER TABLE `tmp_details`
+ALTER TABLE `tmp_purchases`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_product` (`id_product`),
   ADD KEY `id_user` (`id_user`);
@@ -477,13 +548,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cash_balance`
 --
 ALTER TABLE `cash_balance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cash_register`
 --
 ALTER TABLE `cash_register`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -495,7 +566,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `configuration`
@@ -507,7 +578,7 @@ ALTER TABLE `configuration`
 -- AUTO_INCREMENT for table `detail_permissions`
 --
 ALTER TABLE `detail_permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `measures`
@@ -525,19 +596,19 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `purchases_details`
 --
 ALTER TABLE `purchases_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sales`
@@ -549,25 +620,25 @@ ALTER TABLE `sales`
 -- AUTO_INCREMENT for table `sales_details`
 --
 ALTER TABLE `sales_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tmp_details`
+-- AUTO_INCREMENT for table `tmp_purchases`
 --
-ALTER TABLE `tmp_details`
+ALTER TABLE `tmp_purchases`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tmp_sales`
 --
 ALTER TABLE `tmp_sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -585,6 +656,13 @@ ALTER TABLE `cash_balance`
 ALTER TABLE `detail_permissions`
   ADD CONSTRAINT `detail_permissions_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `detail_permissions_ibfk_2` FOREIGN KEY (`id_permission`) REFERENCES `permissions` (`id`);
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_measure`) REFERENCES `measures` (`id`),
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
 
 --
 -- Constraints for table `purchases`
@@ -613,11 +691,11 @@ ALTER TABLE `sales_details`
   ADD CONSTRAINT `sales_details_ibfk_2` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`);
 
 --
--- Constraints for table `tmp_details`
+-- Constraints for table `tmp_purchases`
 --
-ALTER TABLE `tmp_details`
-  ADD CONSTRAINT `tmp_details_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `tmp_details_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+ALTER TABLE `tmp_purchases`
+  ADD CONSTRAINT `tmp_purchases_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `tmp_purchases_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `tmp_sales`
