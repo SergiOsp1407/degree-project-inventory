@@ -36,7 +36,7 @@ class PurchasesModel extends Query{
 
         $sql = "INSERT INTO $table(id_product, id_user, price, amount, sub_total) VALUES (?,?,?,?,?)";
         $data = array($id_product, $id_user, $price, $amount, $sub_total);
-        $this->save($sql, $data);
+        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -88,7 +88,7 @@ class PurchasesModel extends Query{
 
         $sql = "UPDATE $table SET price = ?, amount = ?, sub_total = ? WHERE id_product = ? AND id_user = ?";
         $data = array($price,  $amount, $sub_total, $id_product, $id_user );
-        $this->save($sql, $data);
+        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -101,20 +101,16 @@ class PurchasesModel extends Query{
     }
 
     public function registerPurchase (string $total){
-
         $sql = "INSERT INTO purchases (total) VALUES (?)";
         $data = array($total);
         // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
-
         if ($allData == 1) {
             $response = "ok";
         } else {
             $response = "error";
         }
-
         return $response;        
-
     }
     
 

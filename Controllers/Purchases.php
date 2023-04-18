@@ -39,7 +39,7 @@ class Purchases extends Controller {
         $id_product = $data['id'];
         $id_user = $_SESSION['id_user'];
         $price = $data['purchase_price'];
-        $amount = $_POST['amount'];        
+        $amount = $_POST['amount'];      
         $check = $this->model->checkDetail('tmp_purchases', $id_product, $id_user);
 
         if(empty($check)){
@@ -118,7 +118,6 @@ class Purchases extends Controller {
 
     public function delete($id){
         $data = $this->model->deleteDetail('tmp_purchases',$id);
-
         if($data == 'ok'){
             $message = array('message' => 'Producto eliminado correctamente', 'icon' => 'success');
         }else{

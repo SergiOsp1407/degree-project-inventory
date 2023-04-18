@@ -1305,7 +1305,6 @@ function calculatePrice(e) {
     const amount = document.getElementById("amount").value;
     const purchase_price = document.getElementById("purchase_price").value;
     document.getElementById("sub_total").value = purchase_price * amount;
-
     if (e.which == 13) {
         if (amount > 0) {
             const url = base_url + "Purchases/inputInfo/";
@@ -1383,7 +1382,8 @@ function loadDetail() {
                 </tr>`;                
             });
             document.getElementById("tblDetail").innerHTML = html;
-            document.getElementById("total").innerHTML= response.total_pay.total;            
+            document.getElementById("total").value = response.total_pay.total; 
+                
         }
     }    
 }
@@ -1440,9 +1440,7 @@ function calculateDiscount(e, id) {
 
 
 function deleteDetail(id, action) {
-
     let url;
-
     if (action == 1) {
         url = base_url + "Purchases/delete/" + id;        
     }else{
@@ -1453,7 +1451,6 @@ function deleteDetail(id, action) {
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
             alerts(response.message, response.icon);
@@ -1461,8 +1458,7 @@ function deleteDetail(id, action) {
                 loadDetail();               
             }else{
                 loadDetailSale();              
-            }
-                          
+            }                          
         }
     }    
 }
@@ -1480,7 +1476,7 @@ function triggerTransaction(action) {
         if (result.isConfirmed) {
             let url;
             if (action == 1) {
-                url = base_url + "Purchases/registerPurchase/";        
+                url = base_url + "Purchases/registerPurchase/";          
             }else{
                 const id_client = document.getElementById('id_client').value;
                 url = base_url + "Purchases/registerSale/" + id_client; 
