@@ -172,6 +172,11 @@
                         <!-- <span>
                             <?php echo $_POST['user']; ?>
                         </span> -->
+                        <!-- <select name="client" id="client" class="form-control">
+                            <?php foreach ($data as $row) { ?>
+                            <option value="<?php echo $row['id']?>"><?php echo $row['name']?></option>
+                            <?php } ?>
+                        </select> -->
                     </div>
                 </nav>
             </div>

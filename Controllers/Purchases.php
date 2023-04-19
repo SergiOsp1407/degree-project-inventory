@@ -3,15 +3,11 @@
 class Purchases extends Controller {
 
     public function __construct(){
-
         session_start();
-
-        parent::__construct();
-        
+        parent::__construct();        
     }
 
     public function index(){
-
         $this->views->getView($this, "index");
     }
 
@@ -26,11 +22,9 @@ class Purchases extends Controller {
     }
 
     public function searchCode($code){
-
         $data = $this->model->getProductCode($code);
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
-
     }
     
     public function inputInfo(){
@@ -66,16 +60,14 @@ class Purchases extends Controller {
 
     public function inputSale(){
         $id = $_POST['id'];
-        $data = $this->model->getProducts($id); //Stores all the product using the id
+        $data = $this->model->getProducts($id);
         $id_product = $data['id'];
         $id_user = $_SESSION['id_user'];
         $price = $data['selling_price'];
         $amount = $_POST['amount'];        
         $check = $this->model->checkDetail('tmp_sales', $id_product, $id_user);
-
         if(empty($check)){
             if ($data['amount'] >= $amount) {
-                # code...
                 $sub_total = $price * $amount;
                 $allData = $this->model->registerDetail('tmp_sales', $id_product, $id_user, $price, $amount, $sub_total);
                 if ($allData == "ok") {
@@ -89,7 +81,6 @@ class Purchases extends Controller {
         }else{
             $total_amount = $check['amount'] + $amount;
             $sub_total = $total_amount * $price;
-
             if ($data['amount'] < $total_amount) {
                 $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
             }else {
@@ -107,13 +98,11 @@ class Purchases extends Controller {
     }
 
     public function list($table){
-
         $id_user = $_SESSION['id_user'];
         $data['detail'] = $this->model->getDetail($table,$id_user);
         $data['total_pay'] = $this->model->calculatePurchase($table, $id_user);
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
-
     }
 
     public function delete($id){
@@ -148,12 +137,12 @@ class Purchases extends Controller {
         if($data == 'ok'){
             $detail['detail'] = $this->model->getDetail('tmp_purchases',$id_user);
             $id_purchase = $this->model->getId('purchases');
-            foreach ($detail AS $row){
-                $id_product = $row['id_product'];
+            foreach ($detail as $row){
                 $amount = $row['amount'];
-                $product_price = $row['product_price'];
-                $sub_total = $amount * $product_price;
-                $this->model->registerPurchaseDetail($id_purchase['id'], $id_product, $amount, $product_price, $sub_total);
+                $price = $row['price'];
+                $id_product = $row['id_product'];
+                $sub_total = $amount * $price;
+                $this->model->registerPurchaseDetail($id_purchase['id'], $id_product, $amount, $price, $sub_total);
                 $actual_stock = $this->model->getProducts($id_product);
                 $stock = $actual_stock['amount'] + $amount;
                 $this->model->updateStock($stock, $id_product);
@@ -300,11 +289,10 @@ class Purchases extends Controller {
     public function list_history(){
 
         $data = $this->model->getPurchaseHistory();
-        for ($i=0; $i < count($data); $i++) {
-            
+        for ($i=0; $i < count($data); $i++) {            
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Completado</span>';
-                $data[$i]['actions'] = '<div><button class="btn btn-warning" onclick="btnCancelPurchase(' . $data[$i]['id'] . ')"><i class="fas fa-ban"></i></button><a class="btn btn-danger" href="'.base_url."Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
+                $data[$i]['actions'] = '<div><button class="btn btn-warning" onclick="btnCancelPurchase('.$data[$i]['id'].')"><i class="fas fa-ban"></i></button><a class="btn btn-danger" href="'.base_url."Purchases/triggerPDF/".$data[$i]['id'].'" target="_blank"><i class="fas fa-file-pdf"></i></a></div>';
             }else {
 
                 $data[$i]['status'] = '<span class="badge bg-danger">Anulado</span>';

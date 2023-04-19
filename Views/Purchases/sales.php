@@ -30,12 +30,12 @@
                 <div class="col-md-2">
                     <div class="form-floating mb-3">
                         <input id="selling_price" type="text" class="form-control" name="selling_price" placeholder="Precio venta" disabled>
-                        <label for="selling_price">Precio</label>
+                        <label for="selling_price">Precio venta</label>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-floating mb-3">
-                        <input id="sub_total" type="text" class="form-control" name="sub_total" placeholder="Precio compra" disabled>
+                        <input id="sub_total" type="text" class="form-control" name="sub_total" placeholder="Sub total" disabled>
                         <label for="sub_total">Subtotal</label>
                     </div>
                 </div>
@@ -62,13 +62,13 @@
 <div class="row">
     <div class="col-md-4">
         <div class="from-group mb-3">
-            <label for="client">Seleccionar cliente:</label>
+            <label for="client"><i class="fas fa-users"></i> Seleccionar cliente:</label>
             <select name="client" id="client" class="form-control">
                 <?php foreach ($data as $row) { ?>
                     <option value="<?php echo $row['id']?>"><?php echo $row['name']?></option>
                     <?php } ?>
             </select>
-            </div>
+        </div>
     </div>
     <div class="col-md-3 ml-auto">
         <div class="form-floating mb-3">

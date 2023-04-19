@@ -1307,7 +1307,7 @@ function calculatePrice(e) {
     document.getElementById("sub_total").value = purchase_price * amount;
     if (e.which == 13) {
         if (amount > 0) {
-            const url = base_url + "Purchases/inputInfo/";
+            const url = base_url + "Purchases/inputInfo";
             const frm = document.getElementById("frmPurchase");
             const http = new XMLHttpRequest();
             http.open("POST", url, true);
@@ -1333,7 +1333,7 @@ function calculateSalePrice(e) {
     document.getElementById("sub_total").value = selling_price * amount;
     if (e.which == 13) {
         if (amount > 0) {
-            const url = base_url + "Purchases/inputSale/";
+            const url = base_url + "Purchases/inputSale";
             const frm = document.getElementById("frmSale");
             const http = new XMLHttpRequest();
             http.open("POST", url, true);
@@ -1491,8 +1491,6 @@ function triggerTransaction(action) {
                         alerts(response.message, response.icon);
                         let route;
                         if (action == 1) {
-                            /*Direccionamiento a traves del boton 'Generar compra'
-                            para el pdf con la factura*/
                             route = base_url + 'Purchases/triggerPDF/' + response.id_purchase;                            
                         }else{
                             route = base_url + 'Purchases/triggerPDFSale/' + response.id_sale;

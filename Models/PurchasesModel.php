@@ -18,21 +18,18 @@ class PurchasesModel extends Query{
 
 
     public function getProductCode(string $code){
-
         $sql = "SELECT * FROM products WHERE code='$code'";
         $data = $this->select($sql);
         return $data;
     }
 
     public function getProducts(int $id){
-
         $sql = "SELECT * FROM products WHERE id = $id";
         $data = $this->select($sql);
         return $data;
-
     }
 
-    public function registerDetail(string $table,int $id_product,  int $id_user, string $price, int $amount, string $sub_total){
+    public function registerDetail(string $table,int $id_product,int $id_user, string $price, int $amount, string $sub_total){
 
         $sql = "INSERT INTO $table(id_product, id_user, price, amount, sub_total) VALUES (?,?,?,?,?)";
         $data = array($id_product, $id_user, $price, $amount, $sub_total);
@@ -100,7 +97,7 @@ class PurchasesModel extends Query{
         return $response;
     }
 
-    public function registerPurchase (string $total){
+    public function registerPurchase(string $total){
         $sql = "INSERT INTO purchases (total) VALUES (?)";
         $data = array($total);
         // $this->save($sql, $data);
@@ -123,10 +120,10 @@ class PurchasesModel extends Query{
 
     }
 
-    public function registerPurchaseDetail(int $id_purchase, int $id_product,int  $amount,string $product_price,string $sub_total){
+    public function registerPurchaseDetail(int $id_purchase, int $id_product,int $amount,string $price,string $sub_total){
 
-        $sql = "INSERT INTO purchases_details (id_purchase, id_product, amount, product_price, sub_total) VALUES (?,?,?,?,?)";
-        $data = array($id_purchase, $id_product, $amount, $product_price, $sub_total );
+        $sql = "INSERT INTO purchases_details (id_purchase, id_product, amount, price, sub_total) VALUES (?,?,?,?,?)";
+        $data = array($id_purchase, $id_product, $amount, $price, $sub_total );
         // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
@@ -197,11 +194,9 @@ class PurchasesModel extends Query{
     }
 
     public function getPurchaseHistory(){
-
         $sql = "SELECT * FROM purchases";
         $data = $this->selectAll($sql);
         return $data;
-
     }
 
 
@@ -215,14 +210,11 @@ class PurchasesModel extends Query{
 
     
     public function updateStock(int $amount, int $id_product){
-
         $sql = "UPDATE products SET amount = ? WHERE id = ?";
         $data = array($amount,$id_product);
         // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
-
         return $allData;
-
     }
 
     public function registerSale (int $id_user, int $id_client, string $total_sales, string $sale_date, string $time_hours){
