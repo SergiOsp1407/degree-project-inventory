@@ -33,7 +33,6 @@ class PurchasesModel extends Query{
 
         $sql = "INSERT INTO $table(id_product, id_user, price, amount, sub_total) VALUES (?,?,?,?,?)";
         $data = array($id_product, $id_user, $price, $amount, $sub_total);
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -53,7 +52,7 @@ class PurchasesModel extends Query{
 
     public function calculatePurchase(string $table,int $id_user){
 
-        $sql = "SELECT  sub_total, SUM(sub_total) AS total FROM $table WHERE id_user = $id_user";
+        $sql = "SELECT sub_total, SUM(sub_total) AS total FROM $table WHERE id_user = $id_user";
         $data = $this->select($sql);
         return $data;
 
@@ -85,7 +84,6 @@ class PurchasesModel extends Query{
 
         $sql = "UPDATE $table SET price = ?, amount = ?, sub_total = ? WHERE id_product = ? AND id_user = ?";
         $data = array($price,  $amount, $sub_total, $id_product, $id_user );
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -100,7 +98,6 @@ class PurchasesModel extends Query{
     public function registerPurchase(string $total){
         $sql = "INSERT INTO purchases (total) VALUES (?)";
         $data = array($total);
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
         if ($allData == 1) {
             $response = "ok";
@@ -117,14 +114,12 @@ class PurchasesModel extends Query{
         $data = $this->select($sql);
         return $data;
 
-
     }
 
     public function registerPurchaseDetail(int $id_purchase, int $id_product,int $amount,string $price,string $sub_total){
 
         $sql = "INSERT INTO purchases_details (id_purchase, id_product, amount, price, sub_total) VALUES (?,?,?,?,?)";
         $data = array($id_purchase, $id_product, $amount, $price, $sub_total );
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -141,7 +136,6 @@ class PurchasesModel extends Query{
 
         $sql = "INSERT INTO sales_details (id_sale, id_product, amount, discount, price, sub_total) VALUES (?,?,?,?,?,?)";
         $data = array($id_sale, $id_product, $amount, $discount, $price, $sub_total );
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -212,7 +206,6 @@ class PurchasesModel extends Query{
     public function updateStock(int $amount, int $id_product){
         $sql = "UPDATE products SET amount = ? WHERE id = ?";
         $data = array($amount,$id_product);
-        // $this->save($sql, $data);
         $allData = $this->save($sql, $data);
         return $allData;
     }

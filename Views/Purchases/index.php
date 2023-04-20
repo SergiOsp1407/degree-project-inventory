@@ -60,7 +60,7 @@
 <div class="row">
     <div class="col-md-4 ml-auto">
         <div class="form-group">
-            <label for="total" style="font-weight: bold;">Total</label>
+            <label for="total" class="font-weight'bold">Total a pagar</label>
             <input id="total" type="text" class="form-control" name="total" placeholder="Total" disabled>
             <button class="btn btn-primary mt-2 btn-block" type="button" onclick="triggerTransaction(1)">Generar compra</button>
         </div>        

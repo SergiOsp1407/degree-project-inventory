@@ -84,7 +84,6 @@ class Purchases extends Controller {
             if ($data['amount'] < $total_amount) {
                 $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
             }else {
-                # code...
                 $allData = $this->model->updateDetail('tmp_sales',$price, $total_amount, $sub_total, $id_product, $id_user);
                 if ($allData == "modificado") {
                     $message = array('message' => 'Venta modificada correctamente', 'icon' => 'success');
@@ -117,15 +116,12 @@ class Purchases extends Controller {
     }
 
     public function deleteSale($id){
-
         $data = $this->model->deleteDetail('tmp_sales',$id);
-
         if($data == 'ok'){
             $message = array('message' => 'Producto eliminado correctamente', 'icon' => 'success');
         }else{
             $message = array('message' => 'Producto no se elimino correctamente', 'icon' => 'error');
         }
-
         echo json_encode($message);
         die();
     }
@@ -146,8 +142,7 @@ class Purchases extends Controller {
                 $actual_stock = $this->model->getProducts($id_product);
                 $stock = $actual_stock['amount'] + $amount;
                 $this->model->updateStock($stock, $id_product);
-            }
-            //Clean the Details of the purchase to print new info in the invoice
+            }            
             $clean = $this->model->cleanDetails('tmp_purchases',$id_user);
             if($clean == 'ok'){
                 $message = array('message' => 'ok', 'id_purchase' => $id_purchase['id']);
@@ -171,7 +166,7 @@ class Purchases extends Controller {
             $total_sales = $this->model->calculatePurchase('tmp_sales',$id_user);
             $data = $this->model->registerSale($id_user, $id_client, $total_sales['total_sales'], $sale_date, $time_hours);
             if($data == 'ok'){
-                $detail = $this->model->getDetail('tmp_sales',$id_user);
+                $detail['detail'] = $this->model->getDetail('tmp_sales',$id_user);
                 $id_sale = $this->model->getId('sales');
                 foreach ($detail AS $row){
                     $id_product = $row['id_product'];
@@ -184,8 +179,7 @@ class Purchases extends Controller {
                     $stock = $actual_stock['amount'] - $amount;
                     $this->model->updateStock($stock, $id_product);
                 }
-    
-                //Clean the Details of the purchase to print new info in the invoice
+
                 $clean = $this->model->cleanDetails('tmp_sales',$id_user);
     
                 if($clean == 'ok'){
@@ -201,7 +195,7 @@ class Purchases extends Controller {
         die();
     }
 
-    // Function to generate PDF in order to get invoices(facturas)
+    
     public function triggerPDF($id_purchase ){
 
         $company = $this->model->getCompany(); 
@@ -211,12 +205,11 @@ class Purchases extends Controller {
         ob_start();        
         require('Libraries/fpdf/fpdf.php');
          
-        $pdf = new FPDF('P','mm',/*array(80,200)*/'Letter' );
+        $pdf = new FPDF('P','mm','Letter' );
         $pdf->AddPage();
-        //$pdf->SetMargins(10,10,10);
         $pdf->SetTitle('Reporte de compra');
 
-        //Header
+        
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
         $pdf->Ln();        
@@ -242,7 +235,7 @@ class Purchases extends Controller {
         $pdf->Cell(20,5, $id_purchase, 0, 1, 'L');
         $pdf->Ln();
         
-        //Invoice Header
+        
         $pdf->SetFillColor(0,0,0);
         $pdf->SetTextColor(255,255,255);
         $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
@@ -252,7 +245,7 @@ class Purchases extends Controller {
         
         $pdf->SetTextColor(0,0,0);
 
-        //Invoice content
+        
         $total = 0.00;
         foreach ($products as $row){
 
@@ -269,20 +262,13 @@ class Purchases extends Controller {
         $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
 
         $pdf->Output();
-        
-
-        //Body
-
-        ob_end_flush(); 
-
-        
+        ob_end_flush();    
 
     }
 
     public function history(){
 
         $this->views->getView($this, "history");
-
 
     }
 
@@ -324,12 +310,11 @@ class Purchases extends Controller {
         ob_start();        
         require('Libraries/fpdf/fpdf.php');
          
-        $pdf = new FPDF('P','mm',/*array(80,200)*/'Letter' );
+        $pdf = new FPDF('P','mm','Letter' );
         $pdf->AddPage();
-        //$pdf->SetMargins(10,10,10);
         $pdf->SetTitle('Factura de venta');
 
-        //Header
+        
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
         $pdf->Ln();        
@@ -355,7 +340,7 @@ class Purchases extends Controller {
         $pdf->Cell(20,5, $id_sale, 0, 1, 'L');
         $pdf->Ln();
 
-        //Clients Header
+        
         $pdf->SetFillColor(0,0,0);
         $pdf->SetTextColor(255,255,255);
         $pdf->SetFont('Arial', 'B', 7);
@@ -365,7 +350,7 @@ class Purchases extends Controller {
         $pdf->SetTextColor(0,0,0);
         $clients = $this->model->clientsSale($id_sale);
         
-        //Clients content
+        
         $pdf->SetFont('Arial', '', 7);
         $pdf->Cell(30,5, utf8_decode($clients['name']), 0, 0, 'L');
         $pdf->Cell(30,5, $clients['phone'], 0, 0, 'L');
@@ -373,7 +358,7 @@ class Purchases extends Controller {
 
         $pdf->Ln();
         
-        //Products
+        
         $pdf->SetFillColor(0,0,0);
         $pdf->SetTextColor(255,255,255);
         $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
@@ -383,7 +368,7 @@ class Purchases extends Controller {
         
         $pdf->SetTextColor(0,0,0);
         
-        //Invoice content
+        
         $total = 0.00;
         foreach ($products as $row){
 
@@ -402,7 +387,6 @@ class Purchases extends Controller {
         $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
 
         $pdf->Output();       
-        //Body  
         ob_end_flush(); 
     }
 
@@ -462,7 +446,7 @@ class Purchases extends Controller {
     }
 
 
-    // Function to generate PDF for sales according to dates, this in the Sales view (sales_history)
+    
     public function saleViewPDF( ){
         
         $from_date = $_POST['from_date'];
@@ -477,63 +461,13 @@ class Purchases extends Controller {
         ob_start();        
         require('Libraries/fpdf/fpdf.php');
          
-        $pdf = new FPDF('P','mm',/*array(80,200)*/'Letter' );
+        $pdf = new FPDF('P','mm','Letter' );
         $pdf->AddPage();
-        //$pdf->SetMargins(10,10,10);
         $pdf->SetTitle('Reporte de ventas por fecha');
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->SetFillColor(0,0,0);
         $pdf->SetTextColor(255,255,255);
-        //Header
-        // $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
-        // $pdf->Ln();        
-        // $pdf->Image(base_url . 'Assets/img/companyLogo.png', 150,10,30,30);
-        // $pdf->SetFont('Arial', 'B', 11);
-        // $pdf->Cell(25,5, 'Nit: ', 0, 0, 'L');        
-        // $pdf->SetFont('Arial', '', 11);
-        // $pdf->Cell(20,5, $company['id_company'], 0, 1, 'L');
         
-        // $pdf->SetFont('Arial', 'B', 11);
-        // $pdf->Cell(25,5, utf8_decode('Teléfono: '), 0, 0, 'L');        
-        // $pdf->SetFont('Arial', '', 11);
-        // $pdf->Cell(20,5, $company['phone'], 0, 1, 'L');
-
-        // $pdf->SetFont('Arial', 'B', 11);
-        // $pdf->Cell(25,5, utf8_decode('Dirección: '), 0, 0, 'L');        
-        // $pdf->SetFont('Arial', '', 11);
-        // $pdf->Cell(20,5, utf8_decode($company['address']), 0, 1, 'L'); 
-    
-        // $pdf->SetFont('Arial', 'B', 11);
-        // $pdf->Cell(25,5, 'Orden de Compra Nro:', 0, 1, 'L');        
-        // $pdf->SetFont('Arial', '', 11);
-        // $pdf->Cell(20,5, $id_purchase, 0, 1, 'L');
-        // $pdf->Ln();
-        
-        // //Invoice Header
-        // $pdf->SetFillColor(0,0,0);
-        // $pdf->SetTextColor(255,255,255);
-        // $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
-        // $pdf->Cell(30,5, utf8_decode('Descripción'), 0, 0, 'L', true);
-        // $pdf->Cell(30,5, 'Precio', 0, 0, 'L', true);
-        // $pdf->Cell(30,5, 'Subtotal', 0, 1, 'L', true);
-        
-        // $pdf->SetTextColor(0,0,0);
-
-        // //Invoice content
-        // $total = 0.00;
-        // foreach ($products as $row){
-
-        //     $total = $total + $row['sub_total'];
-        //     $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
-        //     $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
-        //     $pdf->Cell(30,5, $row['product_price'], 0, 0, 'L');
-        //     $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
-
-        // // }
-
-        // $pdf->Ln();
-        // $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
-        // $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
         $pdf->Cell(10,5, 'ID', 0, 0, 'L', true);
         $pdf->Cell(80,5, 'Cliente', 0, 0, 'L', true);
         $pdf->Cell(30,5, 'Fecha', 0, 0, 'L', true);
@@ -542,7 +476,6 @@ class Purchases extends Controller {
         $pdf->SetTextColor(0,0,0);
 
         foreach ($data as $row) {
-            # code...
             $pdf->Cell(10,5, $row['id'], 0, 0, 'L');
             $pdf->Cell(80,5, $row['name'], 0, 0, 'L');
             $pdf->Cell(30,5, $row['sale_date'], 0, 0, 'L');
@@ -550,15 +483,8 @@ class Purchases extends Controller {
         }
 
         $pdf->Output();
-        
 
-        //Body
-
-        ob_end_flush(); 
-
-        
+        ob_end_flush();       
 
     }
-
-
 }

@@ -1303,8 +1303,8 @@ function searchCodeSale(e){
 function calculatePrice(e) {
     e.preventDefault();
     const amount = document.getElementById("amount").value;
-    const purchase_price = document.getElementById("purchase_price").value;
-    document.getElementById("sub_total").value = purchase_price * amount;
+    const price = document.getElementById("purchase_price").value;
+    document.getElementById("sub_total").value = price * amount;
     if (e.which == 13) {
         if (amount > 0) {
             const url = base_url + "Purchases/inputInfo";
@@ -1316,7 +1316,7 @@ function calculatePrice(e) {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);                    
                     alerts(response.message, response.icon);
-                    frm.reset;
+                    frm.reset();
                     loadDetail();
                     document.getElementById('amount').setAttribute('disabled','disabled');
                     document.getElementById('code').focus();
@@ -1329,8 +1329,8 @@ function calculatePrice(e) {
 function calculateSalePrice(e) {
     e.preventDefault();
     const amount = document.getElementById("amount").value;
-    const selling_price = document.getElementById("selling_price").value;
-    document.getElementById("sub_total").value = selling_price * amount;
+    const price = document.getElementById("selling_price").value;
+    document.getElementById("sub_total").value = price * amount;
     if (e.which == 13) {
         if (amount > 0) {
             const url = base_url + "Purchases/inputSale";
@@ -1338,11 +1338,11 @@ function calculateSalePrice(e) {
             const http = new XMLHttpRequest();
             http.open("POST", url, true);
             http.send(new FormData(frm));
-            http.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
+            http.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
                     const response = JSON.parse(this.responseText);                    
                     alerts(response.message, response.icon);
-                    frm.reset;
+                    frm.reset();
                     loadDetailSale();
                     document.getElementById('amount').setAttribute('disabled','disabled');
                     document.getElementById('code').focus();
@@ -1382,8 +1382,7 @@ function loadDetail() {
                 </tr>`;                
             });
             document.getElementById("tblDetail").innerHTML = html;
-            document.getElementById("total").value = response.total_pay.total; 
-                
+            document.getElementById("total").value = response.total_pay.total;                 
         }
     }    
 }
@@ -1412,7 +1411,7 @@ function loadDetailSale() {
                 </tr>`;                
             });
             document.getElementById("tblSales").innerHTML= html;
-            document.getElementById("total").innerHTML= response.total_pay.total;            
+            document.getElementById("total").value = response.total_pay.total;            
         }
     }    
 }
@@ -1445,8 +1444,7 @@ function deleteDetail(id, action) {
         url = base_url + "Purchases/delete/" + id;        
     }else{
         url = base_url + "Purchases/deleteSale/" + id;
-    }
-    
+    }    
     const http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.send();
