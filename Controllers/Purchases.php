@@ -1,7 +1,5 @@
 <?php
-
-class Purchases extends Controller {
-
+class Purchases extends Controller{
     public function __construct(){
         session_start();
         parent::__construct();        
@@ -12,7 +10,6 @@ class Purchases extends Controller {
     }
 
     public function sales(){
-
         $data = $this->model->getClients();
         $this->views->getView($this, "sales", $data);
     }
@@ -35,7 +32,6 @@ class Purchases extends Controller {
         $price = $data['purchase_price'];
         $amount = $_POST['amount'];      
         $check = $this->model->checkDetail('tmp_purchases', $id_product, $id_user);
-
         if(empty($check)){
             $sub_total = $price * $amount;
             $allData = $this->model->registerDetail('tmp_purchases',$id_product, $id_user, $price, $amount, $sub_total);
@@ -51,7 +47,7 @@ class Purchases extends Controller {
             if ($allData == "modificado") {
                 $message = array('message' => 'Producto modificado correctamente', 'icon' => 'success');
             } else {
-                $message = array('message' => 'Error al modificar el product', 'icon' => 'error');
+                $message = array('message' => 'Error al modificar el producto', 'icon' => 'error');
             }
         }
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
@@ -76,13 +72,13 @@ class Purchases extends Controller {
                     $message = array('message' => 'Error al ingresar el producto a la venta', 'icon' => 'error');
                 }
             }else {
-                $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
+                $message = array('message' => 'No hay stock del producto, actualmente solo hay '.$data['amount'].' unidades.', 'icon' => 'warning');
             }
         }else{
             $total_amount = $check['amount'] + $amount;
             $sub_total = $total_amount * $price;
             if ($data['amount'] < $total_amount) {
-                $message = array('message' => 'No tenemos stock del producto en el momento', 'icon' => 'warning');
+                $message = array('message' => 'No hay stock del producto', 'icon' => 'warning');
             }else {
                 $allData = $this->model->updateDetail('tmp_sales',$price, $total_amount, $sub_total, $id_product, $id_user);
                 if ($allData == "modificado") {
@@ -131,7 +127,7 @@ class Purchases extends Controller {
         $total = $this->model->calculatePurchase('tmp_purchases',$id_user);
         $data = $this->model->registerPurchase($total['total']);
         if($data == 'ok'){
-            $detail['detail'] = $this->model->getDetail('tmp_purchases',$id_user);
+            $detail = $this->model->getDetail('tmp_purchases',$id_user);
             $id_purchase = $this->model->getId('purchases');
             foreach ($detail as $row){
                 $amount = $row['amount'];
@@ -157,7 +153,6 @@ class Purchases extends Controller {
     public function registerSale($id_client){
         $id_user = $_SESSION['id_user'];
         $check = $this->model->checkCashRegister($id_user);
-
         if (empty($check)) {
             $message = array('message' => 'La caja esta cerrada', 'icon' => 'warning');
         }else{            
@@ -169,28 +164,24 @@ class Purchases extends Controller {
                 $detail['detail'] = $this->model->getDetail('tmp_sales',$id_user);
                 $id_sale = $this->model->getId('sales');
                 foreach ($detail AS $row){
-                    $id_product = $row['id_product'];
                     $amount = $row['amount'];
-                    $discount = $row['discount'];
                     $price = $row['price'];
+                    $id_product = $row['id_product'];
+                    $discount = $row['discount'];
                     $sub_total = ($amount * $price) - $discount;
                     $this->model->registerSaleDetail($id_sale['id'], $id_product, $amount, $discount,$price, $sub_total);
                     $actual_stock = $this->model->getProducts($id_product);
                     $stock = $actual_stock['amount'] - $amount;
                     $this->model->updateStock($stock, $id_product);
                 }
-
-                $clean = $this->model->cleanDetails('tmp_sales',$id_user);
-    
+                $clean = $this->model->cleanDetails('tmp_sales',$id_user);    
                 if($clean == 'ok'){
                     $message = array('message' => 'ok', 'id_sale' => $id_sale['id']);
                 }
             }else{
                 $message = array('message' => 'Error al realizar la venta', 'icon' => 'error');
             }
-
         }
-
         echo json_encode($message);
         die();
     }

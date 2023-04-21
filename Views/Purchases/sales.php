@@ -4,7 +4,6 @@
     <div class="card-header bg-primary text-white">
         <h4>Nueva Venta</h4>
     </div>
-
     <div class="card-body">
         <form class="frmSale">
             <div class="row">
@@ -65,8 +64,8 @@
             <label for="client"><i class="fas fa-users"></i> Seleccionar cliente:</label>
             <select name="client" id="client" class="form-control">
                 <?php foreach ($data as $row) { ?>
-                    <option value="<?php echo $row['id']?>"><?php echo $row['name']?></option>
-                    <?php } ?>
+                    <option value="<?php echo $row['id'];?>"><?php echo $row['name'];?></option>
+                <?php } ?>
             </select>
         </div>
     </div>

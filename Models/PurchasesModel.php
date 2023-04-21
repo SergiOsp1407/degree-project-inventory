@@ -1,5 +1,4 @@
 <?php
-
 class PurchasesModel extends Query{
 
     private $name, $id, $status;
@@ -127,15 +126,13 @@ class PurchasesModel extends Query{
         } else {
             $response = "error";
         }
-
         return $response;
-
     }
 
-    public function registerSaleDetail(int $id_sale, int $id_product,int  $amount,string $discount,string $price,string $sub_total){
+    public function registerSaleDetail(int $id_sale, int $id_product,int $amount,string $discount,string $price,string $sub_total){
 
         $sql = "INSERT INTO sales_details (id_sale, id_product, amount, discount, price, sub_total) VALUES (?,?,?,?,?,?)";
-        $data = array($id_sale, $id_product, $amount, $discount, $price, $sub_total );
+        $data = array($id_sale, $id_product, $amount, $discount, $price, $sub_total);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {
@@ -143,9 +140,7 @@ class PurchasesModel extends Query{
         } else {
             $response = "error";
         }
-
         return $response;
-
     }
 
     public function getCompany(){
@@ -160,15 +155,12 @@ class PurchasesModel extends Query{
         $sql = "DELETE FROM $table WHERE id_user = ?";
         $data = array($id_user);
         $allData = $this->save($sql, $data);
-
         if ($allData == 1) {
             $response = "ok";
         } else {
             $response = "error";
         }
-
         return $response;
-
     }
 
     public function getProductPurchase(int $id_purchase){
@@ -202,7 +194,6 @@ class PurchasesModel extends Query{
 
     }
 
-    
     public function updateStock(int $amount, int $id_product){
         $sql = "UPDATE products SET amount = ? WHERE id = ?";
         $data = array($amount,$id_product);

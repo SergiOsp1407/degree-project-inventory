@@ -4,7 +4,6 @@
     <div class="card-header bg-primary text-white">
         <h4>Nueva Compra</h4>
     </div>
-
     <div class="card-body">
         <form class="frmPurchase">
             <div class="row">
@@ -51,7 +50,7 @@
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Subtotal</th>
-            <th> </th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="tblDetail">
@@ -66,5 +65,4 @@
         </div>        
     </div>
 </div>
-
 <?php include "Views/Templates/footer.php"; ?>

@@ -1,5 +1,5 @@
 // Receive data using Ajax
-let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProducts, t_h_c, t_h_v, t_balance, myModal,tblDetail;
+let tblUsers, tblClients, tblCashRegister, tblMeasures, tblCategories, tblProducts, t_h_c, t_h_v, t_balance, myModal,tblDetail,tblSales;
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -1299,6 +1299,7 @@ function searchCodeSale(e){
         alerts('Ingrese el código', 'warning');
     }
 }
+
 
 function calculatePrice(e) {
     e.preventDefault();
