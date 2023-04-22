@@ -5,7 +5,7 @@
         <h4>Nueva Venta</h4>
     </div>
     <div class="card-body">
-        <form class="frmSale">
+        <form id="frmSale">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">

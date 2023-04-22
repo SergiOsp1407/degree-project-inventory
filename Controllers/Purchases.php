@@ -165,9 +165,9 @@ class Purchases extends Controller{
                 $id_sale = $this->model->getId('sales');
                 foreach ($detail AS $row){
                     $amount = $row['amount'];
+                    $discount = $row['discount'];
                     $price = $row['price'];
                     $id_product = $row['id_product'];
-                    $discount = $row['discount'];
                     $sub_total = ($amount * $price) - $discount;
                     $this->model->registerSaleDetail($id_sale['id'], $id_product, $amount, $discount,$price, $sub_total);
                     $actual_stock = $this->model->getProducts($id_product);
@@ -243,7 +243,7 @@ class Purchases extends Controller{
             $total = $total + $row['sub_total'];
             $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
             $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
-            $pdf->Cell(30,5, $row['product_price'], 0, 0, 'L');
+            $pdf->Cell(30,5, $row['price'], 0, 0, 'L');
             $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
 
         }
@@ -258,9 +258,7 @@ class Purchases extends Controller{
     }
 
     public function history(){
-
         $this->views->getView($this, "history");
-
     }
 
     public function list_history(){

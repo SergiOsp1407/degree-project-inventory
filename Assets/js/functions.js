@@ -1301,7 +1301,7 @@ function searchCodeSale(e){
 }
 
 
-function calculatePrice(e) {
+function calculatePrice(e){
     e.preventDefault();
     const amount = document.getElementById("amount").value;
     const price = document.getElementById("purchase_price").value;
@@ -1411,7 +1411,7 @@ function loadDetailSale() {
                 </td>
                 </tr>`;                
             });
-            document.getElementById("tblSales").innerHTML= html;
+            document.getElementById("tblSales").innerHTML = html;
             document.getElementById("total").value = response.total_pay.total;            
         }
     }    
@@ -1477,7 +1477,7 @@ function triggerTransaction(action) {
             if (action == 1) {
                 url = base_url + "Purchases/registerPurchase/";          
             }else{
-                const id_client = document.getElementById('id_client').value;
+                const id_client = document.getElementById('client').value;
                 url = base_url + "Purchases/registerSale/" + id_client; 
             }            
             const http = new XMLHttpRequest();

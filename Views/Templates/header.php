@@ -169,14 +169,9 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <!-- <span>
-                            <?php echo $_POST['user']; ?>
-                        </span> -->
-                        <!-- <select name="client" id="client" class="form-control">
-                            <?php foreach ($data as $row) { ?>
-                            <option value="<?php echo $row['id']?>"><?php echo $row['name']?></option>
-                            <?php } ?>
-                        </select> -->
+                        <span>
+                            <?php echo $_SESSION['user']; ?>
+                        </span>
                     </div>
                 </nav>
             </div>
