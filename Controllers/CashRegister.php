@@ -15,7 +15,6 @@ class CashRegister extends Controller{
 
 
     public function cash_balance(){
-
         $this->views->getView($this, "cash_balance");
     }
 

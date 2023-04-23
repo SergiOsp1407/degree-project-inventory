@@ -32,7 +32,7 @@
                     <div class="form-group">                        
                         <input type="hidden" name="id" id="id">
                         <label for="name">Nombre de caja:</label>
-                        <input type="text" name="name" id="name">
+                        <input id="name" class="form-control" type="text" name="name" >
                     </div><br>                    
                     <button type="button" class="btn btn-primary" onclick="registerCashRegister(event);" id="btnAction">Registrar</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>

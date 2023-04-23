@@ -2,7 +2,7 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Balance</li>
 </ol>
-<button class="btn btn-primary mb-2" type="button" onclick="cashBalance();"></button>
+<button class="btn btn-primary mb-2" type="button" onclick="cashBalance();">Abrir caja</button>
 <button class="btn btn-warning mb-2" type="button" onclick="closeCashRegister();">Cerrar caja</button>
 <table class="table table-light" id="t_balance">
     <thead class="thead-dark">
@@ -21,7 +21,7 @@
     </tbody>
 </table>
 <!--Format of the Cash Register table-->
-<div class="new_cashRegister" id="open_cashRegister" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+<div class="modal fade" id="open_cashRegister" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -31,7 +31,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- aqui se debe agregar el codigo recortado-->
                 <form method="post" id="frmOpenCashRegister" onsubmit="openBalance(event);" >                    
                     <div class="form-group">                        
                         <input type="hidden" name="id" id="id">
