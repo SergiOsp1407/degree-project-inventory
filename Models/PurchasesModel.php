@@ -54,7 +54,6 @@ class PurchasesModel extends Query{
         $sql = "SELECT sub_total, SUM(sub_total) AS total FROM $table WHERE id_user = $id_user";
         $data = $this->select($sql);
         return $data;
-
     }
 
     public function deleteDetail(string $table, int $id){
@@ -201,20 +200,16 @@ class PurchasesModel extends Query{
         return $allData;
     }
 
-    public function registerSale (int $id_user, int $id_client, string $total_sales, string $sale_date, string $time_hours){
-
+    public function registerSale(int $id_user, int $id_client, string $total_sales, string $sale_date, string $time_hours){
         $sql = "INSERT INTO sales (id_user, id_client, total_sales, sale_date, time_hours) VALUES (?,?,?,?,?)";
         $data = array($id_user, $id_client, $total_sales, $sale_date, $time_hours);
         $allData = $this->save($sql, $data);
-
         if ($allData == 1) {
             $response = "ok";
         } else {
             $response = "error";
         }
-
-        return $response;        
-
+        return $response;
     }
 
     public function clientsSale(int $id){

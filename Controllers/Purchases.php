@@ -159,7 +159,7 @@ class Purchases extends Controller{
             $sale_date = date('Y-m-d');
             $time_hours = date('H:i:s'); 
             $total_sales = $this->model->calculatePurchase('tmp_sales',$id_user);
-            $data = $this->model->registerSale($id_user, $id_client, $total_sales['total_sales'], $sale_date, $time_hours);
+            $data = $this->model->registerSale($id_user, $id_client, $total_sales['total'], $sale_date, $time_hours);
             if($data == 'ok'){
                 $detail['detail'] = $this->model->getDetail('tmp_sales',$id_user);
                 $id_sale = $this->model->getId('sales');

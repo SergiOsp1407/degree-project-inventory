@@ -198,16 +198,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'cash_register'
             },
             {
-                'data' : 'id_cash_register'
-            },
-            {
                 'data' : 'status'
             },
             {
                 'data' : 'actions'
             }
 
-        ]
+        ],
+        language: {
+            "url" : "//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+        }
     });
     //End table CashRegister
 
@@ -419,9 +419,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     t_balance = $('#t_balance').DataTable({
-
-        ajax: {
-
+        ajax: { 
             url: base_url + "CashRegister/list_balance",
             dataSrc: ''
         },
@@ -498,14 +496,12 @@ function frmChangePassword(e) {
 
 //Function used in User module to create new users
 function frmUser() {
-
     document.getElementById("title").textContent = "Nuevo Usuario";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("passwords").classList.remove("d-none");
     document.getElementById("frmUser").reset();
     myModal.show();
-    document.getElementById("id").value = "";
-    
+    document.getElementById("id").value = "";    
 }
 
 //This function was updated in video 31 when updating Bootstrap
@@ -857,13 +853,11 @@ function btnReenterCategory(id) {
 
 
 function frmCashRegister() {
-
     document.getElementById("title").textContent = "Nueva Caja";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmCashRegister").reset();    
     document.getElementById("id").value = "";
-    myModal.show(); 
-    
+    myModal.show();     
 }
 
 
@@ -871,10 +865,8 @@ function registerCashRegister(e) {
     e.preventDefault();
     const cashRegister = document.getElementById("cash_register");
 
-    if (cashRegister.value == "") {
-        
-        alerts('Todos los campos son obligatorios!' , 'warning');
-        
+    if (cashRegister.value == "") {        
+        alerts('Todos los campos son obligatorios!' , 'warning');        
     }else{
         // Petiton with Ajax
         const url = base_url + "CashRegister/register";
@@ -894,7 +886,6 @@ function registerCashRegister(e) {
 }
 
 function btnEditCashRegister(id) {
-
     document.getElementById("title").textContent = "Actualizar caja";
     document.getElementById("btnAction").textContent = "Modificar";
     const url = base_url + "CashRegister/edit/" + id;
@@ -902,14 +893,11 @@ function btnEditCashRegister(id) {
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = function() {
-
         if (this.readyState == 4 && this.status == 200) {
-
             const response = JSON.parse(this.responseText);
             document.getElementById("cash_register").value = response.cashRegister;
             document.getElementById("cashRegister").value = response.id_cash_register;
-            myModal.show();
-            
+            myModal.show();            
         }
     }    
 }
@@ -1667,34 +1655,25 @@ function cashBalance() {
 }
 
 function openBalance(e) {
-
     e.preventDefault();
-
     const initial_amount = document.getElementById('initial_amount').value;
     if (initial_amount == '') {
-
-        alerts('Ingrese el monto inicial','warning');
-        
+        alerts('Ingrese el monto inicial','warning');        
     }else{
-        const frm = document.getElementById('frmOpenCashRegister');    
+        const frm = document.getElementById('frmOpenCashRegister');   
         const url = base_url + 'CashRegister/openBalance';
         const http = new XMLHttpRequest();
         http.open("POST", url, true);
         http.send(new FormData(frm));
         http.onreadystatechange = function() {
-
-        if (this.readyState == 4 && this.status == 200) {
-            const response = JSON.parse(this.responseText);
-            alerts(response.message, response.icon);
-            t_balance.ajax.reload();
-            $('#open_cashRegister').modal('hide');
-            
-        }
-    }
-
-        
-    }
-    
+            if (this.readyState == 4 && this.status == 200) {
+                const response = JSON.parse(this.responseText);
+                alerts(response.message, response.icon);
+                t_balance.ajax.reload();
+                $('#open_cashRegister').modal('hide');                
+            }
+        }        
+    }    
 }
 
 function closeCashRegister() {
@@ -1705,14 +1684,14 @@ function closeCashRegister() {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
-            document.getElementById('final_amount').value = response.total_amount.total;
-            document.getElementById('total_sales').value = response.total_sales.total;
+            document.getElementById('total_sales').value = response.total_sales_value.total_sales;
+            document.getElementById('final_amount').value = response.total_number_sales.total_sales;
             document.getElementById('initial_amount').value = response.initial.initial_amount;
             document.getElementById('general_amount').value = response.initial.id;            
             document.getElementById('id').value = response.general_amount;            
             document.getElementById('hide_fields').classList.remove('d-none');
             document.getElementById('btnAction').textContent = 'Cerrar caja';
-            myModal.show();
+            $('#open_cashRegister').modal('show');  
         }    
     }
 
