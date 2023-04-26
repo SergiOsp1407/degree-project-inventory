@@ -4,7 +4,7 @@
     <li class="breadcrumb-item active">Balance</li>
 </ol>
 <button class="btn btn-primary mb-2" type="button" onclick="cashBalance();">Abrir caja</button>
-<button class="btn btn-warning mb-2" type="button" onclick="closeCashRegister();">Cerrar caja</button>
+<button class="btn btn-dark mb-2" type="button" onclick="closeCashRegister();">Cerrar caja</button>
 <table class="table table-light" id="t_balance">
     <thead class="thead-dark">
         <tr>
@@ -38,11 +38,11 @@
                     </div>
                     <div id="hide_fields">
                         <div class="form-group">
-                            <label for="final_amount">Monto final</label>
+                            <label for="final_amount">Monto Final</label>
                             <input id="final_amount" class="form-control" type="text" disabled>
                         </div> 
                         <div class="form-group">
-                            <label for="total_sales">Total ventas</label>
+                            <label for="total_sales">Cantidad ventas</label>
                             <input id="total_sales" class="form-control" type="text" disabled>
                         </div>
                         <div class="form-group">
@@ -51,8 +51,8 @@
                         </div>
                     </div>
                                       
-                    <button type="submit" class="btn btn-primary" id="btnAction">Abrir</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary mb-2" id="btnAction">Abrir</button>
+                    <button type="button" class="btn btn-dark mb-2" data-bs-dismiss="modal">Cancelar</button>
                 </form>
             </div>
         </div>

@@ -432,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'initial_amount'
             },
             {
-                'data' : 'final_amount'
+                'data' : 'total_sales_amount'
             },
             {
                 'data' : 'opening_date'
@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'data' : 'total_sales'
             },
             {
-                'data' : 'total_sales_amount'
+                'data' : 'final_amount'
             },
             {
                 'data' : 'status'
@@ -1684,11 +1684,17 @@ function closeCashRegister() {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
-            document.getElementById('total_sales').value = response.total_sales_value.total_sales;
-            document.getElementById('final_amount').value = response.total_number_sales.total_sales;
-            document.getElementById('initial_amount').value = response.initial.initial_amount;
-            document.getElementById('general_amount').value = response.initial.id;            
-            document.getElementById('id').value = response.general_amount;            
+
+            //Starter amount for cash balance
+            document.getElementById('initial_amount').value = response.initial.initial_amount;            
+            //Total sum of sales values
+            document.getElementById('final_amount').value = response.total_sales_value.total_sales;
+            //Total count of sales
+            document.getElementById('total_sales').value = response.total_number_sales.total_sales;
+            //Final amount for cash balance
+            document.getElementById('general_amount').value = response.general_amount;            
+
+            document.getElementById('id').value = response.initial.id;            
             document.getElementById('hide_fields').classList.remove('d-none');
             document.getElementById('btnAction').textContent = 'Cerrar caja';
             $('#open_cashRegister').modal('show');  

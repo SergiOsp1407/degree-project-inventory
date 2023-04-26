@@ -161,7 +161,7 @@ class Purchases extends Controller{
             $total_sales = $this->model->calculatePurchase('tmp_sales',$id_user);
             $data = $this->model->registerSale($id_user, $id_client, $total_sales['total'], $sale_date, $time_hours);
             if($data == 'ok'){
-                $detail['detail'] = $this->model->getDetail('tmp_sales',$id_user);
+                $detail = $this->model->getDetail('tmp_sales',$id_user);
                 $id_sale = $this->model->getId('sales');
                 foreach ($detail AS $row){
                     $amount = $row['amount'];
@@ -364,7 +364,7 @@ class Purchases extends Controller{
             $total = $total + $row['sub_total'];
             $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
             $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
-            $pdf->Cell(30,5, $row['product_price'], 0, 0, 'L');
+            $pdf->Cell(30,5, $row['price'], 0, 0, 'L');
             $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
 
         }

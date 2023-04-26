@@ -105,8 +105,8 @@ class CashRegister extends Controller{
                 $final_amount = $this->model->getSales($id_user);
                 $total_sales = $this->model->getTotalSales($id_user);
                 $initial_amount = $this->model->getInitialAmount($id_user);
-                $general = $final_amount['total'] + $initial_amount['initial_amount'];
-                $data = $this->model->updateBalance($final_amount['total'], $opening_date, $total_sales['total'], $general, $initial_amount['id'] );
+                $general = $final_amount['total_sales'] + $initial_amount['initial_amount'];
+                $data = $this->model->updateBalance($final_amount['total_sales'], $opening_date, $total_sales['total_sales'],$general, $initial_amount['id'] );
 
                 if ($data == "ok") {
                     $this->model->updateOpening($id_user);
@@ -153,11 +153,11 @@ class CashRegister extends Controller{
         $data['total_sales_value'] = $this->model->getSales($id_user);
         $data['total_number_sales'] = $this->model->getTotalSales($id_user);
         $data['initial'] = $this->model->getInitialAmount($id_user);
-        $data['general_amount'] = $data['total_sales_value']['total_sales'] + $data['initial']['initial_amount'];
+        $data['general_amount'] = $data['initial']['initial_amount'] + $data['total_sales_value']['total_sales'];
+
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();        
     }
-
 }
 
 

@@ -100,18 +100,16 @@ class CashRegisterModel extends Query{
         return $data;
     }
 
-
     public function getInitialAmount(int $id_user){
-
         $sql = "SELECT id, initial_amount FROM cash_balance WHERE id_user = $id_user AND status = 1";
         $data = $this->select($sql);
         return $data;
     }
 
-    public function updateBalance(string $final_amount, string $close, string $sales, string $general, int $id){
+    public function updateBalance(string $final_amount, string $close_date, string $total_sales, string $total_sales_value, int $id){
         
             $sql = "UPDATE cash_balance SET final_amount=?, closing_date=?, total_sales=?, total_sales_amount=?, status=? WHERE id = ?";
-            $data = array($final_amount,$close, $sales, $general, 0,  $id);
+            $data = array($final_amount,$close_date, $total_sales, $total_sales_value, 0,  $id);
             $allData = $this->save($sql, $data);
 
             if ($allData == 1) {
@@ -122,13 +120,9 @@ class CashRegisterModel extends Query{
         return $response;
     }
 
-    
-
-    public function updateOpening(int $id){  
-        
+    public function updateOpening(int $id){          
         $sql = "UPDATE sales SET opening = ? WHERE id_user = ?";
         $data = array(0,  $id);
         $this->save($sql, $data);
-
     }
 }
