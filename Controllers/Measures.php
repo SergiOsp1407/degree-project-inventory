@@ -4,25 +4,27 @@ class Measures extends Controller{
     public function __construct() {
 
         session_start();
-
-        
+        if (empty($_SESSION['active'])){
+            header("location: ".base_url);
+        }        
         parent::__construct();
     }
 
-    public function index(){
-
-        if (empty($_SESSION['active'])){
-            header("location: ".base_url);
+    public function index(){      
+        
+        $id_user = $_SESSION['id_user'];
+        $check = $this->model->verifyPermission($id_user, 'medidas');
+        if (!empty($check) || $id_user == 1) {
+            $this->views->getView($this, "index");
+        }else {
+            header('Location: '.base_url.'Errors/permissions');
         }
         
-        $this->views->getView($this, "index");
     }
 
     public function list(){
         $data = $this->model->getMeasure();
-
-        for ($i=0; $i < count($data); $i++) { 
-
+        for ($i=0; $i < count($data); $i++) {
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 $data[$i]['actions'] = '<div>
@@ -35,15 +37,12 @@ class Measures extends Controller{
                 <button class="btn btn-success" type="button" onclick="btnReenterMeasure('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
                 </div>'; 
             }
-
-            
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
 
     public function register(){
-
         $id = $_POST['id'];
         $name = $_POST['name'];
         $short_name = $_POST['short_name'];
@@ -92,19 +91,17 @@ class Measures extends Controller{
         } else{
             $message = array('message' => 'Error al eliminar la medida', 'icon' => 'error');
         }
-
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }   
-    public function reenter(int $id){
 
+    public function reenter(int $id){
         $data = $this->model->actionMeasure(1, $id);
         if($data == 1){
             $message = array('message' => 'Medida reingresada correctamente.', 'icon' => 'success');
         } else{
             $message = array('message' => 'La medida no se pudo reingresar', 'icon' => 'error');
         }
-
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }

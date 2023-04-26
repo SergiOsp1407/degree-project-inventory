@@ -45,6 +45,7 @@ class Categories extends Controller{
     public function register(){
         $name = $_POST['name'];   
         $id = $_POST['id'];
+        
         if (empty($name)) {
             $message = array('message' => 'Debes llenar todos los campos!', 'icon' => 'warning');
         }else {
@@ -86,12 +87,11 @@ class Categories extends Controller{
         } else{
             $message = array('message' => 'La categoria no se elimino correctamente', 'icon' => 'error');
         }
-
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }   
-    public function reenter(int $id){
 
+    public function reenter(int $id){
         $data = $this->model->actionCategory(1, $id);
         if($data == 1){
             $message = array('message' => 'Categoria reingresada correctamente', 'icon' => 'success');

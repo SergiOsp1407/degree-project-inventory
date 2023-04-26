@@ -1,13 +1,10 @@
 <?php
-
 class CategoriesModel extends Query{
 
     private $name, $id, $status;
 
     public function __construct(){
-
-        parent::__construct();
-        
+        parent::__construct();        
     }
 
     public function getCategories(){
@@ -55,11 +52,9 @@ class CategoriesModel extends Query{
     }
 
     public function editCategory(int $id){
-
         $sql = "SELECT * FROM categories WHERE id = $id";
         $data = $this->select($sql);
         return $data;
-
     }
 
     public function actionCategory(int $status, int $id){
@@ -69,7 +64,7 @@ class CategoriesModel extends Query{
         $sql = "UPDATE categories SET status = ? WHERE id = ?";
         $data = array($this->status, $this->id);
         $allData = $this->save($sql,$data);
-        return $data;
+        return $allData;
 
     }
 

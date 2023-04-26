@@ -35,7 +35,7 @@
                         <label for="name">Nombre</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" short_name="short_name" id="short_name" placeholder="Abreviación">
+                        <input type="text" class="form-control" name="short_name" id="short_name" placeholder="Abreviación">
                         <label for="short_name">Abreviación</label>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="registerMeasure(event);" id="btnAction">Registrar</button>

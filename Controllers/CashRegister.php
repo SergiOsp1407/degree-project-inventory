@@ -54,7 +54,7 @@ class CashRegister extends Controller{
 
     public function register(){
         
-        $cashRegister = $_POST['name'];
+        $cashRegister = $_POST['cash_register'];
         $id = $_POST['id'];    
 
         if (empty($cashRegister)) {
@@ -65,7 +65,7 @@ class CashRegister extends Controller{
                 if ($data == "ok") {
                     $message = array('message' => 'Caja registrada con exito', 'icon' => 'success');
                 } else if ($data == "exists") {
-                    $message = array('message' => 'La caja ya existes', 'icon' => 'warning');
+                    $message = array('message' => 'La caja ya existe', 'icon' => 'warning');
                 } else {
                     $message = array('message' => 'Error al crear la caja', 'icon' => 'error');
                 }               
@@ -102,7 +102,11 @@ class CashRegister extends Controller{
                     $message = array('message' => 'Error al abrir la caja', 'icon' => 'error');
                 }      
             }else{
-                $final_amount = $this->model->getSales($id_user);
+                if (empty($final_amount)) {
+                    $final_amount['total_sales'] = 0;
+                }else{
+                    $final_amount = $this->model->getSales($id_user);
+                }                                
                 $total_sales = $this->model->getTotalSales($id_user);
                 $initial_amount = $this->model->getInitialAmount($id_user);
                 $general = $final_amount['total_sales'] + $initial_amount['initial_amount'];
@@ -137,6 +141,7 @@ class CashRegister extends Controller{
         echo json_encode($message, JSON_UNESCAPED_UNICODE);
         die();
     }   
+    
     public function reenter(int $id){
         $data = $this->model->actionCashRegister(1, $id);
         if($data == 1){

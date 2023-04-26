@@ -8,7 +8,6 @@ class CashRegisterModel extends Query{
     }
 
     public function getCashRegister(string $table){
-
         $sql = "SELECT * FROM $table";
         $data = $this->selectAll($sql);
         return $data;
@@ -18,7 +17,6 @@ class CashRegisterModel extends Query{
         $this->cash_register = $cash_register;        
         $check = "SELECT * FROM cash_register WHERE cash_register = '$this->cash_register'";
         $exists = $this->select($check);
-
         if (empty($exists)) {
             $sql = "INSERT INTO cash_register(cash_register) VALUES (?)";
             $data = array($this->cash_register);

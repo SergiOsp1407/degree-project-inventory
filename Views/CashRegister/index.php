@@ -17,7 +17,7 @@
     <tbody>        
     </tbody>
 </table>
-<div class="new_cashRegister" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+<div class="modal fade" id="new_cashRegister" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -29,11 +29,11 @@
                 <form method="post" id="frmCashRegister">                    
                     <div class="form-group">                        
                         <input type="hidden" name="id" id="id">
-                        <label for="name">Nombre de caja:</label>
-                        <input id="name" class="form-control" type="text" name="name" >
+                        <label for="cash_register">Nombre de caja:</label>
+                        <input id="cash_register" class="form-control" type="text" name="cash_register" >
                     </div><br>                    
                     <button type="button" class="btn btn-primary" onclick="registerCashRegister(event);" id="btnAction">Registrar</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
                 </form>
             </div>
         </div>

@@ -1,4 +1,3 @@
-<!--Modified for Bootstrap Upgrade-->
 <?php include "Views/Templates/header.php"; ?>
 <div class="row">
     <div class="col-xl-3 col-md-6">

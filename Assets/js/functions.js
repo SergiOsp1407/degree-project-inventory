@@ -555,7 +555,6 @@ function btnEditUser(id) {
 }
 
 function btnDeleteUser(id){
-
     Swal.fire({
         title: '¿Estas seguro de eliminarlo?',
         text: "Esta acción no eliminará de manera permanente, cambiará el estado a Inactivo",
@@ -572,7 +571,6 @@ function btnDeleteUser(id){
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);                    
                     alerts(response.message, response.icon);
@@ -584,7 +582,6 @@ function btnDeleteUser(id){
 }
 
 function btnReenterUser(id) {
-
     Swal.fire({
         title: '¿Estas seguro de reingresar el usuario?',
         icon: 'warning',
@@ -600,7 +597,6 @@ function btnReenterUser(id) {
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);                    
                     alerts(response.message, response.icon);
@@ -608,8 +604,7 @@ function btnReenterUser(id) {
                 }
             }            
         }
-      })
-    
+      })    
 }
 
 //End Users
@@ -754,7 +749,6 @@ function frmCategory() {
     document.getElementById("id").value = "";    
 }
 
-
 function registerCategory(e) {
     e.preventDefault();
     const name = document.getElementById("name");
@@ -857,18 +851,16 @@ function frmCashRegister() {
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmCashRegister").reset();    
     document.getElementById("id").value = "";
-    myModal.show();     
+    $('#new_cashRegister').modal('show');    
+    // myModal.show();     
 }
-
 
 function registerCashRegister(e) {
     e.preventDefault();
     const cashRegister = document.getElementById("cash_register");
-
     if (cashRegister.value == "") {        
         alerts('Todos los campos son obligatorios!' , 'warning');        
     }else{
-        // Petiton with Ajax
         const url = base_url + "CashRegister/register";
         const frm = document.getElementById("frmCashRegister");
         const http = new XMLHttpRequest();
@@ -877,7 +869,8 @@ function registerCashRegister(e) {
         http.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 const response = JSON.parse(this.responseText);
-                myModal.hide();
+                $('#new_cashRegister').modal('hide'); 
+                // myModal.hide();
                 alerts(response.message, response.icon);
                 tblCashRegister.ajax.reload();                
             }            
@@ -895,15 +888,15 @@ function btnEditCashRegister(id) {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
-            document.getElementById("cash_register").value = response.cashRegister;
-            document.getElementById("cashRegister").value = response.id_cash_register;
-            myModal.show();            
+            document.getElementById("id").value = response.id;
+            document.getElementById("cash_register").value = response.cash_register;
+            $('#new_cashRegister').modal('show'); 
+            // myModal.show();            
         }
     }    
 }
 
 function btnDeleteCashRegister(id){
-
     Swal.fire({
         title: '¿Estas seguro de eliminarlo?',
         text: "Esta acción no eliminará de manera permanente, cambiará el estado a Inactivo",
@@ -920,7 +913,6 @@ function btnDeleteCashRegister(id){
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     alerts(response.message, response.icon);
@@ -933,7 +925,6 @@ function btnDeleteCashRegister(id){
 
 
 function btnReenterCashRegister(id) {
-
     Swal.fire({
         title: '¿Estas seguro de activar la caja?',
         icon: 'warning',
@@ -949,12 +940,10 @@ function btnReenterCashRegister(id) {
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-
                     alerts(response.message, response.icon);
-                    tblUsers.ajax.reload();              
+                    tblCashRegister.ajax.reload();              
                 }
             }            
         }
@@ -965,18 +954,14 @@ function btnReenterCashRegister(id) {
 
 
 function frmMeasures() {
-
     document.getElementById("title").textContent = "Nueva Medida";
     document.getElementById("btnAction").textContent = "Registrar";
     document.getElementById("frmMeasures").reset();
     myModal.show();
-    document.getElementById("id").value = "";
-    
+    document.getElementById("id").value = "";    
 }
 
-
 function registerMeasure(e) {
-
     e.preventDefault();
     const name = document.getElementById("name");
     const short_name = document.getElementById("short_name");
@@ -1001,7 +986,6 @@ function registerMeasure(e) {
 
 
 function btnEditMeasure(id) {
-
     document.getElementById("title").textContent = "Actualizar medida";
     document.getElementById("btnAction").textContent = "Modificar";
     const url = base_url + "Measures/edit/" + id;
@@ -1019,7 +1003,6 @@ function btnEditMeasure(id) {
     }    
 }
 
-
 function btnDeleteMeasure(id){
     Swal.fire({
         title: '¿Estas seguro de eliminar la metrica?',
@@ -1032,13 +1015,11 @@ function btnDeleteMeasure(id){
         cancelButtonText: 'No'
     }).then((result) => {
         if (result.isConfirmed) {
-
             const url = base_url + "Measures/delete/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     alerts(response.message, response.icon);
@@ -1051,7 +1032,6 @@ function btnDeleteMeasure(id){
 
 
 function btnReenterMeasure(id) {
-
     Swal.fire({
         title: '¿Estas seguro de reingresar esta metrica?',
         icon: 'warning',
@@ -1062,13 +1042,11 @@ function btnReenterMeasure(id) {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-
-            const url = base_url + "Measure/reenter/" + id;
+            const url = base_url + "Measures/reenter/" + id;
             const http = new XMLHttpRequest();
             http.open("GET", url, true);
             http.send();
             http.onreadystatechange = function() {
-
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
                     alerts(response.message, response.icon);
