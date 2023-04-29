@@ -204,7 +204,7 @@ class Purchases extends Controller{
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
         $pdf->Ln();        
-        $pdf->Image(base_url . 'Assets/img/companyLogo.png', 150,10,30,30);
+        $pdf->Image(base_url . 'Assets/img/cebiche.png', 150,10,30,30);
         $pdf->SetFont('Arial', 'B', 11);
         $pdf->Cell(25,5, 'Nit: ', 0, 0, 'L');        
         $pdf->SetFont('Arial', '', 11);
@@ -245,6 +245,7 @@ class Purchases extends Controller{
             $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
             $pdf->Cell(30,5, $row['price'], 0, 0, 'L');
             $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
+            $pdf->Ln();
 
         }
 
@@ -307,7 +308,7 @@ class Purchases extends Controller{
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(65, 10, utf8_decode( $company['name']), 0, 1, 'C');
         $pdf->Ln();        
-        $pdf->Image(base_url . 'Assets/img/companyLogo.png', 150,10,30,30);
+        $pdf->Image(base_url . 'Assets/img/cebiche.png', 150,10,30,30);
         $pdf->SetFont('Arial', 'B', 11);
         $pdf->Cell(25,5, 'Nit: ', 0, 0, 'L');        
         $pdf->SetFont('Arial', '', 11);
@@ -465,10 +466,11 @@ class Purchases extends Controller{
         $pdf->SetTextColor(0,0,0);
 
         foreach ($data as $row) {
-            $pdf->Cell(10,5, $row['id'], 0, 0, 'L');
-            $pdf->Cell(80,5, $row['name'], 0, 0, 'L');
+            $pdf->Cell(30,5, $row['id'], 0, 0, 'L');
+            $pdf->Cell(30,5, $row['name'], 0, 0, 'L');
             $pdf->Cell(30,5, $row['sale_date'], 0, 0, 'L');
-            $pdf->Cell(25,5, $row['time_hours'], 0, 1, 'L');
+            $pdf->Cell(35,5, $row['time_hours'], 0, 1, 'L');
+            $pdf->Ln();
         }
 
         $pdf->Output();
