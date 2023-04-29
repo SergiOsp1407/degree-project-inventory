@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2023 at 05:11 PM
+-- Generation Time: Apr 29, 2023 at 04:19 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -30,11 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `cash_balance` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `initial_amount` decimal(10,2) NOT NULL,
+  `initial_amount` decimal(10,2) DEFAULT NULL,
   `opening_date` date NOT NULL,
   `closing_date` date DEFAULT NULL,
-  `final_amount` decimal(10,2) DEFAULT NULL,
-  `total_sales` int(11) DEFAULT NULL,
+  `final_amount` decimal(10,2) DEFAULT 0.00,
+  `total_sales` int(11) DEFAULT 0,
   `total_sales_amount` decimal(10,2) DEFAULT 0.00,
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,7 +44,18 @@ CREATE TABLE `cash_balance` (
 --
 
 INSERT INTO `cash_balance` (`id`, `id_user`, `initial_amount`, `opening_date`, `closing_date`, `final_amount`, `total_sales`, `total_sales_amount`, `status`) VALUES
-(1, 1, '100000.00', '2023-03-09', '2023-03-09', '150000.00', 5000, '1.00', 1);
+(1, 1, '100000.00', '2023-03-09', '2023-03-09', '150000.00', 5000, '1.00', 0),
+(2, 6, '100000.00', '2023-04-24', '2023-04-25', '1100000.00', 4, '1200000.00', 0),
+(3, 6, '100000.00', '2023-04-25', '2023-04-25', '300000.00', 1, '400000.00', 0),
+(4, 6, '10000.00', '2023-04-25', '2023-04-25', '1630000.00', 3, '1640000.00', 0),
+(5, 6, '1.00', '2023-04-25', '2023-04-25', '530000.00', 1, '530001.00', 0),
+(6, 6, '1.00', '2023-04-25', '2023-04-25', '440000.00', 2, '440001.00', 0),
+(7, 6, '100000.00', '2023-04-25', '2023-04-25', '300000.00', 1, '400000.00', 0),
+(8, 6, '100000.00', '2023-04-25', '2023-04-25', '100000.00', 1, '200000.00', 0),
+(9, 6, '30000.00', '2023-04-25', '2023-04-25', '770000.00', 1, '800000.00', 0),
+(10, 6, '100000.00', '2023-04-25', '2023-04-25', '0.00', 0, '100000.00', 0),
+(11, 6, '100000.00', '2023-04-26', '2023-04-26', '0.00', 1, '100000.00', 0),
+(12, 6, '100000.00', '2023-04-26', '2023-04-29', '0.00', 0, '100000.00', 0);
 
 -- --------------------------------------------------------
 
@@ -64,7 +75,9 @@ CREATE TABLE `cash_register` (
 
 INSERT INTO `cash_register` (`id`, `cash_register`, `status`) VALUES
 (1, 'General', 1),
-(3, 'Auxiliar', 1);
+(3, 'Auxiliar', 1),
+(4, 'Primary', 1),
+(5, 'Secondary', 1);
 
 -- --------------------------------------------------------
 
@@ -83,7 +96,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `status`) VALUES
-(1, 'Categoria 1', 1);
+(1, 'Categoria 1', 1),
+(2, 'Categoria 2', 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +121,8 @@ CREATE TABLE `clients` (
 INSERT INTO `clients` (`id`, `dni_client`, `name`, `phone`, `address`, `status`) VALUES
 (1, '1', 'Sergio', '31924242', 'Calle 78', 1),
 (2, '324745464', 'Client test', '32545867576', 'Calle 23 ', 1),
-(3, '125642', 'Cliente 2 ', '318513423', 'Calle 13', 1);
+(3, '125642', 'Cliente 2 ', '318513423', 'Calle 13', 1),
+(4, '140764562', 'Maria Paula', '3127345676', 'Calle 23 # 78 - 09', 1);
 
 -- --------------------------------------------------------
 
@@ -211,7 +226,8 @@ CREATE TABLE `measures` (
 --
 
 INSERT INTO `measures` (`id`, `name`, `short_name`, `status`) VALUES
-(1, 'Medida_Test', 'medidaTest', 1);
+(1, 'Medida_Test', 'medidaTest', 1),
+(2, 'Gramo', 'Gr', 1);
 
 -- --------------------------------------------------------
 
@@ -268,14 +284,15 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `code`, `description`, `purchase_price`, `selling_price`, `amount`, `id_measure`, `id_category`, `image`, `status`) VALUES
-(2, '123', 'Producto 1', '100000.00', '150000.00', 2, 1, 1, 'default.png', 1),
-(3, '1243', 'Product 2', '50000.00', '5500.00', 3, 1, 1, 'default.png', 1),
-(4, '123341', 'Producto 3', '350000.00', '400000.00', 0, 1, 1, '20230331212234.jpg', 1),
-(5, '123456', 'Producto Test', '100000.00', '150000.00', 0, 1, 1, '20230331212904.jpg', 1),
-(6, '7654', 'Producto 6', '20000.00', '25000.00', 0, 1, 1, '20230331215034.png', 1),
-(7, '1032', 'Producto Test 1', '20500.00', '50000.00', 0, 1, 1, '20230413204125.png', 1),
-(8, '23', '45345Product', '1234.00', '123.00', 0, 1, 1, '20230413212904.png', 1),
-(9, '7653', 'Producto prueba', '45000.00', '50000.00', 0, 1, 1, '20230413215407.png', 1);
+(2, '123', 'Producto 1', '100000.00', '150000.00', 13, 1, 1, '20230416112654.png', 1),
+(3, '1243', 'Product 2', '100000.00', '150000.00', 3, 2, 2, 'product-default.png', 1),
+(4, '123341', 'Producto 3', '350000.00', '400000.00', 0, 1, 1, '20230416112722.png', 1),
+(5, '123456', 'Producto Test', '100000.00', '150000.00', 8, 1, 1, 'product-default.png', 1),
+(6, '7654', 'Producto 6', '30000.00', '35000.00', 0, 1, 1, 'product-default.png', 1),
+(7, '1032', 'Producto Test 1', '20500.00', '50000.00', 3, 1, 1, 'product-default.png', 1),
+(8, '23', '45345Product', '1234.00', '123.00', 0, 1, 1, 'product-default.png', 1),
+(9, '7653', 'Producto prueba', '45000.00', '50000.00', 0, 1, 1, '20230416120128.png', 1),
+(10, '0987', 'Producto para prueba tech', '25000.00', '50000.00', 11, 1, 1, '20230421191241.png', 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +312,16 @@ CREATE TABLE `purchases` (
 --
 
 INSERT INTO `purchases` (`id`, `total`, `purchase_date`, `status`) VALUES
-(1, '230000.00', '2023-03-28 00:53:04', 1);
+(4, '700000.00', '2023-04-22 03:16:48', 1),
+(5, '200000.00', '2023-04-22 03:17:43', 1),
+(6, '200000.00', '2023-04-22 03:21:14', 1),
+(7, '125000.00', '2023-04-22 03:22:29', 1),
+(8, '125000.00', '2023-04-22 03:22:54', 1),
+(9, '100000.00', '2023-04-22 03:23:54', 1),
+(10, '300000.00', '2023-04-22 15:04:20', 1),
+(11, '200000.00', '2023-04-25 00:30:55', 1),
+(12, '423000.00', '2023-04-26 01:53:18', 1),
+(13, '2150000.00', '2023-04-26 03:37:00', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +334,7 @@ CREATE TABLE `purchases_details` (
   `id_purchase` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `product_price` decimal(10,2) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
   `sub_total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -316,8 +342,21 @@ CREATE TABLE `purchases_details` (
 -- Dumping data for table `purchases_details`
 --
 
-INSERT INTO `purchases_details` (`id`, `id_purchase`, `id_product`, `amount`, `product_price`, `sub_total`) VALUES
-(2, 1, 2, 5, '50000.00', '200000.00');
+INSERT INTO `purchases_details` (`id`, `id_purchase`, `id_product`, `amount`, `price`, `sub_total`) VALUES
+(1, 4, 2, 6, '100000.00', '600000.00'),
+(2, 4, 10, 4, '25000.00', '100000.00'),
+(3, 5, 2, 2, '100000.00', '200000.00'),
+(4, 6, 2, 2, '100000.00', '200000.00'),
+(5, 7, 10, 5, '25000.00', '125000.00'),
+(6, 8, 10, 5, '25000.00', '125000.00'),
+(7, 9, 10, 4, '25000.00', '100000.00'),
+(8, 10, 2, 3, '100000.00', '300000.00'),
+(9, 11, 2, 2, '100000.00', '200000.00'),
+(10, 12, 5, 3, '100000.00', '300000.00'),
+(11, 12, 7, 6, '20500.00', '123000.00'),
+(12, 13, 5, 10, '100000.00', '1000000.00'),
+(13, 13, 2, 10, '100000.00', '1000000.00'),
+(14, 13, 10, 6, '25000.00', '150000.00');
 
 -- --------------------------------------------------------
 
@@ -341,7 +380,21 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `id_user`, `id_client`, `total_sales`, `sale_date`, `time_hours`, `status`, `opening`) VALUES
-(1, 1, 1, '200000.00', '2023-03-02 02:30:17', '00:00:00', 1, 1);
+(1, 6, 1, '200000.00', '2023-04-26 00:37:12', '00:00:00', 1, 0),
+(2, 6, 4, '300000.00', '2023-04-26 00:37:12', '00:42:24', 1, 0),
+(3, 6, 1, '300000.00', '2023-04-26 00:37:12', '00:43:22', 1, 0),
+(4, 6, 3, '300000.00', '2023-04-26 00:37:12', '00:45:47', 1, 0),
+(5, 6, 1, '300000.00', '2023-04-26 01:15:22', '20:12:25', 1, 0),
+(6, 6, 1, '495000.00', '2023-04-26 01:39:31', '20:28:41', 1, 0),
+(7, 6, 4, '495000.00', '2023-04-26 01:39:31', '20:29:50', 1, 0),
+(8, 6, 3, '640000.00', '2023-04-26 01:39:31', '20:36:41', 1, 0),
+(9, 6, 3, '530000.00', '2023-04-26 02:02:19', '20:54:46', 1, 0),
+(10, 6, 1, '300000.00', '2023-04-26 02:57:46', '21:33:29', 1, 0),
+(11, 6, 4, '140000.00', '2023-04-26 02:57:46', '21:57:00', 1, 0),
+(12, 6, 1, '300000.00', '2023-04-26 03:06:51', '22:05:11', 1, 0),
+(13, 6, 1, '100000.00', '2023-04-26 03:14:38', '22:10:02', 1, 0),
+(14, 6, 2, '770000.00', '2023-04-26 03:38:37', '22:37:42', 1, 0),
+(15, 6, 1, '300000.00', '2023-04-26 06:11:31', '01:10:53', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -364,7 +417,21 @@ CREATE TABLE `sales_details` (
 --
 
 INSERT INTO `sales_details` (`id`, `id_sale`, `id_product`, `amount`, `discount`, `price`, `sub_total`) VALUES
-(2, 1, 2, 2, '100.00', '130000.00', '140000.00');
+(1, 7, 2, 2, '0.00', '150000.00', '300000.00'),
+(2, 7, 10, 4, '5000.00', '50000.00', '195000.00'),
+(3, 8, 2, 4, '10000.00', '150000.00', '590000.00'),
+(4, 8, 10, 1, '0.00', '50000.00', '50000.00'),
+(5, 9, 7, 2, '10000.00', '50000.00', '90000.00'),
+(6, 9, 5, 3, '10000.00', '150000.00', '440000.00'),
+(7, 10, 2, 2, '0.00', '150000.00', '300000.00'),
+(8, 11, 7, 1, '0.00', '50000.00', '50000.00'),
+(9, 11, 10, 2, '10000.00', '50000.00', '90000.00'),
+(10, 12, 2, 2, '0.00', '150000.00', '300000.00'),
+(11, 13, 10, 2, '0.00', '50000.00', '100000.00'),
+(12, 14, 2, 2, '0.00', '150000.00', '300000.00'),
+(13, 14, 10, 4, '20000.00', '50000.00', '180000.00'),
+(14, 14, 5, 2, '10000.00', '150000.00', '290000.00'),
+(15, 15, 2, 2, '0.00', '150000.00', '300000.00');
 
 -- --------------------------------------------------------
 
@@ -378,7 +445,6 @@ CREATE TABLE `tmp_purchases` (
   `id_user` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `amount` int(11) NOT NULL,
-  `discount` decimal(10,2) NOT NULL DEFAULT 0.00,
   `sub_total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -394,6 +460,7 @@ CREATE TABLE `tmp_sales` (
   `id_user` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `amount` int(11) NOT NULL,
+  `discount` decimal(10,2) NOT NULL DEFAULT 0.00,
   `sub_total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -419,10 +486,12 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `user`, `name`, `password`, `id_cash_register`, `status`) VALUES
 (1, 'Sergio', 'Sergio', 'sergio', 1, 1),
 (2, 'Admin', 'Admin', 'admin', 3, 1),
-(3, 'DaniGov', 'Daniela', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1, 1),
+(3, 'DaniGov', 'Daniela', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 1),
 (4, 'AdminGeneral', 'Administrador General', 'fe2592b42a727e977f055947385b709cc82b16b9a87f88c6abf3900d65d0cdc3', 1, 1),
 (5, 'Prueba1', 'Prueba', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 1),
-(6, 'AdminSergio', 'AdminSergio', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1, 1);
+(6, 'AdminSergio', 'AdminSergio', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1, 1),
+(7, 'Empleado_1', 'Empleado 1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3, 1),
+(8, 'Empleado_2', 'Empleado 2', '1ea2f89d934cb4a2af0b486736609cf9cb4bdafdc6e946e79aecb02b9d9dceb4', 4, 1);
 
 --
 -- Indexes for dumped tables
@@ -548,25 +617,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cash_balance`
 --
 ALTER TABLE `cash_balance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cash_register`
 --
 ALTER TABLE `cash_register`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `configuration`
@@ -584,7 +653,7 @@ ALTER TABLE `detail_permissions`
 -- AUTO_INCREMENT for table `measures`
 --
 ALTER TABLE `measures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -596,49 +665,49 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `purchases_details`
 --
 ALTER TABLE `purchases_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `sales_details`
 --
 ALTER TABLE `sales_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tmp_purchases`
 --
 ALTER TABLE `tmp_purchases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tmp_sales`
 --
 ALTER TABLE `tmp_sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -663,12 +732,6 @@ ALTER TABLE `detail_permissions`
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_measure`) REFERENCES `measures` (`id`),
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`);
-
---
--- Constraints for table `purchases`
---
-ALTER TABLE `purchases`
-  ADD CONSTRAINT `purchases_ibfk_1` FOREIGN KEY (`id`) REFERENCES `purchases_details` (`id_purchase`);
 
 --
 -- Constraints for table `purchases_details`
