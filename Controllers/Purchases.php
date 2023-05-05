@@ -221,37 +221,42 @@ class Purchases extends Controller{
         $pdf->Cell(20,5, utf8_decode($company['address']), 0, 1, 'L'); 
     
         $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(25,5, 'Orden de Compra Nro:', 0, 1, 'L');        
+        $pdf->Cell(46,5, 'Orden de Compra Nro:', 0, 0, 'L');        
         $pdf->SetFont('Arial', '', 11);
         $pdf->Cell(20,5, $id_purchase, 0, 1, 'L');
         $pdf->Ln();
         
         
-        $pdf->SetFillColor(0,0,0);
+        $pdf->SetFillColor(220,53,69);
         $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
-        $pdf->Cell(30,5, utf8_decode('Descripción'), 0, 0, 'L', true);
-        $pdf->Cell(30,5, 'Precio', 0, 0, 'L', true);
-        $pdf->Cell(30,5, 'Subtotal', 0, 1, 'L', true);
+        $pdf->Cell(25,5, 'Id Producto', 0, 0, 'C', true);
+        $pdf->Cell(80,5, utf8_decode('Descripción'), 0, 0, 'C', true);
+        $pdf->Cell(20,5, 'Cantidad', 0, 0, 'C', true);
+        $pdf->Cell(33,5, 'Precio', 0, 0, 'C', true);
+        $pdf->Cell(35,5, 'Subtotal', 0, 1, 'C', true);
         
+        $pdf->SetFillColor(233,236,239);
         $pdf->SetTextColor(0,0,0);
-
+        $fill = false;
+        
         
         $total = 0.00;
         foreach ($products as $row){
-
             $total = $total + $row['sub_total'];
-            $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
-            $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
-            $pdf->Cell(30,5, $row['price'], 0, 0, 'L');
-            $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
+            $pdf->Cell(25,5, $row['id_product'], 0, 0, 'C',$fill);
+            $pdf->Cell(80,5, utf8_decode($row['description']), 0, 0, 'L',$fill);
+            $pdf->Cell(20,5, $row['amount'], 0, 0, 'C',$fill);
+            $pdf->Cell(33,5, $row['price'], 0, 0, 'C',$fill);
+            $pdf->Cell(35,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'C',$fill);
             $pdf->Ln();
-
+            $fill = !$fill;
         }
-
         $pdf->Ln();
-        $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
-        $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
+        
+        $pdf->SetFillColor(220,53,69);
+        $pdf->SetFont('Arial', 'B', 11);
+        $pdf->Cell(190,6,'Total a pagar', 0, 1, 'R');
+        $pdf->Cell(190,6,number_format($total, 2, ',' , '.'), 0, 1, 'R');
 
         $pdf->Output();
         ob_end_flush();    
@@ -325,56 +330,67 @@ class Purchases extends Controller{
         $pdf->Cell(20,5, utf8_decode($company['address']), 0, 1, 'L'); 
     
         $pdf->SetFont('Arial', 'B', 11);
-        $pdf->Cell(25,5, 'Factura Nro:', 0, 1, 'L');        
+        $pdf->Cell(25,5, 'Factura Nro:', 0, 0, 'L');        
         $pdf->SetFont('Arial', '', 11);
         $pdf->Cell(20,5, $id_sale, 0, 1, 'L');
         $pdf->Ln();
 
         
-        $pdf->SetFillColor(0,0,0);
+        $pdf->SetFillColor(220,53,69);
         $pdf->SetTextColor(255,255,255);
-        $pdf->SetFont('Arial', 'B', 7);
-        $pdf->Cell(30,5, 'Nombre', 0, 0, 'L', true);
-        $pdf->Cell(30,5, utf8_decode('Teléfono'), 0, 0, 'L', true);
-        $pdf->Cell(30,5, utf8_decode('Dirección'), 0, 1, 'L', true);        
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(40,5, 'Cliente', 0, 0, 'C', true);
+        $pdf->Cell(31,5, utf8_decode('Teléfono'), 0, 0, 'C', true);
+        $pdf->Cell(60,5, utf8_decode('Dirección'), 0, 1, 'C', true);        
         $pdf->SetTextColor(0,0,0);
         $clients = $this->model->clientsSale($id_sale);
         
         
-        $pdf->SetFont('Arial', '', 7);
-        $pdf->Cell(30,5, utf8_decode($clients['name']), 0, 0, 'L');
-        $pdf->Cell(30,5, $clients['phone'], 0, 0, 'L');
-        $pdf->Cell(30,5, utf8_decode($clients['address']), 0, 1, 'L');
-
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(40,5, utf8_decode($clients['name']), 0, 0, 'L');
+        $pdf->Cell(31,5, $clients['phone'], 0, 0, 'L');
+        $pdf->Cell(60,5, utf8_decode($clients['address']), 0, 1, 'L');
         $pdf->Ln();
         
-        
-        $pdf->SetFillColor(0,0,0);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetFillColor(220,53,69);
         $pdf->SetTextColor(255,255,255);
-        $pdf->Cell(30,5, 'Cantidad', 0, 0, 'L', true);
-        $pdf->Cell(30,5, utf8_decode('Descripción'), 0, 0, 'L', true);
-        $pdf->Cell(30,5, 'Precio', 0, 0, 'L', true);
-        $pdf->Cell(30,5, 'Subtotal', 0, 1, 'L', true);
+        $pdf->Cell(31,5, 'Id Producto', 0, 0, 'C', true);
+        $pdf->Cell(52,5, utf8_decode('Descripción'), 0, 0, 'C', true);
+        $pdf->Cell(20,5, 'Cantidad', 0, 0, 'C', true);
+        $pdf->Cell(32,5, 'Precio', 0, 0, 'C', true);
+        $pdf->Cell(30,5, 'Descuento', 0, 0, 'C', true);
+        $pdf->Cell(32,5, 'Subtotal', 0, 1, 'C', true);
         
+        $pdf->SetFillColor(233,236,239);
         $pdf->SetTextColor(0,0,0);
-        
+        $pdf->SetFont('Arial', '', 10);
+        $fill = false;
         
         $total = 0.00;
         foreach ($products as $row){
 
             $total = $total + $row['sub_total'];
-            $pdf->Cell(30,5, $row['amount'], 0, 0, 'L');
-            $pdf->Cell(30,5, utf8_decode($row['description']), 0, 0, 'L');
-            $pdf->Cell(30,5, $row['price'], 0, 0, 'L');
-            $pdf->Cell(30,5, number_format( $row['sub_total'], 2, ',', '.'), 0, 0, 'L');
+            $pdf->Cell(31,5, $row['id'], 0, 0, 'C',$fill);
+            $pdf->Cell(52,5, utf8_decode($row['description']), 0, 0, 'L',$fill);
+            $pdf->Cell(20,5, $row['amount'], 0, 0, 'C',$fill);
+            $pdf->Cell(32,5, number_format($row['price'], 2, ',', '.'), 0, 0, 'L',$fill);
+            $pdf->Cell(30,5, number_format($row['discount'], 2, ',', '.'), 0, 0, 'L',$fill);
+            $pdf->Cell(32,5, number_format($row['sub_total'], 2, ',', '.'), 0, 0, 'L',$fill);
+            $pdf->Ln();
+            $fill = !$fill;
 
         }
-
         $pdf->Ln();
-        $pdf->Cell(120,10,'Descuento total', 0, 1, 'R');
-        $pdf->Cell(120,10,number_format($discount['total'], 2, ',' , '.'), 0, 1, 'R');
-        $pdf->Cell(120,10,'Total a pagar', 0, 1, 'R');
-        $pdf->Cell(120,10,number_format($total, 2, ',' , '.'), 0, 1, 'R');
+
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(195,3,'Descuento total', 0, 1, 'R');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(195,8,number_format($discount['total'], 2, ',' , '.'), 0, 1, 'R');
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(195,3,'Total a pagar', 0, 1, 'R');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(195,8,number_format($total, 2, ',' , '.'), 0, 1, 'R');
 
         $pdf->Output();       
         ob_end_flush(); 
@@ -424,21 +440,15 @@ class Purchases extends Controller{
         die();
     }
 
-    public function generate_numbers($start, $count, $digits)
-    {
-        # code...
+    public function generate_numbers($start, $count, $digits){
         $result = array();
         for ($n=$start; $n < $start + $count; $n++) { 
             $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
         }
-
         return $result;
     }
-
-
     
-    public function saleViewPDF( ){
-        
+    public function saleViewPDF( ){               
         $from_date = $_POST['from_date'];
         $to_date = $_POST['to_date'];
 
@@ -451,31 +461,41 @@ class Purchases extends Controller{
         ob_start();        
         require('Libraries/fpdf/fpdf.php');
          
-        $pdf = new FPDF('P','mm','Letter' );
+        $pdf = new FPDF('P','mm','Letter');
         $pdf->AddPage();
         $pdf->SetTitle('Reporte de ventas por fecha');
-        $pdf->SetFont('Arial', 'B', 14);
-        $pdf->SetFillColor(0,0,0);
-        $pdf->SetTextColor(255,255,255);
+
         
-        $pdf->Cell(10,5, 'ID', 0, 0, 'L', true);
-        $pdf->Cell(80,5, 'Cliente', 0, 0, 'L', true);
-        $pdf->Cell(30,5, 'Fecha', 0, 0, 'L', true);
-        $pdf->Cell(25,5, 'Hora', 0, 1, 'L', true);
-        $pdf->SetFont('Arial', '', 14);
+        $pdf->SetFillColor(220,53,69);
         $pdf->SetTextColor(0,0,0);
+        $pdf->SetDrawColor(128,0,0);
+        $pdf->SetLineWidth(3);
+        $pdf->SetFont('Arial', 'B', 20);
+        $pdf->Cell(200,10, 'Historial de ventas',0,1,'C');
+        $pdf->Ln();
+        
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->SetTextColor(255,255,255);
+        $pdf->Cell(31,5, 'Id Venta', 0, 0, 'C', true);
+        $pdf->Cell(56,5, 'Cliente', 0, 0, 'C', true);
+        $pdf->Cell(55,5, 'Total venta', 0, 0, 'C', true);
+        $pdf->Cell(52,5, 'Fecha/Hora', 0, 1, 'C', true);
+
+        $pdf->SetFillColor(233,236,239);
+        $pdf->SetFont('Arial', '',12);
+        $pdf->SetTextColor(0,0,0);
+        $fill = false;
 
         foreach ($data as $row) {
-            $pdf->Cell(30,5, $row['id'], 0, 0, 'L');
-            $pdf->Cell(30,5, $row['name'], 0, 0, 'L');
-            $pdf->Cell(30,5, $row['sale_date'], 0, 0, 'L');
-            $pdf->Cell(35,5, $row['time_hours'], 0, 1, 'L');
+            $pdf->Cell(31,5, $row['id'], 0, 0, 'C',$fill);
+            $pdf->Cell(56,5, $row['name'], 0, 0, 'C',$fill);
+            $pdf->Cell(55,5, number_format($row['total_sales'],2,',','.'), 0, 0, 'C',$fill);
+            $pdf->Cell(52,5, $row['sale_date'], 0, 0, 'C',$fill);
             $pdf->Ln();
+            $fill = !$fill;
         }
 
         $pdf->Output();
-
-        ob_end_flush();       
-
+        ob_end_flush();
     }
 }

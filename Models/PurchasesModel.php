@@ -186,11 +186,9 @@ class PurchasesModel extends Query{
 
 
     public function getSalesHistory(){
-
-        $sql = "SELECT c.id, c.name, s.* FROM clients c INNER JOIN sales s ON s.id_client = c.id";
+        $sql = "SELECT c.id, c.name, s.* FROM clients c INNER JOIN sales s ON s.id_client = c.id ORDER BY s.id";
         $data = $this->selectAll($sql);
         return $data;
-
     }
 
     public function updateStock(int $amount, int $id_product){
