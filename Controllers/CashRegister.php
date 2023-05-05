@@ -106,7 +106,7 @@ class CashRegister extends Controller{
                     $final_amount['total_sales'] = 0;
                 }else{
                     $final_amount = $this->model->getSales($id_user);
-                }                                
+                }                            
                 $total_sales = $this->model->getTotalSales($id_user);
                 $initial_amount = $this->model->getInitialAmount($id_user);
                 $general = $final_amount['total_sales'] + $initial_amount['initial_amount'];
