@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
         extend: 'pdfHtml5',
         download: 'open',
         footer: true,
-        title: 'Reporte de usuarios',
-        filename: 'Reporte de usuarios',
+        title: 'Reporte general',
+        filename: 'Reporte general',
         text: '<span class="badge bg-danger"><i class="fas fa-file-pdf"></i></span>',
         exportOptions: {
             columns: [0, ':visible']
@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
     {
         extend: 'copyHtml5',
         footer: true,
-        title: 'Reporte de usuarios',
-        filename: 'Reporte de usuarios',
+        title: 'Reporte general',
+        filename: 'Reporte general',
         text: '<span class="badge bg-primary"><i class="fas fa-copy"></i></span>',
         exportOptions: {
             columns: [0, ':visible']
@@ -1482,7 +1482,7 @@ function modifyCompany() {
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(this.responseText);
-            if (response = 'ok') {
+            if (response.message = 'ok') {
                 alert('Modificado');                
             }                          
         }
@@ -1528,7 +1528,7 @@ function reportStock() {
                     labels: description,
                     datasets: [{
                         data: amount,
-                        backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
+                        backgroundColor: ['#0B090A', '#660708', '#A4161A','#BA181B','#E5383B','#B1A7A6','#d90429','#542525','#fe297b','#3b4249','#990a3e','#d6c3c9'],
                     }],
                 },
             });
@@ -1558,7 +1558,7 @@ function soldProducts() {
                     labels: description,
                     datasets: [{
                         data: amount,
-                        backgroundColor: ['#007bff', '#dc3565', '#ffc107', '#28a745'],
+                        backgroundColor: ['#0B090A', '#660708', '#A4161A', '#BA181B','#E5383B','#B1A7A6','#d90429','#542525','#fe297b','#3b4249','#990a3e','#d6c3c9'],
                     }],
                 },
             });

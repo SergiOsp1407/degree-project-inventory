@@ -25,10 +25,10 @@ class AdministrationModel extends Query
         return $data;
     }
 
-    public function modify(string $name, string $phone, string $address, string $message, int $id){       
+    public function modify(string $id_company, string $name, string $phone, string $address, string $message, int $id){       
 
-        $sql = "UPDATE configuration SET name = ?, phone = ?, address = ?, message = ? WHERE id=?)";
-        $data = array($name, $phone, $address, $message, $id);
+        $sql = "UPDATE configuration SET id_company = ?, name = ?, phone = ?, address = ?, message = ? WHERE id=?";
+        $data = array($id_company, $name, $phone, $address, $message, $id);
         $allData = $this->save($sql, $data);
 
         if ($allData == 1) {

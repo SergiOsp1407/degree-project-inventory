@@ -32,7 +32,6 @@ class Administration extends Controller{
     }
 
     public function modify(){
-
         $id_company = $_POST['id_company'];
         $name = $_POST['name'];
         $phone = $_POST['phone'];
