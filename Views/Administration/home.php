@@ -33,7 +33,7 @@
                 Productos
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Products">View Details</a>
+                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Products">Ver detalle</a>
                 <span class="text-white"><?php echo $data['products']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
@@ -46,7 +46,7 @@
                 Ventas por dia
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/sales_history">View Details</a>
+                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/sales_history">Ver detalle</a>
                 <span class="text-white"><?php echo $data['sales']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>
@@ -59,7 +59,7 @@
                 Otros
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/#">View Details</a>
+                <a class="small text-white stretched-link" href="<?php echo base_url; ?>Purchases/#">Ver detalle</a>
                 <span class="text-white"><?php echo $data['products']['total']?></span>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
             </div>

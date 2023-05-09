@@ -17,14 +17,10 @@
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-outline-primary">Asignar permisos</button>
-                    <a  class="btn btn-outline-danger" href="<?php echo base_url;?>Users">Cancelar</a>
+                    <a  class="btn btn-outline-danger" href="<?php echo base_url;?>Users">Regresar</a>
                 </div>
             </form>
         </div>
     </div>
-
-
-
-
 </div>
 <?php include "Views/Templates/footer.php" ?>

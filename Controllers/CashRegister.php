@@ -102,11 +102,12 @@ class CashRegister extends Controller{
                     $message = array('message' => 'Error al abrir la caja', 'icon' => 'error');
                 }      
             }else{
-                if (empty($final_amount)) {
-                    $final_amount['total_sales'] = 0;
-                }else{
-                    $final_amount = $this->model->getSales($id_user);
-                }                            
+                // if (empty($final_amount) ) {
+                //     $final_amount['total_sales'] = 0;
+                // }else{
+                //     $final_amount = $this->model->getSales($id_user);
+                // }
+                $final_amount = $this->model->getSales($id_user);    
                 $total_sales = $this->model->getTotalSales($id_user);
                 $initial_amount = $this->model->getInitialAmount($id_user);
                 $general = $final_amount['total_sales'] + $initial_amount['initial_amount'];
@@ -159,7 +160,6 @@ class CashRegister extends Controller{
         $data['total_number_sales'] = $this->model->getTotalSales($id_user);
         $data['initial'] = $this->model->getInitialAmount($id_user);
         $data['general_amount'] = $data['initial']['initial_amount'] + $data['total_sales_value']['total_sales'];
-
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();        
     }
