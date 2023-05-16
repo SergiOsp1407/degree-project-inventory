@@ -24,7 +24,7 @@
             if ($data[$i]['status'] == 1) {
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
                 
-                if ($data[$i]['id'] == 1) {
+                if ($data[$i]['id'] == 3) {
                     $data[$i]['actions'] = '<div>            
                     <span class="badge bg-primary">Administrador</span>
                     </div>';
@@ -153,9 +153,7 @@
         $confirmPassword = $_POST['confirmPassword'];
 
         if(empty($actualPassword) || empty($newPassword) || empty($confirmPassword)){
-
             $message = array('message' => 'Todos los campos son obligatorios.', 'icon' => 'warning');
-
         }else {
             if ($newPassword != $confirmPassword) {
                 $message = array('message' => 'Las contraseñas no coinciden', 'icon' => 'warning');

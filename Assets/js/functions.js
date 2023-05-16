@@ -462,7 +462,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function frmChangePassword(e) {
-
     e.preventDefault();
     const actualPassword = document.getElementById('actualPassword').value;
     const newPassword = document.getElementById('newPassword').value;
@@ -484,7 +483,8 @@ function frmChangePassword(e) {
             http.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     const response = JSON.parse(this.responseText);
-                    myModal.hide();
+                    $("#changePassword").modal("hide");
+                    // myModal.hide();
                     alerts(response.message, response.icon);                
                     frm.reset();
                 }               

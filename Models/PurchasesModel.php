@@ -249,7 +249,7 @@ class PurchasesModel extends Query{
 
     }
 
-    public function cancelPurchase(int $id_purchase)
+    public function getCancelPurchase(int $id_purchase)
     {
         $sql = "SELECT c.*, d.* FROM purchases c INNER JOIN purchases_details d ON  c.id = d.id_purchase WHERE c.id = $id_purchase";
         $data = $this->selectAll($sql);

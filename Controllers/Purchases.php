@@ -421,6 +421,7 @@ class Purchases extends Controller{
     }
 
     public function cancelPurchase($id_purchase){
+        
         $data = $this->model->getCancelPurchase($id_purchase);
         $cancel = $this->model->getCancel($id_purchase);
 
