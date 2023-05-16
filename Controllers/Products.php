@@ -26,7 +26,7 @@ class Products extends Controller{
                 $data[$i]['status'] = '<span class="badge bg-success">Activo</span>';
 
                 $data[$i]['actions'] = '<div>
-                <button class="btn btn-primary" type="button" onclick="btnEditProduct('.$data[$i]['id'].');"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-dark mb-2" type="button" onclick="btnEditProduct('.$data[$i]['id'].');"><i class="fas fa-edit fa-xs"></i></button>
                 <button class="btn btn-danger" type="button" onclick="btnDeleteProduct('.$data[$i]['id'].');"><i class="fas fa-trash-alt"></i></button>
                 </div>'; 
             }else {
